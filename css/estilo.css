@@ -188,7 +188,7 @@
 }
 
 .bg-gradient-green.btn:hover {
-    background: #92bcdf linear-gradient(180deg, #779AB7, #6588A5) repeat-x !important;
+    background: #92bcdf linear-gradient(180deg, #92bcdf, #79b2e0) repeat-x !important;
 }
 
 .bg-gradient-green.btn:not(:disabled):not(.disabled):active,
@@ -203,7 +203,7 @@
 .bg-gradient-green.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-green.btn:active,
 .bg-gradient-green.btn.active {
-    background: #92bcdf linear-gradient(180deg, #6588A5, #779AB7) repeat-x !important;
+    background: #92bcdf linear-gradient(180deg, #92bcdf, #79b2e0) repeat-x !important;
 }
 
 .titulo-fisioost{
