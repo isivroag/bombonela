@@ -57,6 +57,14 @@ $resultadodet->execute();
 $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
 
+$consultaser = "SELECT * FROM vservicios WHERE estado_serv='1' and estado_pqt='1' order by id_serv,sesiones_pqt";
+$resultadoser = $conexion->prepare($consultaser);
+$resultadoser->execute();
+
+$dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 
 ?>
 
@@ -260,7 +268,8 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                                             <div class="input-group input-group-sm">
 
                                                                 <input type="hidden" class="form-control" name="idserv" id="idserv">
-                                                                <input type="hidden" class="form-control" name="idpaq" id="idpaq">
+                                                                <input type="hidden" class="form-control" name="idpaqtser" id="idpaqtser">
+                                                                <input type="hidden" class="form-control" name="tiposerv" id="tiposerv" value="SERVICIO">
 
                                                                 <label for="servicio" class="col-form-label">Servicio:</label>
                                                                 <div class="input-group input-group-sm">
@@ -278,51 +287,47 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
 
                                                         <div class="col-sm-2">
-                                                            <label for="cantidad" class="col-form-label">Cantidad:</label>
+                                                            <label for="cantidadserv" class="col-form-label">Cantidad:</label>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
+                                                                
+                                                                <input type="number" class="form-control  text-right" name="cantidadserv" id="cantidadserv" disabled>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-2">
-                                                            <label for="cantidad" class="col-form-label">Precio Lista:</label>
+                                                            <label for="preciolserv" class="col-form-label">Precio Lista:</label>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
+                                                                <input type="text" class="form-control  text-right" name="preciolserv" id="preciolserv" disabled>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-2">
-                                                            <label for="cantidad" class="col-form-label">Descuento:</label>
+                                                            <label for="descuentoserv" class="col-form-label">Descuento:</label>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
+                                                                <input type="number" class="form-control  text-right" name="descuentoserv" id="descuentoserv" disabled>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-2">
-                                                            <label for="cantidad" class="col-form-label">Precio Venta:</label>
+                                                            <label for="preciovserv" class="col-form-label">Precio Venta:</label>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
+                                                                <input type="number" class="form-control  text-right" name="preciovserv" id="preciovserv" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <label for="cantidad" class="col-form-label">Importe:</label>
+                                                            <label for="importeserv" class="col-form-label">Importe:</label>
                                                             <div class="input-group input-group-sm">
-                                                                <input type="hidden" class="form-control" name="cantidaddis" id="cantidaddis">
-                                                                <input type="text" class="form-control" name="cantidad" id="cantidad" disabled>
+                                                                <input type="text" class="form-control  text-right" name="importeserv" id="importeserv" disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-1 justify-content-center">
                                                             <label for="" class="col-form-label">Acción:</label>
                                                             <div class="input-group-append input-group-sm justify-content-center d-flex">
                                                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                                    <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
+                                                                    <button type="button" id="btnagregarserv" name="btnagregarserv" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
                                                                 </span>
                                                                 <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                                    <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
+                                                                    <button type="button" id="btlimpiarserv" name="btlimpiarserv" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -375,14 +380,14 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                                             <label for="cantidadprod" class="col-form-label">Cantidad:</label>
                                                             <div class="input-group input-group-sm">
 
-                                                                <input type="number" class="form-control text-right" name="cantidadprod" id="cantidadprod" disabled>
+                                                                <input type="number" class="form-control text-right" name="cantidadprod" id="cantidadprod"  disabled>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <label for="preciolprod" class="col-form-label">Precio Lista:</label>
                                                             <div class="input-group input-group-sm">
 
-                                                                <input type="number" class="form-control text-right" name="preciolprod" id="preciolprod" disabled>
+                                                                <input type="number" class="form-control text-right" name="preciolprod" id="preciolprod"  disabled>
                                                             </div>
                                                         </div>
 
@@ -390,7 +395,7 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                                             <label for="descuentoprod" class="col-form-label">Descuento:</label>
                                                             <div class="input-group input-group-sm">
 
-                                                                <input type="number" class="form-control text-right" name="descuentoprod" id="descuentoprod" disabled>
+                                                                <input type="number" class="form-control text-right" name="descuentoprod" id="descuentoprod"  disabled>
                                                             </div>
                                                         </div>
 
@@ -407,7 +412,7 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                                             <label for="importeprod" class="col-form-label">Importe:</label>
                                                             <div class="input-group input-group-sm">
 
-                                                                <input type="number" class="form-control text-right" name="importeprod" id="importeprod" disabled>
+                                                                <input type="text" class="form-control text-right" name="importeprod" id="importeprod" disabled>
                                                             </div>
                                                         </div>
 
@@ -415,10 +420,10 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                                             <label for="" class="col-form-label">Acción:</label>
                                                             <div class="input-group-append input-group-sm justify-content-center d-flex">
                                                                 <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Agregar Item">
-                                                                    <button type="button" id="btnagregar" name="btnagregar" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
+                                                                    <button type="button" id="btnagregarprod" name="btnagregarprod" class="btn btn-sm bg-gradient-orange" value="btnGuardar"><i class="fas fa-plus-square"></i></button>
                                                                 </span>
                                                                 <span class="d-inline-block" tabindex="1" data-toggle="tooltip" title="Limpiar">
-                                                                    <button type="button" id="btlimpiar" name="btlimpiar" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
+                                                                    <button type="button" id="btlimpiarprod" name="btlimpiarprod" class="btn btn-sm bg-gradient-purple" value="btnlimpiar"><i class="fas fa-brush"></i></button>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -694,6 +699,58 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
                                     <?php
                                     }
                                     ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- /PRODUCTO -->
+
+     <!-- SERIVICIO -->
+     <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-green">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR PRODUCTO</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-responsive  table-hover w-auto" style="padding:15px">
+                            <table name="tablaservicio" id="tablaservicio" class="table  table-sm table-striped table-bordered table-condensed " style="width:100%">
+                                <thead class="text-center bg-gradient-green">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Id Serv</th>
+                                        <th>Clave</th>
+                                        <th>Servicio</th>
+                                        <th>Tipo</th>
+                                        <th>Sesiones</th>
+                                        <th>Precio</th>
+                                        <th>Seleccionar</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($dataser as $rowser){ ?>
+                                    <tr>
+                                            <td><?php echo $rowser['id_serv'] ?></td>
+                                            <td><?php echo $rowser['id_pqt'] ?></td>
+                                            <td><?php echo $rowser['clave_pqt'] ?></td>
+                                            <td><?php echo $rowser['desc_pqt'] ?></td>
+                                            <td><?php echo $rowser['nom_tipo'] ?></td>
+                                            <td><?php echo $rowser['sesiones_pqt'] ?></td>
+                                            <td><?php echo $rowser['precio_pqt'] ?></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

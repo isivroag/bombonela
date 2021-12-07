@@ -3,15 +3,7 @@ $(document).ready(function () {
     opcion = 4
     var fila 
 
-   /* $('.card-btn').click(function() {
-     
-      $(this).find('i').toggleClass('fas fa-plus fas fa-minus')
-     // $('.collapse').collapse('hide');
-      
-  });*/
 
-  
-  
 
 
   //TABLA PRODUCTO
@@ -31,15 +23,7 @@ $(document).ready(function () {
       { className: 'hide_column', targets: [9] },
       { className: 'text-right', targets: [6] },
       { className: 'text-right', targets: [7] },
-      { className: 'text-center', targets: [5] },
-   /* { width: '10%', targets: 0 },
-    { width: '10%', targets: 1 },
-    { width: '40%', targets: 2 },
-    { width: '10%', targets: 3 },
-    { width: '10%', targets: 4 },
-    { width: '10%', targets: 5 },
-    { width: '10%', targets: 6 },*/
-   
+      { className: 'text-center', targets: [5] }, 
     ],
 
   
@@ -61,6 +45,43 @@ $(document).ready(function () {
     },
   })
 
+    //TABLA PRODUCTO
+    tablaservicio = $('#tablaservicio').DataTable({
+      fixedHeader: true,
+      columnDefs: [
+        {
+          targets: -1,
+          data: null,
+          defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelservicio'><i class='fas fa-hand-pointer'></i></button></div></div>",
+        },
+        { className: 'hide_column', targets: [1] },
+        { className: 'hide_column', targets: [0] },
+        { className: 'text-right', targets: [6] },
+        
+        { className: 'text-center', targets: [2] }, 
+        { className: 'text-center', targets: [5] }, 
+      ],
+  
+    
+      language: {
+        lengthMenu: 'Mostrar _MENU_ registros',
+        zeroRecords: 'No se encontraron resultados',
+        info:
+          'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+        infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+        infoFiltered: '(filtrado de un total de _MAX_ registros)',
+        sSearch: 'Buscar:',
+        oPaginate: {
+          sFirst: 'Primero',
+          sLast: 'Último',
+          sNext: 'Siguiente',
+          sPrevious: 'Anterior',
+        },
+        sProcessing: 'Procesando...',
+      },
+    })
+
 
   //tabla concepto
     tablaCon = $('#tablaCon').DataTable({
@@ -75,8 +96,7 @@ $(document).ready(function () {
   
   
       ],
-  
-      //Para cambiar el lenguaje a español
+
       language: {
         lengthMenu: 'Mostrar _MENU_ registros',
         zeroRecords: 'No se encontraron resultados',
@@ -106,8 +126,7 @@ $(document).ready(function () {
             "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelcliente'><i class='fas fa-hand-pointer'></i></button></div></div>",
         },
       ],
-  
-      //Para cambiar el lenguaje a español
+
       language: {
         lengthMenu: 'Mostrar _MENU_ registros',
         zeroRecords: 'No se encontraron resultados',
@@ -136,8 +155,7 @@ $(document).ready(function () {
             "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelcol'><i class='fas fa-hand-pointer'></i></button></div></div>",
         },
       ],
-  
-      //Para cambiar el lenguaje a español
+
       language: {
         lengthMenu: 'Mostrar _MENU_ registros',
         zeroRecords: 'No se encontraron resultados',
@@ -176,7 +194,6 @@ $(document).ready(function () {
       { width: '10%', targets: 4 },
       { width: '10%', targets: 5 },
       { width: '10%', targets: 6 },
-     
       ],
   
     
@@ -206,29 +223,153 @@ $(document).ready(function () {
     }
   
 
-    /*
-    $(document).on('click', '#btnaddproducto', function () {
-      console.log($('#addservicio').is(":visible"))
-      if($('#addservicio').is(":visible") ==true){
-       
-        $('#addservicio').hide()
-        $('#btnaddservicio').find('i').toggleClass('fas fa-plus fas fa-minus')
-      }
-      $('#addproducto').show()
-      $('#btnaddproducto').find('i').toggleClass('fas fa-plus fas fa-minus')
-    });
+  //CALCULO IMPORTE 
+  function calcularimporte(cant,pv) {
+    cantidad = cant
+    precio=pv
+    importe = round(cantidad * precio,2)
+    return importe
+    
+  }
+
+// CALCULO PRECIO VENTA 
+  function calcularprecio(pl,desc) {
+    precio = pl
+    descuento=desc
+    if (parseFloat(precio) > parseFloat(descuento)){
+      pv = precio-descuento
+    }
+    else{
+      pv=0
+    }
+      
+
+    return pv
+    
+  }
+//CALCULO INVERSO DESCUENTO
+  function calculardescuento(pl,pvta) {
+    preciol = pl
+    precioventa=pvta
+    if (parseFloat(preciol) >= parseFloat(precioventa)){
+      pv = preciol-precioventa
+    }
+    else{
+      pv=0
+    }
+      
+
+    return pv
+    
+  }
+
+  document.getElementById('cantidadprod').onblur = function () {
+   
+    cantidad=$('#cantidadprod').val().replace(/,/g, '')
+    precio=$('#preciovprod').val().replace(/,/g, '')
+    importe=calcularimporte(cantidad,precio)
+
+    $('#importeprod').val(
+      Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(importe).toFixed(2),
+      ))
+  }
 
 
-    $(document).on('click', '#btnaddservicio', function () {
-      console.log($('#addservicio').is(":visible"))
-      if($('#addproducto').is(":visible") ==true){
-       
-        $('#addproducto').hide()
-        $('#btnaddproducto').find('i').toggleClass('fas fa-plus fas fa-minus')
-      }
-      $('#addservicio').show()
-      $('#btnaddservicio').find('i').toggleClass('fas fa-plus fas fa-minus')
-    });*/
+  document.getElementById('descuentoprod').onblur = function () {
+   
+    descuento=$('#descuentoprod').val().replace(/,/g, '')
+    precio=$('#preciolprod').val().replace(/,/g, '')
+    preciovta=calcularprecio(precio,descuento )
+    cantidad=$('#cantidadprod').val().replace(/,/g, '')
+
+    $('#preciovprod').val(
+      Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(preciovta).toFixed(2),
+      ))
+      importe=calcularimporte(cantidad,preciovta)
+
+      $('#importeprod').val(
+        Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+          parseFloat(importe).toFixed(2),
+        ))
+  }
+
+
+
+  document.getElementById('preciovprod').onblur = function () {
+   
+    
+    precio=$('#preciolprod').val().replace(/,/g, '')
+    preciovta=$('#preciovprod').val().replace(/,/g, '')
+    descuento=calculardescuento(precio,preciovta)
+
+    cantidad=$('#cantidadprod').val().replace(/,/g, '')
+
+    $('#descuentoprod').val(descuento  )
+      importe=calcularimporte(cantidad,preciovta)
+
+      $('#importeprod').val(
+        Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+          parseFloat(importe).toFixed(2),
+        ))
+  }
+
+
+  //FUNCIONES DE CALCULO SERVICIOS
+
+  document.getElementById('cantidadserv').onblur = function () {
+   
+    cantidad=$('#cantidadserv').val().replace(/,/g, '')
+    precio=$('#preciovserv').val().replace(/,/g, '')
+    importe=calcularimporte(cantidad,precio)
+
+    $('#importeserv').val(
+      Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(importe).toFixed(2),
+      ))
+  }
+
+
+  document.getElementById('descuentoserv').onblur = function () {
+   
+    descuento=$('#descuentoserv').val().replace(/,/g, '')
+    precio=$('#preciolserv').val().replace(/,/g, '')
+    preciovta=calcularprecio(precio,descuento )
+    cantidad=$('#cantidadserv').val().replace(/,/g, '')
+
+    $('#preciovserv').val(
+      Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+        parseFloat(preciovta).toFixed(2),
+      ))
+      importe=calcularimporte(cantidad,preciovta)
+
+      $('#importeserv').val(
+        Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+          parseFloat(importe).toFixed(2),
+        ))
+  }
+
+
+
+  document.getElementById('preciovserv').onblur = function () {
+   
+    
+    precio=$('#preciolserv').val().replace(/,/g, '')
+    preciovta=$('#preciovserv').val().replace(/,/g, '')
+    descuento=calculardescuento(precio,preciovta)
+
+    cantidad=$('#cantidadserv').val().replace(/,/g, '')
+
+    $('#descuentoserv').val(descuento  )
+      importe=calcularimporte(cantidad,preciovta)
+
+      $('#importeserv').val(
+        Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
+          parseFloat(importe).toFixed(2),
+        ))
+  }
+
   
  
     //botón guardar
@@ -330,9 +471,46 @@ $(document).ready(function () {
   //boton buscar producto
   $(document).on('click', '#bproducto', function () {
     $('#modalproducto').modal('show')
-    //BUSCAR PRODUCTO
+    
   })
 
+  //BOTON BUSCAR SERVICIO
+  
+  $(document).on('click', '#btnServicio', function () {
+    //buscarservicios()
+    $('#modalServicio').modal('show')
+    
+  })
+
+
+  //funcion buscar servicios
+
+  function buscarservicios(folio) {
+    tablaservicio.clear()
+    tablaservicio.draw()
+    $.ajax({
+      type: 'POST',
+      url: 'bd/servicios.php',
+      dataType: 'json',
+      data: {  },
+      success: function (res) {
+        for (var i = 0; i < res.length; i++) {
+          tablaservicio.row
+            .add([
+              res[i].id_pqt,
+              res[i].id_serv,
+              res[i].clave_pqt,
+              res[i].desc_pqt,
+              res[i].nom_tipo,
+              res[i].sesiones_pqt,
+              res[i].precio_pqt,,
+            ])
+            .draw()
+          
+        }
+      },
+    })
+  }
   
     //botón seleccionar concepto
     $(document).on('click', '.btnSelprod', function () {
@@ -354,6 +532,31 @@ $(document).ready(function () {
       
       $('#modalproducto').modal('hide')
     })
+
+    //btnSelservicio
+
+    $(document).on('click', '.btnSelservicio', function () {
+      fila = $(this)
+      idserv = parseInt($(this).closest('tr').find('td:eq(0)').text())
+      idpaq = $(this).closest('tr').find('td:eq(1)').text()
+      servicio = $(this).closest('tr').find('td:eq(3)').text()
+      preciol = $(this).closest('tr').find('td:eq(6)').text()
+
+      $('#idserv').val(idserv)
+      $('#idpaqtser').val(idpaq)
+      $('#servicio').val(servicio)
+      $('#preciolserv').val(preciol)
+      $('#preciovserv').val(preciol)
+      $('#descuentoserv').val(0)
+
+      $("#cantidadserv").prop("disabled", false);
+      $("#preciovserv").prop("disabled", false);
+      $("#descuentoserv").prop("disabled", false);
+      
+      $('#modalServicio').modal('hide')
+    })
+
+
 //limpiar producto
     $(document).on("click", "#btlimpiarprod", function() {
       $("#claveconcepto").val("");
@@ -429,3 +632,22 @@ $(document).ready(function () {
     }
   })
   
+
+  function filterFloat(evt, input) {
+    // Backspace = 8, Enter = 13, ‘0′ = 48, ‘9′ = 57, ‘.’ = 46, ‘-’ = 43
+    var key = window.Event ? evt.which : evt.keyCode
+    var chark = String.fromCharCode(key)
+    var tempValue = input.value + chark
+    var isNumber = key >= 48 && key <= 57
+    var isSpecial = key == 8 || key == 13 || key == 0 || key == 46
+    if (isNumber || isSpecial) {
+      return filter(tempValue)
+    }
+  
+    return false
+  }
+  function filter(__val__) {
+    var preg = /^([0-9]+\.?[0-9]{0,2})$/
+    return preg.te
+    st(__val__) === true
+  }
