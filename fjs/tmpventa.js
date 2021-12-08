@@ -283,10 +283,7 @@ $(document).ready(function () {
     preciovta=calcularprecio(precio,descuento )
     cantidad=$('#cantidadprod').val().replace(/,/g, '')
 
-    $('#preciovprod').val(
-      Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
-        parseFloat(preciovta).toFixed(2),
-      ))
+    $('#preciovprod').val(preciovta)
       importe=calcularimporte(cantidad,preciovta)
 
       $('#importeprod').val(
@@ -338,10 +335,7 @@ $(document).ready(function () {
     preciovta=calcularprecio(precio,descuento )
     cantidad=$('#cantidadserv').val().replace(/,/g, '')
 
-    $('#preciovserv').val(
-      Intl.NumberFormat('es-MX', { minimumFractionDigits: 2 }).format(
-        parseFloat(preciovta).toFixed(2),
-      ))
+    $('#preciovserv').val(preciovta)
       importe=calcularimporte(cantidad,preciovta)
 
       $('#importeserv').val(
@@ -371,6 +365,200 @@ $(document).ready(function () {
   }
 
   
+
+  //AGREGAR PRODUCTO
+  $(document).on('click', '#btnagregarprod', function () {
+    folio = $("#folio").val();;
+    id = $("#idprod").val();
+    idpqt = $("#idpaqtprod").val();
+    tipo = $("#tipoprod").val();
+    clave= $("#claveprod").val();
+    concepto = $("#producto").val();
+    cantidad = $("#cantidadprod").val();
+    precio = $("#preciovprod").val().replace(/,/g, '');
+    importe = $("#importeprod").val().replace(/,/g, '');
+
+
+    if (id.length == 0 || concepto.length == 0 || cantidad.length == 0 ||  precio.length == 0) {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: "Debe ingresar todos los datos",
+        icon: 'warning',
+      })
+      return false;
+    } else {
+      opcion = 1;
+      $.ajax({
+        url: "bd/crudtmpdetalle.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          folio: folio,
+          id: id, idpqt: idpqt,
+          tipo: tipo, clave: clave,
+          concepto: concepto, cantidad: cantidad, precio: precio,
+          importe: importe, opcion: opcion
+        }, 
+        success: function (data) {
+          console.log(data)
+          if (data != 0) {
+            mensaje()
+            id_reg = data[0].id_reg;
+            id_item =data[0].id_item;
+            id_pqt = data[0].id_pqt;
+            clave = data[0].clave;
+            concepto = data[0].concepto;
+            cantidad = data[0].cantidad;
+            precio = data[0].precio;
+            subtotal = data[0].subtotal;
+            tipo = data[0].tipo_item;
+            estado = data[0].estado_det;
+
+            tablaDet.row
+                .add([
+                    id_reg,
+                    id_item,
+                    id_pqt,
+                    clave,
+                    concepto,
+                    cantidad,
+                    precio,
+                    subtotal,
+                    estado,
+                    tipo,
+                ])
+                .draw();
+            //buscarsubtotal(folio);
+          }
+          else {
+            Swal.fire({
+              title: 'Operacion No Exitosa',
+              icon: 'warning',
+            })
+          }
+        },
+        error: function() {
+          Swal.fire({
+            title: 'Operacion No Exitosa',
+            icon: 'warning',
+          })
+      },
+        
+      });
+     
+
+
+    }
+
+
+  
+  })
+  
+  
+  //AGREGAR SERVICIO
+  $(document).on('click', '#btnagregarserv', function () {
+
+    folio = $("#folio").val();;
+    id = $("#idserv").val();
+    idpqt = $("#idpaqtserv").val();
+    tipo = $("#tiposerv").val();
+    clave= $("#claveserv").val();
+    concepto = $("#servicio").val();
+    cantidad = $("#cantidadserv").val();
+    precio = $("#preciovserv").val().replace(/,/g, '');;
+    importe = $("#importeserv").val().replace(/,/g, '');;
+
+    if (id.length == 0 || concepto.length == 0 || cantidad.length == 0 ||  precio.length == 0) {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: "Debe ingresar todos los datos",
+        icon: 'warning',
+      })
+      return false;
+    } else {
+      opcion = 1;
+      $.ajax({
+        url: "bd/crudtmpdetalle.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+          folio: folio,
+          id: id, idpqt: idpqt,
+          tipo: tipo, clave: clave,
+          concepto: concepto, cantidad: cantidad, precio: precio,
+          importe: importe, opcion: opcion
+        }, 
+        success: function (data) {
+          console.log(data)
+          if (data != 0) {
+            mensaje()
+            id = data[0].id_reg;
+            item =data[0].id_item;
+            pqt = data[0].id_pqt;
+            clav = data[0].clave;
+            concep = data[0].concepto;
+            cant = data[0].cantidad;
+            pre = data[0].precio;
+            sub = data[0].subtotal;
+            tip = data[0].tipo_item;
+            est = data[0].estado_det;
+
+            tablaDet.row
+                .add([
+                    id,
+                    item,
+                    pqt,
+                    clav,
+                    concep,
+                    cant,
+                    pre,
+                    sub,
+                    est,
+                    tip,
+                ])
+                .draw();
+            buscarsubtotal(folio);
+          }
+          else {
+            Swal.fire({
+              title: 'Operacion No Exitosa',
+              icon: 'warning',
+            })
+          }
+        },
+        error: function() {
+          Swal.fire({
+            title: 'Operacion No Exitosa',
+            icon: 'warning',
+          })
+      },
+        
+      });
+     
+
+
+    }
+
+    
+  
+  })
+
+  
+
+  function buscarsubtotal(folio) {
+    $.ajax({
+        type: "POST",
+        url: "bd/buscartotal.php",
+        dataType: "json",
+        //async: false,
+        data: { folio: folio },
+        success: function(res) {
+            $("#subtotal").val(res[0].subtotal);
+            $("#descuento").val(0);
+            $("#total").val(res[0].total);
+        },
+    });
+}
  
     //botón guardar
     $(document).on('click', '#btnGuardar', function () {
@@ -539,11 +727,13 @@ $(document).ready(function () {
       fila = $(this)
       idserv = parseInt($(this).closest('tr').find('td:eq(0)').text())
       idpaq = $(this).closest('tr').find('td:eq(1)').text()
+      clave= $(this).closest('tr').find('td:eq(2)').text()
       servicio = $(this).closest('tr').find('td:eq(3)').text()
       preciol = $(this).closest('tr').find('td:eq(6)').text()
 
       $('#idserv').val(idserv)
       $('#idpaqtser').val(idpaq)
+      $('#claveserv').val(clave)
       $('#servicio').val(servicio)
       $('#preciolserv').val(preciol)
       $('#preciovserv').val(preciol)
@@ -630,6 +820,17 @@ $(document).ready(function () {
     function round(value, decimals) {
       return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals)
     }
+
+    function mensaje() {
+      swal.fire({
+        title: 'Registro Exitoso',
+        icon: 'success',
+        focusConfirm: true,
+        confirmButtonText: 'Aceptar',
+      })
+    }
+
+
   })
   
 
