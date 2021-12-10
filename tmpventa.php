@@ -91,8 +91,12 @@ $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 $consultaser = "SELECT * FROM vservicios WHERE estado_serv='1' and estado_pqt='1' order by id_serv,sesiones_pqt";
 $resultadoser = $conexion->prepare($consultaser);
 $resultadoser->execute();
-
 $dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
+
+$consultamet = "SELECT * FROM metodo order by id_metodo";
+$resultadomet = $conexion->prepare($consultamet);
+$resultadomet->execute();
+$datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -311,7 +315,7 @@ $dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
                                                                 <input type="hidden" class="form-control" name="idprod" id="idprod">
                                                                 <input type="hidden" class="form-control" name="idpaqtprod" id="idpaqtprod" value="0">
                                                                 <input type="hidden" class="form-control" name="tipoprod" id="tipoprod" value="PRODUCTO">
-                                                                <input type="hidden" class="form-control" name="claveprod" id="claveprod" >
+                                                                <input type="hidden" class="form-control" name="claveprod" id="claveprod">
 
 
                                                                 <label for="producto" class="col-form-label">Producto:</label>
@@ -396,11 +400,11 @@ $dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
                                                 <div class="card-body justify-content-center" style="margin:0px;padding:0px;">
                                                     <div class="row justify-content-sm-center">
 
-                                                    <div class="col-sm-2">
+                                                        <div class="col-sm-2">
                                                             <label for="claveprod" class="col-form-label">Clave Servicio:</label>
                                                             <div class="input-group input-group-sm">
-                                                            <input type="text" class="form-control" name="claveserv" id="claveserv"disabled >
-                                                                
+                                                                <input type="text" class="form-control" name="claveserv" id="claveserv" disabled>
+
                                                             </div>
                                                         </div>
 
@@ -410,7 +414,7 @@ $dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
                                                                 <input type="hidden" class="form-control" name="idserv" id="idserv">
                                                                 <input type="hidden" class="form-control" name="idpaqtserv" id="idpaqtserv">
                                                                 <input type="hidden" class="form-control" name="tiposerv" id="tiposerv" value="SERVICIO">
-                                                                
+
 
                                                                 <label for="servicio" class="col-form-label">Servicio:</label>
                                                                 <div class="input-group input-group-sm">
@@ -571,10 +575,7 @@ $dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo number_format($descuento, 2) ?>">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
 
-
-                                    </div>
                                     <div class="col-sm-2">
 
                                         <label for="total" class="col-form-label">Total:</label>
@@ -588,6 +589,100 @@ $dataser = $resultadoser->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo number_format($total, 2) ?>" disabled>
                                         </div>
                                     </div>
+                                </div>
+
+
+                                <!-- SECCION DE PAGO -->
+                                <div class="card card-widget mb-2 pb-3">
+                                    <div class="card-header bg-gradient-green text-light">
+                                        <h1 class="card-title mx-auto">Datos del Pago</h1>
+                                    </div>
+                                    <div class="card-body" style="margin:0px;padding:1px;">
+
+                                        <div class="form-row justify-content-center">
+
+                                            <div class="col-sm-2">
+
+                                                <label for="saldovta" class="col-form-label">Saldo Actual:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right" name="saldovta" id="saldovta" value="<?php echo number_format($subtotal, 0) ?>" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-2 ">
+                                                <div class="input-group-sm auto">
+                                                    <label for="metodo" class="col-form-label">Metodo de Pago:</label>
+                                                    <select class="form-control" name="metodo" id="metodo">
+                                                        <?php
+                                                        foreach ($datamet as $dtmet) {
+                                                        ?>
+                                                            <option id="<?php echo $dtmet['id_metodo'] ?>" value="<?php echo $dtmet['id_metodo'] ?>"><?php echo $dtmet['nom_metodo'] ?></option>
+
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-2">
+
+                                                <label for="montoapagar" class="col-form-label">Monto a Pagar:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text  border-success ">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right border-success" name="montoapagar" id="montoapagar">
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-row justify-content-center" id="divpago" name="divpago">
+                                            <div class="col-sm-2">
+                                            </div>
+
+                                            <div class="col-sm-2">
+
+                                                <label for="pago" class="col-form-label">Pago Recibido:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text border-success">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right border-success" name="pago" id="pago">
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="col-sm-2">
+
+                                                <label for="cambio" class="col-form-label">Cambio:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text  border-success ">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right border-success" name="cambio" id="cambio" disabled>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
                                 </div>
 
                             </div>

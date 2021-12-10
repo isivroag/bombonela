@@ -556,6 +556,8 @@ $(document).ready(function () {
             $("#subtotal").val(res[0].subtotal);
             $("#descuento").val(0);
             $("#total").val(res[0].total);
+            $("#saldovta").val(res[0].total);
+            $("#montoapagar").val(res[0].total);
         },
     });
 }
@@ -699,6 +701,8 @@ $(document).ready(function () {
       },
     })
   }
+
+
   
     //botón seleccionar concepto
     $(document).on('click', '.btnSelprod', function () {
@@ -808,6 +812,22 @@ $(document).ready(function () {
       }
     })
   
+
+    //metodo de pago
+
+    $(document).on('change', '#metodo', function () {
+      
+      //console.log($('#metodo').children("option:selected").text())
+      if ($('#metodo').val() == '01') {
+
+        $('#divpago').show()
+      } else {
+        $('#divpago').hide()
+      }
+      
+      
+  
+    })
 
     
     function calculodes() {
