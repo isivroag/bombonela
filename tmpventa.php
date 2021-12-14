@@ -768,7 +768,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                 <div class="modal-dialog modal-lg modal-md" role="document">
                     <div class="modal-content w-auto">
                         <div class="modal-header bg-gradient-gray">
-                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR COLABORADOR</h5>
 
                         </div>
                         <br>

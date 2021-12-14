@@ -16,10 +16,33 @@ $idusuario = $_SESSION['s_usuario'];
 
 if (isset($_GET['folio'])) {
     $folio = $_GET['folio'];
+
+
+    $consultacon = "SELECT * FROM cxc WHERE estado_tmp=1 and usuarioalt='$idusuario'";
+    $resultadocon = $conexion->prepare($consultacon);
+    $resultadocon->execute();
+
+    if ($resultadocon->rowCount() > 0) {
+        $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($datacon as $row) {
+            $folio = $row['folio'];
+            $idclie = $row['id_clie'];
+            $nom_clie = $row['nom_clie'];
+            $fecha = $row['fecha'];
+            $id_col = $row['id_col'];
+            $nom_col = $row['nom_col'];
+            $concepto = $row['concepto'];
+            $subtotal = $row['subtotal'];
+            $descuento = $row['descuento'];
+            $total = $row['total'];
+            $foliovta = $row['folio_cxc'];
+        }
+    }
+
 } else {
-    $folio =0;
-    $idclie =0;
-    $nom_clie ="";
+    $folio = 0;
+    $idclie = 0;
+    $nom_clie = "";
     $fecha = date('Y-m-d');
     $id_col = 0;
     $nom_col = "";
@@ -28,7 +51,7 @@ if (isset($_GET['folio'])) {
     $descuento = 0;
     $total = 0;
     $foliotmp = 0;
- 
+    $saldo=0;
 }
 
 $message = "";
@@ -189,7 +212,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" name="cliente" id="cliente" value="<?php echo $nom_clie ?>" disabled placeholder="Seleccionar al Cliente">
-                                                
+
                                             </div>
 
                                         </div>
@@ -202,7 +225,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" name="colaborador" id="colaborador" disabled placeholder="Seleccionar al Colaborador" value="<?php echo $nom_col; ?>">
-                                                
+
                                             </div>
 
                                         </div>
@@ -335,6 +358,20 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                     <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total ?>" disabled>
                                                 </div>
                                             </div>
+
+                                            <div class="col-sm-2">
+
+                                                <label for="saldo" class="col-form-label">Saldo Actual:</label>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right" name="saldo" id="saldo" value="<?php echo $saldo ?>" disabled>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -343,97 +380,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
 
                                 <!-- SECCION DE PAGO -->
-                                <div class="card card-widget mb-2 pb-3">
-                                    <div class="card-header bg-gradient-green text-light">
-                                        <h1 class="card-title mx-auto">Datos del Pago</h1>
-                                    </div>
-                                    <div class="card-body" style="margin:0px;padding:1px;">
 
-                                        <div class="form-row justify-content-center">
-
-                                            <div class="col-sm-2">
-
-                                                <label for="saldovta" class="col-form-label">Saldo Actual:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-dollar-sign"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" class="form-control text-right" name="saldovta" id="saldovta" value="<?php echo $subtotal ?>" disabled>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-2 ">
-                                                <div class="input-group-sm auto">
-                                                    <label for="metodo" class="col-form-label">Metodo de Pago:</label>
-                                                    <select class="form-control" name="metodo" id="metodo">
-                                                        <?php
-                                                        foreach ($datamet as $dtmet) {
-                                                        ?>
-                                                            <option id="<?php echo $dtmet['id_metodo'] ?>" value="<?php echo $dtmet['id_metodo'] ?>"><?php echo $dtmet['nom_metodo'] ?></option>
-
-                                                        <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-sm-2">
-
-                                                <label for="montoapagar" class="col-form-label">Monto a Pagar:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text  border-success ">
-                                                            <i class="fas fa-dollar-sign"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="number" class="form-control text-right border-success" name="montoapagar" id="montoapagar">
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="form-row justify-content-center" id="divpago" name="divpago">
-                                            <div class="col-sm-2">
-                                            </div>
-
-                                            <div class="col-sm-2">
-
-                                                <label for="pago" class="col-form-label">Pago Recibido:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text border-success">
-                                                            <i class="fas fa-dollar-sign"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="number" class="form-control text-right border-success" name="pago" id="pago">
-                                                </div>
-                                            </div>
-
-
-
-                                            <div class="col-sm-2">
-
-                                                <label for="cambio" class="col-form-label">Cambio:</label>
-                                                <div class="input-group input-group-sm">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text  border-success ">
-                                                            <i class="fas fa-dollar-sign"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input type="text" class="form-control text-right border-success" name="cambio" id="cambio" disabled>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
 
                             </div>
                         </div>
@@ -453,9 +400,187 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
 
     <!-- PAGO -->
-  
+    <section>
+       
+
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-gray">
+                            <h5 class="modal-title" id="exampleModalLabel">Datos del Pago</h5>
+
+                        </div>
+                        <br>
+
+                        <form id="fomrPago" action="" method="POST">
+                            <div class="modal-body">
+
+                            <div class="form-row justify-content-center">
+                            <div class="col-sm-9">
+                                        <label for="colaboradorp" class="col-form-label">Colaborador*:</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="hidden" class="form-control" name="idcolp" id="idcolp" value="<?php echo $id_col; ?>">
+
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" name="colaboradorp" id="colaboradorp" disabled placeholder="Seleccionar al Colaborador" value="<?php echo $nom_col; ?>">
+                                                <span class="input-group-append">
+                                                    <button id="bcolaborador" type="button" class="btn btn-sm bg-gradient-green"><i class="fas fa-search"></i></button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                            </div>
+                                <div class="form-row justify-content-center">
+
+
+                                    <div class="col-sm-3">
+
+                                        <label for="saldovtap" class="col-form-label">Saldo Actual:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right" name="saldovtap" id="saldovtap" value="<?php echo $subtotal ?>" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3 ">
+                                        <div class="input-group-sm auto">
+                                            <label for="metodo" class="col-form-label">Metodo de Pago:</label>
+                                            <select class="form-control" name="metodo" id="metodo">
+                                                <?php
+                                                foreach ($datamet as $dtmet) {
+                                                ?>
+                                                    <option id="<?php echo $dtmet['id_metodo'] ?>" value="<?php echo $dtmet['id_metodo'] ?>"><?php echo $dtmet['nom_metodo'] ?></option>
+
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+
+                                        <label for="montoapagar" class="col-form-label">Monto a Pagar:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text  border-success ">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="number" class="form-control text-right border-success" name="montoapagar" id="montoapagar">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-row justify-content-center" id="divpago" name="divpago">
+                                    <div class="col-sm-3">
+                                    </div>
+
+                                    <div class="col-sm-3">
+
+                                        <label for="pago" class="col-form-label">Pago Recibido:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text border-success">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="number" class="form-control text-right border-success" name="pago" id="pago">
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-sm-3">
+
+                                        <label for="cambio" class="col-form-label">Cambio:</label>
+                                        <div class="input-group input-group-sm">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text  border-success ">
+                                                    <i class="fas fa-dollar-sign"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control text-right border-success" name="cambio" id="cambio" disabled>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                                <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- /PAGO -->
 
+      <!-- COLABORADOR -->
+      <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalcol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-md" role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-gray">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR COLABORADOR</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablacol" id="tablacol" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-gray">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Seleccionar</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datacol as $datc) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $datc['id_col'] ?></td>
+                                            <td><?php echo $datc['nom_col'] ?></td>
+
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /COLABORADOR -->
 
 
 </div>

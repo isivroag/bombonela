@@ -45,7 +45,41 @@ $(document).ready(function () {
     })
   
 
-  
+     //tabla colaborador
+  tablacol = $('#tablacol').DataTable({
+    columnDefs: [
+      {
+        targets: -1,
+        data: null,
+        defaultContent:
+          "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelcol'><i class='fas fa-hand-pointer'></i></button></div></div>",
+      },
+    ],
+
+    language: {
+      lengthMenu: 'Mostrar _MENU_ registros',
+      zeroRecords: 'No se encontraron resultados',
+      info:
+        'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+      infoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+      infoFiltered: '(filtrado de un total de _MAX_ registros)',
+      sSearch: 'Buscar:',
+      oPaginate: {
+        sFirst: 'Primero',
+        sLast: 'Último',
+        sNext: 'Siguiente',
+        sPrevious: 'Anterior',
+      },
+      sProcessing: 'Procesando...',
+    },
+  })
+
+  //boton pagar
+  $(document).on('click', '#btnPagar', function () {
+    $("#formPago").trigger("reset");
+    $('#saldovtap').val($('#saldovtap').val())
+    $('#modalPago').modal('show')
+  })
  
 
 
@@ -103,7 +137,7 @@ $(document).ready(function () {
     //monto a pagar
     document.getElementById('montoapagar').onblur = function () {
       monto = $('#montoapagar').val().replace(/,/g, '')
-      saldo = $('#saldovta').val().replace(/,/g, '')
+      saldo = $('#saldovtap').val().replace(/,/g, '')
   
       if (monto.length > 0) {
         if (parseFloat(monto) > 0) {
@@ -120,6 +154,24 @@ $(document).ready(function () {
         monto_no_valido()
       }
     }
+  
+
+     //boton buscar colaborador
+  $(document).on('click', '#bcolaborador', function () {
+    $('#modalcol').modal('show')
+  })
+
+
+    //boton seleccionar colaborador
+
+    $(document).on('click', '.btnSelcol', function () {
+      fila = $(this)
+      idcol = parseInt($(this).closest('tr').find('td:eq(0)').text())
+      col = $(this).closest('tr').find('td:eq(1)').text()
+      $('#idcolp').val(idcol)
+      $('#colaboradorp').val(col)
+      $('#modalcol').modal('hide')
+    })
   
   
     document.getElementById('pago').onblur = function () {
