@@ -18,24 +18,26 @@ if (isset($_GET['folio'])) {
     $folio = $_GET['folio'];
 
 
-    $consultacon = "SELECT * FROM cxc WHERE estado_tmp=1 and usuarioalt='$idusuario'";
+    $consultacon = "SELECT * FROM vcxc WHERE folio_cxc='$folio'";
     $resultadocon = $conexion->prepare($consultacon);
     $resultadocon->execute();
 
     if ($resultadocon->rowCount() > 0) {
         $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
         foreach ($datacon as $row) {
-            $folio = $row['folio'];
+            $folio = $row['folio_cxc'];
             $idclie = $row['id_clie'];
             $nom_clie = $row['nom_clie'];
-            $fecha = $row['fecha'];
+            $fecha = $row['fecha_cxc'];
             $id_col = $row['id_col'];
             $nom_col = $row['nom_col'];
-            $concepto = $row['concepto'];
-            $subtotal = $row['subtotal'];
-            $descuento = $row['descuento'];
-            $total = $row['total'];
-            $foliovta = $row['folio_cxc'];
+            $concepto = $row['concepto_cxc'];
+            $subtotal = $row['subtotal_cxc'];
+            $descuento = $row['descuento_cxc'];
+            $total = $row['total_cxc'];
+            $saldo=$row['saldo_cxc'];
+            $foliotmp=0;
+            //$foliotmp = $row['folio_tmp'];
         }
     }
 
@@ -277,7 +279,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                        $consultadeto = "SELECT * FROM tmpdet_cxc where folio='$folio' order by id_reg";
+                                                        $consultadeto = "SELECT * FROM det_cxc where folio_cxc='$folio' order by id_reg";
                                                         $resultadodeto = $conexion->prepare($consultadeto);
                                                         $resultadodeto->execute();
                                                         $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
@@ -409,7 +411,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-gray">
+                        <div class="modal-header bg-gradient-green">
                             <h5 class="modal-title" id="exampleModalLabel">Datos del Pago</h5>
 
                         </div>
@@ -544,14 +546,14 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalcol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-gray">
+                        <div class="modal-header bg-gradient-green">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR COLABORADOR</h5>
 
                         </div>
                         <br>
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
                             <table name="tablacol" id="tablacol" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-gray">
+                                <thead class="text-center bg-gradient-green">
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>

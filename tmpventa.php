@@ -603,7 +603,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-                                <!-- SECCION DE PAGO -->
+                                <!-- SECCION DE PAGO 
                                 <div class="card card-widget mb-2 pb-3">
                                     <div class="card-header bg-gradient-gray text-light">
                                         <h1 class="card-title mx-auto">Datos del Pago</h1>
@@ -695,7 +695,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
 
                                 </div>
-
+                                -->
                             </div>
                         </div>
                     </div>

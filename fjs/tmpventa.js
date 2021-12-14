@@ -566,6 +566,7 @@ $(document).ready(function () {
             folio: folio,
             fecha: fecha,
             idclie: idclie,
+            cliente: cliente,
             idcol: idcol,
             colaborador: colaborador,
             obs: obs,
@@ -584,7 +585,12 @@ $(document).ready(function () {
                 icon: 'warning',
               })
             }
-          },
+          },error: function(){
+            Swal.fire({
+              title: 'Operacion No Exitosa',
+              icon: 'warning',
+            })
+          }
         })
       } else {
 
@@ -795,8 +801,10 @@ $(document).ready(function () {
     }
   }
 
-  //metodo de pago
 
+
+  //metodo de pago
+/*
   $(document).on('change', '#metodo', function () {
     //console.log($('#metodo').children("option:selected").text())
     if ($('#metodo').val() == '01') {
@@ -805,9 +813,10 @@ $(document).ready(function () {
       $('#divpago').hide()
     }
   })
-
+*/
 
   //monto a pagar
+  /*
   document.getElementById('montoapagar').onblur = function () {
     monto = $('#montoapagar').val().replace(/,/g, '')
     saldo = $('#saldovta').val().replace(/,/g, '')
@@ -827,8 +836,9 @@ $(document).ready(function () {
       monto_no_valido()
     }
   }
+*/
 
-
+/*
   document.getElementById('pago').onblur = function () {
     pago = $('#pago').val().replace(/,/g, '')
     montoapagar = $('#montoapagar').val().replace(/,/g, '')
@@ -857,7 +867,8 @@ $(document).ready(function () {
     }
   }
 
-
+*/
+/*
   function monto_excedido(){
     Swal.fire({
       title: 'Monto a Pagar no Valido',
@@ -872,7 +883,7 @@ $(document).ready(function () {
       icon: 'warning',
     })
   }
-
+*/
   function descuento_excedido(){
     Swal.fire({
       title: 'Descuento no Valido',
@@ -887,7 +898,7 @@ $(document).ready(function () {
       icon: 'warning',
     })
   }
-
+/*
   function pago_insuficiente(){
     Swal.fire({
       title: 'Pago Insuficiente',
@@ -902,7 +913,7 @@ $(document).ready(function () {
       icon: 'warning',
     })
   }
-
+*/
   function calculodes(desc, tot) {
     gtotal = round(tot - desc, 2)
     return gtotal
