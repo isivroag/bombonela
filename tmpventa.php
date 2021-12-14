@@ -161,8 +161,8 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
             </div>
 
-            <div class="card-header bg-gradient-green text-light">
-                <h1 class="card-title mx-auto">Registro de Ingreso</h1>
+            <div class="card-header bg-gradient-gray text-light">
+                <h1 class="card-title mx-auto">Registro de Venta</h1>
             </div>
 
             <div class="card-body">
@@ -171,7 +171,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-lg-12">
 
 
-                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
+                        <!--<button id="btnNuevo" type="button" class="btn bg-gradient-gray btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>-->
                         <button type="button" id="btnGuardar" name="btnGuardar" class="btn bg-gradient-green btn-ms" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                         <!--<button id="btnNuevo" type="button" class="btn bg-gradient-primary btn-ms" data-toggle="modal"><i class="fas fa-envelope-square"></i> Enviar</button>-->
                     </div>
@@ -188,10 +188,10 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                         <div class="card card-widget" style="margin-bottom:0px;">
 
-                            <div class="card-header bg-gradient-green " style="margin:0px;padding:8px">
+                            <div class="card-header bg-gradient-gray " style="margin:0px;padding:8px">
 
 
-                                <h1 class="card-title ">Registro de Venta</h1>
+                                <h1 class="card-title ">Información General</h1>
                             </div>
 
                             <div class="card-body" style="margin:0px;padding:1px;">
@@ -200,7 +200,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                                     <div class="col-sm-2 ">
 
-                                        <label for="fecha" class="col-form-label">Fecha:</label>
+                                        <label for="fecha" class="col-form-label">Fecha*:</label>
                                         <div class="input-group input-group-sm">
                                             <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
                                         </div>
@@ -220,7 +220,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
                                 </div>
 
-                                <div class="form-row justify-content-sm-center">
+                                <div class="form-row justify-content-sm-center mb-2">
                                     <div class="col-sm-8">
                                         <div class="input-group input-group-sm">
 
@@ -228,7 +228,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                             <input type="hidden" class="form-control" name="tokenid" id="tokenid" value="<?php echo $idusuario; ?>">
                                             <input type="hidden" class="form-control" name="idclie" id="idclie" value="<?php echo $idclie; ?>">
 
-                                            <label for="cliente" class="col-form-label">Cliente:</label>
+                                            <label for="cliente" class="col-form-label">Cliente*:</label>
 
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" name="cliente" id="cliente" value="<?php echo $nom_clie ?>" disabled placeholder="Seleccionar al Cliente">
@@ -241,7 +241,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                     </div>
 
                                     <div class="col-sm-8">
-                                        <label for="colaborador" class="col-form-label">Colaborador:</label>
+                                        <label for="colaborador" class="col-form-label">Colaborador*:</label>
                                         <div class="input-group input-group-sm">
                                             <input type="hidden" class="form-control" name="idcol" id="idcol" value="<?php echo $id_col; ?>">
 
@@ -268,8 +268,8 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
 
                                 <!-- AGREGAR SERVICIOS Y PRODUCTOS -->
-                                <div class="card card-widget mt-2">
-                                    <div class="card-header bg-gradient-green text-light">
+                                <div class="card card-widget mb-0">
+                                    <div class="card-header bg-gradient-gray text-light">
                                         <h1 class="card-title mx-auto">Detalle de Venta</h1>
                                     </div>
 
@@ -279,7 +279,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                         <div class="row justify-content-between">
 
                                             <div class="col-sm-2 ">
-                                                <button type="button" id="btnaddproducto" class="btn btn-block card-btn bg-gradient-green btn-sm" data-toggle="collapse" href='#addproducto' aria-expanded="false" aria-controls="addproducto">
+                                                <button type="button" id="btnaddproducto" class="btn btn-block card-btn bg-gradient-primary btn-sm" data-toggle="collapse" href='#addproducto' aria-expanded="false" aria-controls="addproducto">
                                                     Agregar Producto <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
@@ -322,7 +322,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                                 <div class="input-group input-group-sm">
                                                                     <input type="text" class="form-control" name="producto" id="producto" disabled>
                                                                     <span class="input-group-append">
-                                                                        <button id="bproducto" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                                        <button id="bproducto" type="button" class="btn btn-sm bg-gradient-green"><i class="fas fa-search"></i></button>
                                                                     </span>
                                                                 </div>
 
@@ -483,118 +483,129 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                             </div>
                                         </div>
 
-                                        <div class="row">
 
-                                            <div class="col-lg-12 mx-auto">
-
-                                                <div class="table-responsive" style="padding:5px;">
-
-                                                    <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
-                                                        <thead class="text-center bg-gradient-green">
-                                                            <tr>
-                                                                <th>Id</th>
-                                                                <th>Id Item</th>
-                                                                <th>Id Paqt</th>
-                                                                <th>Clave</th>
-                                                                <th>Concepto</th>
-                                                                <th>Cantidad</th>
-                                                                <th>P.U.</th>
-                                                                <th>Importe</th>
-                                                                <th>Estado</th>
-                                                                <th>Tipo</th>
-                                                                <th>Acciones</th>
-
-
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                            $consultadeto = "SELECT * FROM tmpdet_cxc where folio='$folio' order by id_reg";
-                                                            $resultadodeto = $conexion->prepare($consultadeto);
-                                                            $resultadodeto->execute();
-                                                            $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
-                                                            foreach ($datadeto as $rowdet) {
-                                                            ?>
-
-                                                                <tr>
-                                                                    <td><?php echo $rowdet['id_reg'] ?></td>
-                                                                    <td><?php echo $rowdet['id_item'] ?></td>
-                                                                    <td><?php echo $rowdet['id_pqt'] ?></td>
-                                                                    <td><?php echo $rowdet['clave'] ?></td>
-                                                                    <td><?php echo $rowdet['concepto'] ?></td>
-                                                                    <td><?php echo $rowdet['cantidad'] ?></td>
-                                                                    <td><?php echo $rowdet['precio'] ?></td>
-                                                                    <td><?php echo $rowdet['subtotal'] ?></td>
-                                                                    <td><?php echo $rowdet['estado_det'] ?></td>
-                                                                    <td><?php echo $rowdet['tipo_item'] ?></td>
-
-                                                                    <td></td>
-                                                                </tr>
-                                                            <?php
-                                                            }
-                                                            ?>
-
-                                                        </tbody>
-                                                    </table>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
                                         <!-- /AGREGAR PRODUCTOS Y SERVICIOS-->
 
 
                                     </div>
+
+                                    <div class="row">
+
+                                        <div class="col-lg-12 mx-auto">
+
+                                            <div class="table-responsive" style="padding:5px;">
+
+                                                <table name="tablaDet" id="tablaDet" class="table table-sm table-striped table-bordered table-condensed text-nowrap mx-auto" style="width:100%;font-size:15px">
+                                                    <thead class="text-center bg-gradient-gray">
+                                                        <tr>
+                                                            <th>Id</th>
+                                                            <th>Id Item</th>
+                                                            <th>Id Paqt</th>
+                                                            <th>Clave</th>
+                                                            <th>Concepto</th>
+                                                            <th>Cantidad</th>
+                                                            <th>P.U.</th>
+                                                            <th>Importe</th>
+                                                            <th>Estado</th>
+                                                            <th>Tipo</th>
+                                                            <th>Acciones</th>
+
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        $consultadeto = "SELECT * FROM tmpdet_cxc where folio='$folio' order by id_reg";
+                                                        $resultadodeto = $conexion->prepare($consultadeto);
+                                                        $resultadodeto->execute();
+                                                        $datadeto = $resultadodeto->fetchAll(PDO::FETCH_ASSOC);
+                                                        foreach ($datadeto as $rowdet) {
+                                                        ?>
+
+                                                            <tr>
+                                                                <td><?php echo $rowdet['id_reg'] ?></td>
+                                                                <td><?php echo $rowdet['id_item'] ?></td>
+                                                                <td><?php echo $rowdet['id_pqt'] ?></td>
+                                                                <td><?php echo $rowdet['clave'] ?></td>
+                                                                <td><?php echo $rowdet['concepto'] ?></td>
+                                                                <td><?php echo $rowdet['cantidad'] ?></td>
+                                                                <td><?php echo $rowdet['precio'] ?></td>
+                                                                <td><?php echo $rowdet['subtotal'] ?></td>
+                                                                <td><?php echo $rowdet['estado_det'] ?></td>
+                                                                <td><?php echo $rowdet['tipo_item'] ?></td>
+
+                                                                <td></td>
+                                                            </tr>
+                                                        <?php
+                                                        }
+                                                        ?>
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <!-- TOTALES-->
-                                <div class="form-row justify-content-sm-center mt-0" style="margin-bottom: 10px;">
+                                <div class="card card-widget mt-0 ">
+                                    <div class="card-header bg-gradient-gray text-light">
+                                        <h1 class="card-title mx-auto">Totales</h1>
+                                    </div>
+                                    <div class="card-body" style="margin:0px;padding:1px;">
+                                        <div class="form-row justify-content-sm-center mt-0" style="margin-bottom: 10px;">
 
-                                    <div class="col-sm-2">
+                                            <div class="col-sm-2">
 
-                                        <label for="subtotal" class="col-form-label">Subtotal:</label>
-                                        <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                </span>
+                                                <label for="subtotal" class="col-form-label">Subtotal*:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo $subtotal ?>" disabled>
+                                                </div>
                                             </div>
-                                            <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo number_format($subtotal, 2) ?>" disabled>
+
+                                            <div class="col-sm-2">
+
+                                                <label for="descuento" class="col-form-label">Descuento*:</label>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="number" class="form-control text-right" name="descuento" id="descuento" value="<?php echo $descuento ?>">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-2">
+
+                                                <label for="total" class="col-form-label">Total*:</label>
+
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-dollar-sign"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total ?>" disabled>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-2">
-
-                                        <label for="descuento" class="col-form-label">Descuento:</label>
-                                        <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control text-right" name="descuento" id="descuento" value="<?php echo number_format($descuento, 2) ?>">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-
-                                        <label for="total" class="col-form-label">Total:</label>
-
-                                        <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-dollar-sign"></i>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo number_format($total, 2) ?>" disabled>
-                                        </div>
-                                    </div>
                                 </div>
+
 
 
                                 <!-- SECCION DE PAGO -->
                                 <div class="card card-widget mb-2 pb-3">
-                                    <div class="card-header bg-gradient-green text-light">
+                                    <div class="card-header bg-gradient-gray text-light">
                                         <h1 class="card-title mx-auto">Datos del Pago</h1>
                                     </div>
                                     <div class="card-body" style="margin:0px;padding:1px;">
@@ -610,7 +621,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                             <i class="fas fa-dollar-sign"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control text-right" name="saldovta" id="saldovta" value="<?php echo number_format($subtotal, 0) ?>" disabled>
+                                                    <input type="text" class="form-control text-right" name="saldovta" id="saldovta" value="<?php echo $subtotal ?>" disabled>
                                                 </div>
                                             </div>
 
@@ -640,7 +651,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                             <i class="fas fa-dollar-sign"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control text-right border-success" name="montoapagar" id="montoapagar">
+                                                    <input type="number" class="form-control text-right border-success" name="montoapagar" id="montoapagar">
                                                 </div>
                                             </div>
 
@@ -659,7 +670,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                             <i class="fas fa-dollar-sign"></i>
                                                         </span>
                                                     </div>
-                                                    <input type="text" class="form-control text-right border-success" name="pago" id="pago">
+                                                    <input type="number" class="form-control text-right border-success" name="pago" id="pago">
                                                 </div>
                                             </div>
 
@@ -710,14 +721,14 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalcliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-green">
+                        <div class="modal-header bg-gradient-gray">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
 
                         </div>
                         <br>
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
                             <table name="tablacliente" id="tablacliente" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-green">
+                                <thead class="text-center bg-gradient-gray">
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
@@ -756,14 +767,14 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalcol" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-green">
+                        <div class="modal-header bg-gradient-gray">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
 
                         </div>
                         <br>
                         <div class="table-hover table-responsive w-auto" style="padding:15px">
                             <table name="tablacol" id="tablacol" class="table table-sm text-nowrap table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-green">
+                                <thead class="text-center bg-gradient-gray">
                                     <tr>
                                         <th>Id</th>
                                         <th>Nombre</th>
@@ -802,14 +813,14 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalproducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-green">
+                        <div class="modal-header bg-gradient-gray">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR PRODUCTO</h5>
 
                         </div>
                         <br>
                         <div class="table-responsive  table-hover w-auto" style="padding:15px">
                             <table name="tablaproducto" id="tablaproducto" class="table text-nowrap  table-sm table-striped table-bordered table-condensed " style="width:100%">
-                                <thead class="text-center bg-gradient-green">
+                                <thead class="text-center bg-gradient-gray">
                                     <tr>
                                         <th>Id</th>
                                         <th>Clave</th>
@@ -856,14 +867,14 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
             <div class="modal fade" id="modalServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-md" role="document">
                     <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-green">
+                        <div class="modal-header bg-gradient-gray">
                             <h5 class="modal-title" id="exampleModalLabel">BUSCAR PRODUCTO</h5>
 
                         </div>
                         <br>
                         <div class="table-responsive  table-hover w-auto" style="padding:15px">
                             <table name="tablaservicio" id="tablaservicio" class="table  table-sm table-striped table-bordered table-condensed " style="width:100%">
-                                <thead class="text-center bg-gradient-green">
+                                <thead class="text-center bg-gradient-gray">
                                     <tr>
                                         <th>Id</th>
                                         <th>Id Serv</th>

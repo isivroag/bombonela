@@ -221,4 +221,108 @@
   }
 
 
+/* GREEN TEMP*/
+.bg-greentmp {
+    background-color:     #799AB6 !important;
+}
+
+.bg-gradient-greentmp {
+    background: #B1D9FA linear-gradient(180deg, #B1D9FA, #B1D9FA) repeat-x !important;
+}
+
+.bg-greentmp .btn-tool,
+.bg-gradient-greentmp .btn-tool,
+.card-greentmp:not(.card-outline) .btn-tool {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.bg-greentmp .btn-tool:hover,
+.bg-gradient-greentmp .btn-tool:hover,
+.card-greentmp:not(.card-outline) .btn-tool:hover {
+    color: #ffffff;
+    background-color: #B1D9FA  !important;
+}
+
+
+
+
+.bg-greentmp,
+.bg-greentmp>a {
+    color: #ffffff !important;
+}
+
+.bg-greentmp.btn:hover {
+    border-color: #B1D9FA !important;
+    color: #ececec;
+}
+
+.bg-greentmp.btn:not(:disabled):not(.disabled):active,
+.bg-greentmp.btn:not(:disabled):not(.disabled).active,
+.bg-greentmp.btn:active,
+.bg-greentmp.btn.active {
+    background-color: #B1D9FA !important;
+    border-color: #B1D9FA !important;
+    color: #ffffff;
+}
+
+.card.bg-greentmp .bootstrap-datetimepicker-widget .table td,
+.card.bg-greentmp .bootstrap-datetimepicker-widget .table th,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget .table td,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget .table th {
+    border: none;
+}
+
+.card.bg-greentmp .bootstrap-datetimepicker-widget table thead tr:first-child th:hover,
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.day:hover,
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.hour:hover,
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.minute:hover,
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.second:hover,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table thead tr:first-child th:hover,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.day:hover,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.hour:hover,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.minute:hover,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.second:hover {
+    background: #B1D9FA !important;
+    color: #ffffff;
+}
+
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.today::before,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.today::before {
+    border-bottom-color: #ffffff;
+}
+
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.active,
+.card.bg-greentmp .bootstrap-datetimepicker-widget table td.active:hover,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.active,
+.card.bg-gradient-greentmp .bootstrap-datetimepicker-widget table td.active:hover {
+    background: #B1D9FA !important;
+    color: #ffffff;
+}
+
+.bg-gradient-greentmp.btn:hover {
+    border-color: #B1D9FA;
+    color: #ececec;
+}
+
+.bg-gradient-greentmp.btn:hover {
+    background: #B1D9FA linear-gradient(180deg, #B1D9FA, #79b2e0) repeat-x !important;
+}
+
+.bg-gradient-greentmp.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-greentmp.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-greentmp.btn:active,
+.bg-gradient-greentmp.btn.active {
+    border-color: #B1D9FA;
+    color: #ffffff;
+}
+
+.bg-gradient-greentmp.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-greentmp.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-greentmp.btn:active,
+.bg-gradient-greentmp.btn.active {
+    background: #B1D9FA linear-gradient(180deg, #B1D9FA, #79b2e0) repeat-x !important;
+}
+
+
+
  
