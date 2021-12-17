@@ -32,18 +32,18 @@ switch($opcion){
         $resultado = $conexion->prepare($consulta);
 
         if ($resultado->execute()){
-            $consultacon = "INSERT INTO cxc(id_clie,fecha_cxc,total_cxc,saldo_cxc,id_col,nom_col,concepto_cxc,subtotal_cxc,descuento_cxc,folio_tmp) 
+            $consultacon = "INSERT INTO cxc (id_clie,fecha_cxc,total_cxc,saldo_cxc,id_col,nom_col,concepto_cxc,subtotal_cxc,descuento_cxc,folio_tmp) 
             values ('$idclie','$fecha','$total','$saldo','$idcol','$colaborador','$obs','$subtotal','$descuento','$folio')";
             $resultadocon = $conexion->prepare($consultacon);
             if ($resultadocon->execute()){
-                $consultacon = "SELECT folio_cxc from cxc where folio_tmp='$folio'";
+                $consultacon = "SELECT folio_cxc from cxc where folio_tmp='$folio' and estado_cxc='1'";
                 $resultadocon = $conexion->prepare($consultacon);
                 if ($resultadocon->execute()){
                     $datacon = $resultadocon->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($datacon as $row) {
                         $foliocxc = $row['folio_cxc'];
                     }
-                    $consulta = "UPDATE tmpcxc SET folio_cxc='$foliocxc' WHERE folio='$folio' ";			
+                    $consulta = "UPDATE tmpcxc SET folio_cxc='$foliocxc',estado_tmp=2 WHERE folio='$folio' ";			
                     $resultado = $conexion->prepare($consulta);
                     $resultado->execute(); 
 
@@ -54,7 +54,21 @@ switch($opcion){
                     $resultado->execute(); 
                     $datareg = $resultado->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($datareg as $row) {
-                        $iditem = $row['folio_cxc'];
+                        $iditem = $row['id_item'];
+                        $id_pqt = $row['id_pqt'];
+                        $clave = $row['clave'];
+                        $concepto = $row['concepto'];
+                        $cantidad = $row['cantidad'];
+                        $precio = $row['precio'];
+                        $subt = $row['subtotal'];
+                        $tipo_item = $row['tipo_item'];
+
+                        $consulta = "INSERT INTO det_cxc (folio_cxc,id_item,id_pqt,clave,concepto,cantidad,precio,subtotal,tipo_item) 
+                                    VALUES ('$foliocxc','$iditem','$id_pqt','$clave','$concepto','$cantidad','$precio','$subt','$tipo_item') ";			
+                        $resultado = $conexion->prepare($consulta);
+                        $resultado->execute(); 
+
+
                     }
                     
                     print json_encode($foliocxc, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

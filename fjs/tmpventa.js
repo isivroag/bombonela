@@ -411,7 +411,7 @@ $(document).ready(function () {
                 tipo,
               ])
               .draw()
-            //buscarsubtotal(folio);
+            buscarsubtotal(folio);
           } else {
             Swal.fire({
               title: 'Operacion No Exitosa',
@@ -512,7 +512,7 @@ $(document).ready(function () {
       type: 'POST',
       url: 'bd/buscartotal.php',
       dataType: 'json',
-      //async: false,
+      async: false,
       data: { folio: folio },
       success: function (res) {
         $('#subtotal').val(res[0].subtotal)
@@ -578,7 +578,14 @@ $(document).ready(function () {
           },
           success: function (data) {
             if (data != 0) {
+              Swal.fire({
+                title: 'Venta Guardada',
+                icon: 'success',
+                timer: 1000,
+              })
+              window.setTimeout(function() {
               window.location.href = 'venta.php?folio='+data
+            }, 2500);
             } else {
               Swal.fire({
                 title: 'Operacion No Exitosa',
