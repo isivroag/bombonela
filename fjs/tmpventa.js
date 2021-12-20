@@ -726,7 +726,7 @@ $(document).ready(function () {
     preciol = $(this).closest('tr').find('td:eq(6)').text()
 
     $('#idserv').val(idserv)
-    $('#idpaqtser').val(idpaq)
+    $('#idpaqtserv').val(idpaq)
     $('#claveserv').val(clave)
     $('#servicio').val(servicio)
     $('#preciolserv').val(preciol)

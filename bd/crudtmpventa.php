@@ -102,10 +102,7 @@ switch ($opcion) {
 
 
 
-                            $inicial;
-                            $final;
-                            $cantidad;
-                            $fecha;
+
                             $tipo_mov = 4;
                             $obs_mov = "VENTA FOLIO " . $foliocxc;
                             $id_almacen = 1;
@@ -129,16 +126,14 @@ switch ($opcion) {
                             $resultado->execute();
                             $dataserv = $resultado->fetchAll(PDO::FETCH_ASSOC);
                             foreach ($dataserv as $rowserv) {
-                                $sesiones=$rowserv['sesiones_pqt'];
+                                $sesiones = $rowserv['sesiones_pqt'];
                             }
 
-
-                            $consulta="INSERT INTO paquete_cont(id_clie,id_serv,id_pqt,numero_s,restante_s,fecha_ini,fecha_max,id_col,nom_col,precio
-                            ,saldo,pagado,estado_serv)
-                             values ('$idclie','$iditem','$id_pqt','$sesiones','$sesiones','$fecha','$fechafin','$idcol','$colaborador',''$precio,
-                             '0','0','VIGENTE')";
-
-                            
+                            $fechafin = $fecha;
+                            $consulta = "INSERT INTO paquete_cont(id_clie,id_serv,id_pqt,numero_s,restante_s,fecha_ini,fecha_max,id_col,nom_col,precio,saldo,pagado,estado_serv)
+                             values ('$idclie','$iditem','$id_pqt','$sesiones','$sesiones','$fecha','$fechafin','$idcol','$colaborador','$precio','0','0','VIGENTE')";
+                            $resultado = $conexion->prepare($consulta);
+                            $resultado->execute();
                         }
                     }
 
