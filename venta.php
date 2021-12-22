@@ -5,6 +5,7 @@ $pagina = "tmpventa";
 include_once "templates/header.php";
 include_once "templates/barra.php";
 include_once "templates/navegacion.php";
+require_once "bd/CifrasEnLetras.php";
 
 
 include_once 'bd/conexion.php';
@@ -13,6 +14,8 @@ $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
 $usuario = $_SESSION['s_nombre'];
 $idusuario = $_SESSION['s_usuario'];
+
+$enpesos = new CifrasEnLetras();
 
 if (isset($_GET['folio'])) {
     $folio = $_GET['folio'];
@@ -35,12 +38,11 @@ if (isset($_GET['folio'])) {
             $subtotal = $row['subtotal_cxc'];
             $descuento = $row['descuento_cxc'];
             $total = $row['total_cxc'];
-            $saldo=$row['saldo_cxc'];
-            $foliotmp=0;
+            $saldo = $row['saldo_cxc'];
+            $foliotmp = 0;
             //$foliotmp = $row['folio_tmp'];
         }
     }
-
 } else {
     $folio = 0;
     $idclie = 0;
@@ -53,7 +55,7 @@ if (isset($_GET['folio'])) {
     $descuento = 0;
     $total = 0;
     $foliotmp = 0;
-    $saldo=0;
+    $saldo = 0;
 }
 
 $message = "";
@@ -272,8 +274,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                             <th>Importe</th>
                                                             <th>Estado</th>
                                                             <th>Tipo</th>
-                                                            <th>Acciones</th>
-
+                                                     
 
                                                         </tr>
                                                     </thead>
@@ -298,7 +299,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                                                 <td><?php echo $rowdet['estado_det'] ?></td>
                                                                 <td><?php echo $rowdet['tipo_item'] ?></td>
 
-                                                                <td></td>
+                                                           
                                                             </tr>
                                                         <?php
                                                         }
@@ -319,6 +320,8 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                         <h1 class="card-title mx-auto">Totales</h1>
                                     </div>
                                     <div class="card-body" style="margin:0px;padding:1px;">
+
+
                                         <div class="form-row justify-content-sm-center mt-0" style="margin-bottom: 10px;">
 
                                             <div class="col-sm-2">
@@ -403,7 +406,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- PAGO -->
     <section>
-       
+
 
         <div class="container">
 
@@ -420,8 +423,40 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                         <form id="fomrPago" action="" method="POST">
                             <div class="modal-body">
 
-                            <div class="form-row justify-content-center">
-                            <div class="col-sm-9">
+                                <div class="form-row justify-content-center mb-0 pb-0">
+                                    <div class="col-sm-4 " style="padding:0 0 0 20px">
+                                        <div class="form-group ">
+
+                                            <div class="form-check">
+                                                <input type="checkbox" class="custom-control-input" name="facturado" id="facturado">
+                                                <label for="facturado" class="custom-control-label">Cliente Requiere Factura</label>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5"></div>
+                                </div>
+
+                                <div class="form-row justify-content-center">
+
+
+                                    <div class="col-sm-3 ">
+
+                                        <label for="fechapago" class="col-form-label">Fecha*:</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="date" class="form-control" name="fechapago" id="fechapago" value="<?php echo $fecha; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6"></div>
+
+
+
+                                </div>
+
+                                <div class="form-row justify-content-center">
+                                    <div class="col-sm-9">
                                         <label for="colaboradorp" class="col-form-label">Colaborador*:</label>
                                         <div class="input-group input-group-sm">
                                             <input type="hidden" class="form-control" name="idcolp" id="idcolp" value="<?php echo $id_col; ?>">
@@ -436,7 +471,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
                                         </div>
                                     </div>
 
-                            </div>
+                                </div>
                                 <div class="form-row justify-content-center">
 
 
@@ -519,13 +554,23 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                                 </div>
 
+                                <div class="form-row justify-content-center">
+                                    <div class="col-sm-9">
+                                        <label for="letras" class="col-form-label">Cantidad en Letras</label>
+                                        <div class="input-group input-group-sm">
+                                            <textarea name="letras" id="letras" class="form-control" rows="2" disabled></textarea>
+
+                                        </div>
+                                    </div>
+                                </div>
+
 
                             </div>
 
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                                <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                                <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                             </div>
 
                         </form>
@@ -538,8 +583,8 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- /PAGO -->
 
-      <!-- COLABORADOR -->
-      <section>
+    <!-- COLABORADOR -->
+    <section>
         <div class="container">
 
             <!-- Default box -->

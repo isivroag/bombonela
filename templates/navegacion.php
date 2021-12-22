@@ -69,10 +69,10 @@
 
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'calendario' || $pagina == 'recepcion' || $pagina == 'ingresos' || $pagina == 'diario' || $pagina == 'confirmar') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' ) ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'calendario' || $pagina == 'recepcion' || $pagina == 'ingresos' || $pagina == 'diario' || $pagina == 'confirmar') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' ) ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class="fas fa-laptop-medical nav-icon"></i>
 
@@ -91,7 +91,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="confirmacion.php" class="nav-link <?php echo ($pagina == 'cntaventa') ? "active seleccionado" : ""; ?>  ">
+              <a href="cntaventa.php" class="nav-link <?php echo ($pagina == 'cntaventa') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-phone nav-icon"></i>
                 <p>Consulta de Ventas</p>
               </a>
