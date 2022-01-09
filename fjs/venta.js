@@ -125,6 +125,7 @@ $(document).ready(function () {
       $('#divpago').show()
     } else {
       $('#divpago').hide()
+      $('#pago').val($('#montoapagar').val())
     }
   })
 
@@ -140,6 +141,7 @@ $(document).ready(function () {
         } else {
           monto_excedido()
           $('#montoapagar').val(saldo)
+          monto=saldo
         }
       } else {
         monto_no_valido()
@@ -270,7 +272,12 @@ $(document).ready(function () {
     importepago = $('#montoapagar').val().replace(/,/g, '')
     idmetodo = $('#metodo').val()
     metodo = $('#metodo').children("option:selected").text()
+    if ($('#metodo').val() == '01') {
     dinero = $('#pago').val().replace(/,/g, '')
+    }
+    else{
+      dinero = $('#montoapagar').val().replace(/,/g, '')
+    }
     cambio = $('#cambio').val().replace(/,/g, '')
     idcol = $('#idcolp').val().replace(/,/g, '')
     colaborador = $('#colaboradorp').val()
