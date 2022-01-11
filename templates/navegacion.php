@@ -38,9 +38,8 @@
             </p>
           </a>
         </li>
+        <!--
         <li class="nav-item  has-treeview <?php echo ($pagina == 'cliente' ) ? "menu-open" : ""; ?>">
-
-
           <a href="#" class="nav-link  <?php echo ($pagina == 'cliente' ) ? "active" : ""; ?>">
             <i class="nav-icon fas fa-bars "></i>
             <p>
@@ -64,7 +63,7 @@
           </ul>
 
         </li>
-
+-->
 
 
 
@@ -74,7 +73,7 @@
 
           <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' ) ? "active" : ""; ?>">
             <span class="fa-stack">
-              <i class="fas fa-laptop-medical nav-icon"></i>
+              <i class="fas fa-file-invoice-dollar nav-icon"></i>
 
             </span>
             <p>
@@ -86,13 +85,13 @@
 
             <li class="nav-item">
               <a href="tmpventa.php" class="nav-link <?php echo ($pagina == 'tmpventa') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-calendar-alt nav-icon"></i>
+                <i class="fas fa-money-check-alt nav-icon"></i>
                 <p>Venta</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="cntaventa.php" class="nav-link <?php echo ($pagina == 'cntaventa') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-phone nav-icon"></i>
+                <i class="fas fa-search-dollar nav-icon"></i>
                 <p>Consulta de Ventas</p>
               </a>
             </li>
@@ -112,7 +111,7 @@
                 <p>Reporte de Visitas</p>
               </a>
             </li>
-            -->
+            
          
 
             <?php if ($_SESSION['s_rol'] == '2') { ?>
@@ -125,7 +124,7 @@
 
 
             <?php } ?>
-
+-->
           </ul>
         </li>
 
