@@ -12,7 +12,7 @@ $objeto = new conn();
 $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
 $usuario = $_SESSION['s_nombre'];
-$idusuario = $_SESSION['s_usuario'];
+$idusuario = $_SESSION['s_id_usuario'];
 
 if (isset($_GET['folio'])) {
     $folio = $_GET['folio'];

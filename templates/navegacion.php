@@ -38,7 +38,7 @@
             </p>
           </a>
         </li>
-        <!--
+        
         <li class="nav-item  has-treeview <?php echo ($pagina == 'cliente' ) ? "menu-open" : ""; ?>">
           <a href="#" class="nav-link  <?php echo ($pagina == 'cliente' ) ? "active" : ""; ?>">
             <i class="nav-icon fas fa-bars "></i>
@@ -53,7 +53,7 @@
            
       
             <li class="nav-item">
-              <a href="cntapaciente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
+              <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
                 <i class="fas fa-hospital-user nav-icon"></i>
                 <p>Clientes</p>
               </a>
@@ -63,7 +63,7 @@
           </ul>
 
         </li>
--->
+
 
 
 
