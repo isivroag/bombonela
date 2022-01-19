@@ -7,8 +7,8 @@ $(document).ready(function () {
   tablaDet = $('#tablaDet').DataTable({
     fixedHeader: true,
     paging: false,
-    searching:false,
-    info:false,
+    searching: false,
+    info: false,
     columnDefs: [
       {
         targets: -1,
@@ -411,7 +411,7 @@ $(document).ready(function () {
                 tipo,
               ])
               .draw()
-            buscarsubtotal(folio);
+            buscarsubtotal(folio)
           } else {
             Swal.fire({
               title: 'Operacion No Exitosa',
@@ -507,6 +507,58 @@ $(document).ready(function () {
     }
   })
 
+  //borrar item grid
+  $(document).on('click', '.btnborrarProd', function (event) {
+    event.preventDefault();
+
+    folio = $('#folio').val()
+    fila = $(this);
+
+    id = parseInt($(this).closest("tr").find('td:eq(0)').text());
+
+    console.log(id)
+
+    if (id.length == 0) {
+      Swal.fire({
+        title: 'Datos Faltantes',
+        text: 'Debe ingresar todos los datos',
+        icon: 'warning',
+      })
+      return false
+    } else {
+      opcion = 3
+      $.ajax({
+        url: 'bd/crudtmpdetalle.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          id: id,
+          folio: folio,
+          opcion: opcion,
+        },
+        success: function (data) {
+          if (data != 0) {
+            tablaDet.row(fila.parents('tr')).remove().draw()
+
+            buscarsubtotal(folio)
+          } else {
+            Swal.fire({
+              title: 'Operacion No Exitosa',
+              icon: 'warning',
+            })
+          }
+        },
+        error: function () {
+          Swal.fire({
+            title: 'Operacion No Exitosa',
+            icon: 'warning',
+          })
+        },
+      })
+    }
+  })
+
+
   function buscarsubtotal(folio) {
     $.ajax({
       type: 'POST',
@@ -528,7 +580,7 @@ $(document).ready(function () {
   $(document).on('click', '#btnGuardar', function () {
     fecha = $('#fecha').val()
     folio = $('#folio').val()
-    foliovta=$('#foliovta').val()
+    foliovta = $('#foliovta').val()
     idclie = $('#idclie').val()
     cliente = $('#cliente').val()
     idcol = $('#idcol').val()
@@ -537,10 +589,8 @@ $(document).ready(function () {
     subtotal = $('#subtotal').val()
     descuento = $('#descuento').val()
     total = $('#total').val()
-    
-    
-    usuario = $('#nameuser').val()
 
+    usuario = $('#nameuser').val()
 
     if (
       idclie.length == 0 ||
@@ -583,25 +633,25 @@ $(document).ready(function () {
                 icon: 'success',
                 timer: 1000,
               })
-              window.setTimeout(function() {
-              window.location.href = 'venta.php?folio='+data
-            }, 2500);
+              window.setTimeout(function () {
+                window.location.href = 'venta.php?folio=' + data
+              }, 2500)
             } else {
               Swal.fire({
                 title: 'Operacion No Exitosa',
                 icon: 'warning',
               })
             }
-          },error: function(){
+          },
+          error: function () {
             Swal.fire({
               title: 'Operacion No Exitosa',
               icon: 'warning',
             })
-          }
+          },
         })
       } else {
-
-/* MODIFICAR VENTA
+        /* MODIFICAR VENTA
         opcion = 2
         $.ajax({
           url: 'bd/crudregistro.php',
@@ -633,8 +683,6 @@ $(document).ready(function () {
           },
         })
 */
-
-        
       }
     }
   })
@@ -782,7 +830,6 @@ $(document).ready(function () {
     $('#modalcol').modal('hide')
   })
 
-
   //monto de descuento
   document.getElementById('descuento').onblur = function () {
     descuento = $('#descuento').val().replace(/,/g, '')
@@ -808,10 +855,8 @@ $(document).ready(function () {
     }
   }
 
-
-
   //metodo de pago
-/*
+  /*
   $(document).on('change', '#metodo', function () {
     //console.log($('#metodo').children("option:selected").text())
     if ($('#metodo').val() == '01') {
@@ -845,7 +890,7 @@ $(document).ready(function () {
   }
 */
 
-/*
+  /*
   document.getElementById('pago').onblur = function () {
     pago = $('#pago').val().replace(/,/g, '')
     montoapagar = $('#montoapagar').val().replace(/,/g, '')
@@ -875,7 +920,7 @@ $(document).ready(function () {
   }
 
 */
-/*
+  /*
   function monto_excedido(){
     Swal.fire({
       title: 'Monto a Pagar no Valido',
@@ -891,21 +936,21 @@ $(document).ready(function () {
     })
   }
 */
-  function descuento_excedido(){
+  function descuento_excedido() {
     Swal.fire({
       title: 'Descuento no Valido',
-      text:'El descuento no puede exceder el monto de la venta',
+      text: 'El descuento no puede exceder el monto de la venta',
       icon: 'warning',
     })
   }
 
-  function descuento_no_valido(){
+  function descuento_no_valido() {
     Swal.fire({
       title: 'Descuento no Valido',
       icon: 'warning',
     })
   }
-/*
+  /*
   function pago_insuficiente(){
     Swal.fire({
       title: 'Pago Insuficiente',

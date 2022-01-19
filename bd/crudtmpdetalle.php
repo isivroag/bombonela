@@ -41,7 +41,13 @@ switch($opcion){
         
         break;        
     case 3://baja
-                   
+        $data=0;
+        $consulta = "DELETE FROM tmpdet_cxc where id_reg='$id'";
+        $resultado = $conexion->prepare($consulta);
+        if ($resultado->execute()){
+            $data=1;
+        }
+        
         break;        
 }
 
