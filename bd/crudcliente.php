@@ -26,40 +26,47 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 //$id_cita = (isset($_POST['id_cita'])) ? $_POST['id_cita'] : '';
 
 
-switch($opcion){
+switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO wcliente (nom_clie,gen_clie,nac_clie,curp_clie,rfc_clie,dir_clie,tel_clie,correo_clie,ws_clie,ocupacion_clie,niv_clie,ecivil_clie) 
-        VALUES('$nom','$genero','$fecha_nac','$curp','$rfc','$direccion','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil') ";
+        $consulta = "INSERT INTO wcliente (nom_clie,gen_clie,nac_clie,curp_clie,rfc_clie,dir_clie,tel_clie,correo_clie,ws_clie,ocupacion_clie,niv_clie,ecivil_clie,medio_clie) 
+        VALUES('$nom','$genero','$fecha_nac','$curp','$rfc','$direccion','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil','$medio') ";
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute(); 
+        $resultado->execute();
 
         $consulta = "SELECT * FROM wcliente ORDER BY id_clie DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+        $conexion = NULL;
         break;
     case 2: //modificación
         $consulta = "UPDATE wcliente SET nom_clie='$nom',gen_clie='$genero',nac_clie='$fecha_nac',curp_clie='$curp',rfc_clie='$rfc',
         dir_clie='$direccion',tel_clie='$telefono',correo_clie='$correo',ws_clie='$whatsapp',ocupacion_clie='$ocupacion',niv_clie='$estudios',
-        ecivil_clie='$edocovol' WHERE id_clie='$id' ";		
+        ecivil_clie='$edocivil', medio_clie='$medio' WHERE id_clie='$id' ";
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute();        
-        
-        $consulta = "SELECT * FROM wcliente WHERE id_clie='$id' ";       
-        $resultado = $conexion->prepare($consulta);
-        $resultado->execute();
-        $data=$resultado->fetchAll(PDO::FETCH_ASSOC);
-        break;        
-    case 3://baja
+        if ($resultado->execute()) {
+            $consulta2 = "SELECT * FROM wcliente WHERE id_clie='$id' ";
+            $resultado2 = $conexion->prepare($consulta2);
+            $resultado2->execute();
+            $data = $resultado2->fetchAll(PDO::FETCH_ASSOC);
+
+            print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+            $conexion = NULL;
+        }
+
+
+        break;
+    case 3: //baja
         $consulta = "UPDATE wcliente SET estado_clie=0 WHERE id_clie='$id' ";
         $resultado = $conexion->prepare($consulta);
-        $resultado->execute(); 
-        $data=1;                          
-        break;   
+        $resultado->execute();
+        $data = 1;
+        print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+        $conexion = NULL;
+        break;
     case 4:
-      
+
         break;
 }
-
-print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
-$conexion = NULL;

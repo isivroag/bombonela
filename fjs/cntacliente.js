@@ -128,9 +128,7 @@ $(document).ready(function () {
     estudios = $('#nivelestudios').val()
     edocivil = $('#edocivil').val()
     medio = $('#medio').val()
-    console.log(id)
-    console.log(opcion)
-    console.log(medio)
+
 
     if (nombre.length == 0 || whatsapp.length == 0 || fechanac.length == 0) {
       Swal.fire({
@@ -158,6 +156,7 @@ $(document).ready(function () {
           estudios: estudios,
           edocivil: edocivil,
           id: id,
+          medio: medio,
           opcion: opcion,
         },
         success: function (data) {
