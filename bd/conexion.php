@@ -7,7 +7,12 @@
             define('bd_nombre','tecniemc_bombonela_ver');
             define('usuario','tecniemc_ivan');
             define('password','66obispo.colima');
-
+/*
+            define('servidor','192.168.100.114');
+            define('bd_nombre','bombonela');
+            define('usuario','root');
+            define('password','tecniem');
+*/
             $opciones=array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
 
             try{

@@ -313,6 +313,7 @@ $(document).ready(function () {
         url: 'bd/crudpago.php',
         type: 'POST',
         dataType: 'json',
+        async:false,
         data: {
           foliocxc: foliocxc,
           fechapago: fechapago,

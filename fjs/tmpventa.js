@@ -590,7 +590,8 @@ $(document).ready(function () {
     descuento = $('#descuento').val()
     total = $('#total').val()
 
-    usuario = $('#nameuser').val()
+    usuario = $('#iduser').val()
+   
 
     if (
       idclie.length == 0 ||
@@ -612,6 +613,7 @@ $(document).ready(function () {
           url: 'bd/crudtmpventa.php',
           type: 'POST',
           dataType: 'json',
+          async:false,
           data: {
             folio: folio,
             fecha: fecha,
@@ -645,7 +647,7 @@ $(document).ready(function () {
           },
           error: function () {
             Swal.fire({
-              title: 'Operacion No Exitosa',
+              title: 'Error en funcion',
               icon: 'warning',
             })
           },

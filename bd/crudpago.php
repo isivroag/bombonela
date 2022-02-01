@@ -2,6 +2,7 @@
 include_once 'conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
+date_default_timezone_set('America/Mexico_City');
 
 // Recepción de los datos enviados mediante POST desde el JS   
 
@@ -21,6 +22,7 @@ $letras = (isset($_POST['letras'])) ? $_POST['letras'] : '';
 
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $data=0;
+$fechapago=$fechapago." " .date("H:i:s");
 switch($opcion){
     case 1: //alta
 

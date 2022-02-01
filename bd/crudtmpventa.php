@@ -28,7 +28,7 @@ switch ($opcion) {
 
         $consulta = "UPDATE tmpcxc SET id_clie= '$idclie',nom_clie='$cliente',fecha='$fecha',id_col='$idcol',
         nom_col='$colaborador',concepto='$obs',subtotal='$subtotal',descuento='$descuento',
-        total='$total',usuarioalt='$usuario' WHERE folio='$folio'";
+        total='$total' WHERE folio='$folio'";
         $resultado = $conexion->prepare($consulta);
 
         if ($resultado->execute()) {
