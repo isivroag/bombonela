@@ -17,6 +17,15 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
+
+
+$cntam = "SELECT * FROM wmedios WHERE estado_medio=1 ORDER BY id_medio";
+$res = $conexion->prepare($cntam);
+$res->execute();
+$datamedio = $res->fetchAll(PDO::FETCH_ASSOC);
+
+
+
 $message = "";
 
 
@@ -37,7 +46,7 @@ $message = "";
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-green text-light">
-                <h1 class="card-title mx-auto">Pacientes</h1>
+                <h1 class="card-title mx-auto">CLIENTES</h1>
             </div>
 
             <div class="card-body">
@@ -69,6 +78,7 @@ $message = "";
                                             <th>OCUPACION</th>
                                             <th>NIVEL</th>
                                             <th>ESTADO CIVIL</th>
+                                            <th>MEDIO</th>
                                             <th>ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -90,7 +100,7 @@ $message = "";
                                                 <td><?php echo $dat['ocupacion_clie'] ?></td>
                                                 <td><?php echo $dat['niv_clie'] ?></td>
                                                 <td><?php echo $dat['ecivil_clie'] ?></td>
-
+                                                <td><?php echo $dat['medio_clie'] ?></td>
 
                                                 <td></td>
                                             </tr>
@@ -210,6 +220,22 @@ $message = "";
                                         <input type="text" class="form-control" name="edocivil" id="edocivil" autocomplete="off" placeholder="Estado Civil">
                                     </div>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="medio" class="col-form-label">Medio por el que nos conocio:</label>
+                                        <select class="form-control" name="medio" id="medio">
+                                            <?php
+                                            foreach ($datamedio as $dtt) {
+                                            ?>
+                                                <option id="<?php echo $dtt['id_medio'] ?>" value="<?php echo $dtt['nom_medio'] ?>"> <?php echo $dtt['nom_medio'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                     </div>
 
@@ -229,7 +255,7 @@ $message = "";
                     ?>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
-                        <button type="submit" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
+                        <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="btnGuardar"><i class="far fa-save"></i> Guardar</button>
                     </div>
                     </form>
                 </div>
@@ -241,7 +267,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntacliente.js"></script>
+<script src="fjs/cntacliente.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

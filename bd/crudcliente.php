@@ -16,13 +16,15 @@ $whatsapp = (isset($_POST['whatsapp'])) ? $_POST['whatsapp'] : '';
 $ocupacion = (isset($_POST['ocupacion'])) ? $_POST['ocupacion'] : '';
 $estudios = (isset($_POST['estudios'])) ? $_POST['estudios'] : '';
 $edocivil = (isset($_POST['edocivil'])) ? $_POST['edocivil'] : '';
+$medio = (isset($_POST['medio'])) ? $_POST['medio'] : '';
 
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 
-$id_pros = (isset($_POST['id_pros'])) ? $_POST['id_pros'] : '';
-$id_cita = (isset($_POST['id_cita'])) ? $_POST['id_cita'] : '';
+//$id_pros = (isset($_POST['id_pros'])) ? $_POST['id_pros'] : '';
+//$id_cita = (isset($_POST['id_cita'])) ? $_POST['id_cita'] : '';
+
 
 switch($opcion){
     case 1: //alta
