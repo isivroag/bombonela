@@ -210,7 +210,7 @@ $message = "";
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
                                         <label for="nivelestudios" class="col-form-label">Nivel de Estudios:</label>
-                                        <input type="text" class="form-control" name="nivelestudios" id="nivelestudios" autocomplete="off" placeholder="Tipo de Relación">
+                                        <input type="text" class="form-control" name="nivelestudios" id="nivelestudios" autocomplete="off" placeholder="Nivel de Estudios">
                                     </div>
                                 </div>
 
