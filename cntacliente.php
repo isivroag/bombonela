@@ -194,7 +194,7 @@ $message = "";
 
                                 <div class="col-sm-3">
                                     <div class="form-group input-group-sm">
-                                        <label for="cel" class="col-form-label">Whasapp:</label>
+                                        <label for="cel" class="col-form-label">Whatsapp/Cel:</label>
                                         <input type="text" class="form-control" name="cel" id="cel" autocomplete="off" placeholder="Whatsapp">
                                     </div>
                                 </div>

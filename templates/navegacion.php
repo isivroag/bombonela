@@ -39,8 +39,8 @@
           </a>
         </li>
         
-        <li class="nav-item  has-treeview <?php echo ($pagina == 'cliente' ) ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link  <?php echo ($pagina == 'cliente' ) ? "active" : ""; ?>">
+        <li class="nav-item  has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'personal' ) ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link  <?php echo ($pagina == 'cliente' || $pagina == 'personal') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-bars "></i>
             <p>
               Catalogos
@@ -50,7 +50,12 @@
 
 
           <ul class="nav nav-treeview">
-           
+          <li class="nav-item">
+              <a href="cntapersonal.php" class="nav-link <?php echo ($pagina == 'personal') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-user-md nav-icon"></i>
+                <p>Personal</p>
+              </a>
+            </li>
       
             <li class="nav-item">
               <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
@@ -68,10 +73,10 @@
 
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' ) ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' ) ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class="fas fa-file-invoice-dollar nav-icon"></i>
 
@@ -82,6 +87,13 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+              <a href="calendario.php" class="nav-link <?php echo ($pagina == 'calendario') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-calendar-alt nav-icon"></i>
+                <p>Agenda</p>
+              </a>
+            </li>
 
             <li class="nav-item">
               <a href="tmpventa.php" class="nav-link <?php echo ($pagina == 'tmpventa') ? "active seleccionado" : ""; ?>  ">
