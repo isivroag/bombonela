@@ -45,4 +45,4 @@ include_once "templates/navegacion.php";
 <?php
 include_once 'templates/footer.php';
 ?>
-<script src="fjs/cards.js"></script>
+<script src="fjs/cards.js?v=<?php echo (rand()); ?>"></script>

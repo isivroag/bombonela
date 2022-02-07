@@ -194,7 +194,7 @@ $message = "";
                     <?php
                     foreach ($datai as $dti) {
                     ?>
-                      <option id="<?php echo $dti['id_per'] ?>" value="<?php echo $dti['id_per'] ?>"> <?php echo $dti['nombre'] ?></option>
+                      <option id="<?php echo $dti['id_col'] ?>" value="<?php echo $dti['id_col'] ?>"> <?php echo $dti['nom_col'] ?></option>
 
                     <?php
                     }
@@ -305,9 +305,9 @@ $message = "";
                   ?>
                     <tr>
                       <td><?php echo $datc['id_pros'] ?></td>
-                      <td><?php echo $datc['nombre'] ?></td>
-                      <td><?php echo $datc['tel'] ?></td>
-                      <td><?php echo $datc['cel'] ?></td>
+                      <td><?php echo $datc['nom_pros'] ?></td>
+                      <td><?php echo $datc['tel_pros'] ?></td>
+                      <td><?php echo $datc['cel_pros'] ?></td>
 
                       <td></td>
                     </tr>
@@ -370,7 +370,7 @@ $message = "";
                     <?php
                     foreach ($datai as $dti) {
                     ?>
-                      <option id="<?php echo $dti['id_per'] ?>" value="<?php echo $dti['id_per'] ?>"> <?php echo $dti['nombre'] ?></option>
+                      <option id="<?php echo $dti['id_col'] ?>" value="<?php echo $dti['id_col'] ?>"> <?php echo $dti['nom_col'] ?></option>
 
                     <?php
                     }
@@ -550,7 +550,7 @@ $message = "";
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/citap.js"></script>
+<script src="fjs/citap.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>

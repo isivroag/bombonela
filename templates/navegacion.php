@@ -56,6 +56,13 @@
                 <p>Personal</p>
               </a>
             </li>
+
+            <li class="nav-item">
+              <a href="cntaprospecto.php" class="nav-link <?php echo ($pagina == 'prospectos') ? "active seleccionado" : ""; ?>  ">
+                <i class="fas fa-id-card nav-icon"></i>
+                <p>Prospecto</p>
+              </a>
+            </li>
       
             <li class="nav-item">
               <a href="cntacliente.php" class="nav-link <?php echo ($pagina == 'cliente') ? "active seleccionado" : ""; ?>  ">
