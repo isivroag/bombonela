@@ -23,13 +23,13 @@ $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
 
 
-$consultacx = "SELECT * FROM paciente order by id_px";
+$consultacx = "SELECT * FROM wcliente where estado_clie='1' order by id_clie";
 $resultadocx = $conexion->prepare($consultacx);
 $resultadocx->execute();
 $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
 
 
-$consultai = "SELECT * FROM colaborador WHERE estado_col =1 ORDER BY id_col";
+$consultai = "SELECT * FROM colaborador WHERE estado_col ='1' ORDER BY id_col";
 $resultadoi = $conexion->prepare($consultai);
 $resultadoi->execute();
 $datai = $resultadoi->fetchAll(PDO::FETCH_ASSOC);
@@ -59,7 +59,8 @@ $message = "";
 <style>
   .fc-bootstrap .fc-today.alert {
     border-radius: 0 !important;
-    background: #B5F2E3 !important;
+    /*background: #B5F2E3 !important;*/
+    background: #C8EFBE !important;
   }
 
   .punto {
@@ -122,8 +123,8 @@ $message = "";
       <div class="row">
         <div class="col-lg-12">
 
-          <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
-          <button id="btnNuevox" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Paciente</span></button>
+          <button id="btnNuevo" type="button"  class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Prospecto</span></button>
+          <button id="btnNuevox" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Cliente</span></button>
         </div>
       </div>
       <br>
@@ -162,8 +163,8 @@ $message = "";
     <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-gradient-green">
-            <h5 class="modal-title" id="exampleModalLabel">Agendar Cita Contacto</h5>
+          <div class="modal-header bg-gradient-info">
+            <h5 class="modal-title" id="exampleModalLabel">Agendar Cita Prospecto</h5>
 
           </div>
           <form id="formDatos" action="" method="POST">
@@ -175,11 +176,11 @@ $message = "";
                   <input type="hidden" class="form-control" name="tipop" id="tipop" value="0">
                   <input type="hidden" class="form-control" name="folio" id="folio">
                   <input type="hidden" class="form-control" name="id_pros" id="id_pros">
-                  <label for="nombre" class="col-form-label">Contacto:</label>
+                  <label for="nombre" class="col-form-label">Prospecto:</label>
 
                   <div class="input-group ">
 
-                    <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Contacto">
+                    <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto">
                     <span class="input-group-append">
                       <button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
                     </span>
@@ -283,14 +284,14 @@ $message = "";
       <div class="modal fade" id="modalProspecto" tabindex="-7" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl " role="document">
           <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-green">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR CONTACTO</h5>
+            <div class="modal-header bg-gradient-info">
+              <h5 class="modal-title" id="exampleModalLabel">BUSCAR PROSPECTO</h5>
 
             </div>
             <br>
             <div class="table-hover table-responsive w-auto" style="padding:15px">
               <table name="tablaC" id="tablaC" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
-                <thead class="text-center">
+                <thead class="text-center bg-gradient-info">
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
@@ -338,8 +339,8 @@ $message = "";
     <div class="modal fade" id="modalpx" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header bg-gradient-info">
-            <h5 class="modal-title" id="exampleModalLabel">Agendar Cita Pacientes</h5>
+          <div class="modal-header bg-gradient-green">
+            <h5 class="modal-title" id="exampleModalLabel">Agendar Cita Cliente</h5>
 
           </div>
           <form id="formDatospx" action="" method="POST">
@@ -351,11 +352,11 @@ $message = "";
                   <input type="hidden" class="form-control" name="tipopx" id="tipopx" value="1">
                   <input type="hidden" class="form-control" name="foliox" id="foliox">
                   <input type="hidden" class="form-control" name="id_prosx" id="id_prosx">
-                  <label for="nombrex" class="col-form-label">Paciente:</label>
+                  <label for="nombrex" class="col-form-label">Cliente:</label>
 
                   <div class="input-group">
 
-                    <input type="text" class="form-control" name="nom_prosx" id="nom_prosx" autocomplete="off" placeholder="Paciente">
+                    <input type="text" class="form-control" name="nom_prosx" id="nom_prosx" autocomplete="off" placeholder="Cliente">
                     <span class="input-group-append">
                       <button id="bclientex" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
                     </span>
@@ -457,14 +458,14 @@ $message = "";
       <div class="modal fade" id="modalProspectox" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl " role="document">
           <div class="modal-content w-auto">
-            <div class="modal-header bg-gradient-info">
-              <h5 class="modal-title" id="exampleModalLabel">BUSCAR PACIENTE</h5>
+            <div class="modal-header bg-gradient-green">
+              <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
 
             </div>
             <br>
             <div class="table-hover table-responsive w-auto" style="padding:15px">
               <table name="tablaCx" id="tablaCx" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
-                <thead class="text-center bg-gradient-info">
+                <thead class="text-center bg-gradient-green">
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
@@ -478,10 +479,10 @@ $message = "";
                   foreach ($datacx as $datcx) {
                   ?>
                     <tr>
-                      <td><?php echo $datcx['id_px'] ?></td>
-                      <td><?php echo $datcx['nom'] ?></td>
-                      <td><?php echo $datcx['telefono'] ?></td>
-                      <td><?php echo $datcx['whatsapp'] ?></td>
+                      <td><?php echo $datcx['id_clie'] ?></td>
+                      <td><?php echo $datcx['nom_clie'] ?></td>
+                      <td><?php echo $datcx['tel_clie'] ?></td>
+                      <td><?php echo $datcx['ws_clie'] ?></td>
 
                       <td></td>
                     </tr>
