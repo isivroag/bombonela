@@ -17,7 +17,7 @@ $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
 
-$consultac = "SELECT * FROM prospecto where id_clie=0 order by id_pros";
+$consultac = "SELECT * FROM prospecto where id_clie=0 and estado_pros =1 order by id_pros";
 $resultadoc = $conexion->prepare($consultac);
 $resultadoc->execute();
 $datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);

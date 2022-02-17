@@ -33,6 +33,13 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
+
+        $consulta = "INSERT INTO cliente (nom_clie,gen_clie,nac_clie,rfc_clie,tel_clie,correo_clie,cel_clie,ocupacion_clie,niv_clie,ecivil_clie) 
+        VALUES('$nom','$genero','$fecha_nac','$rfc','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil') ";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+
         $consulta = "SELECT * FROM wcliente ORDER BY id_clie DESC LIMIT 1";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
@@ -46,7 +53,18 @@ switch ($opcion) {
         dir_clie='$direccion',tel_clie='$telefono',correo_clie='$correo',ws_clie='$whatsapp',ocupacion_clie='$ocupacion',niv_clie='$estudios',
         ecivil_clie='$edocivil', medio_clie='$medio' WHERE id_clie='$id' ";
         $resultado = $conexion->prepare($consulta);
+
+
+
+
         if ($resultado->execute()) {
+
+            $consulta = "UPDATE cliente SET nom_clie='$nom',gen_clie='$genero',nac_clie='$fecha_nac',rfc_clie='$rfc',
+            tel_clie='$telefono',correo_clie='$correo',cel_clie='$whatsapp',ocupacion_clie='$ocupacion',niv_clie='$estudios',
+            ecivil_clie='$edocivil' WHERE id_clie='$id' ";
+            $resultado = $conexion->prepare($consulta);
+            $resultado->execute();
+            
             $consulta2 = "SELECT * FROM wcliente WHERE id_clie='$id' ";
             $resultado2 = $conexion->prepare($consulta2);
             $resultado2->execute();

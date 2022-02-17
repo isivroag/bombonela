@@ -39,8 +39,8 @@
           </a>
         </li>
         
-        <li class="nav-item  has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'personal' ) ? "menu-open" : ""; ?>">
-          <a href="#" class="nav-link  <?php echo ($pagina == 'cliente' || $pagina == 'personal') ? "active" : ""; ?>">
+        <li class="nav-item  has-treeview <?php echo ($pagina == 'cliente' || $pagina == 'personal' || $pagina == 'prospectos' ) ? "menu-open" : ""; ?>">
+          <a href="#" class="nav-link  <?php echo ($pagina == 'cliente' || $pagina == 'personal' || $pagina == 'prospectos') ? "active" : ""; ?>">
             <i class="nav-icon fas fa-bars "></i>
             <p>
               Catalogos
