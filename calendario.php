@@ -129,9 +129,30 @@ $message = "";
       </div>
       <br>
       <div class="row">
+        <div class="col-sm-2">
+          <div class="table-responsive">
+            <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+              <thead class="text-center bg-gradient-green">
+                <tr>
+               
+                  <th>Colaborador</th>
+                  <th>Color</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($datai as $dat) { ?>
+                  <tr>
+                    <td><?php echo $dat['nom_col']; ?></td>
 
+                    <td><?php echo $dat['color_col']; ?></td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <!-- /.col -->
-        <div class="col-md-8 mx-auto">
+        <div class="col-md-8 ">
           <div class="card card-primary">
 
             <div class="card-body p-0">
@@ -414,7 +435,7 @@ $message = "";
                   <label for="fechax" class="col-form-label">Fecha Y Hora:</label>
 
                   <div class="form-group input-group date" id="datetimepicker1x" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fechax" name="fechax" class="form-control datetimepicker-input "   style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1x" autocomplete="off" placeholder="Fecha y Hora">
+                    <input type="text" id="fechax" name="fechax" class="form-control datetimepicker-input " style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1x" autocomplete="off" placeholder="Fecha y Hora">
                     <div class="form-group input-group-append " data-target="#datetimepicker1x" data-toggle="datetimepicker">
                       <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
                     </div>
