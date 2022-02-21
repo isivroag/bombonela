@@ -14,6 +14,7 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $tipop = (isset($_POST['tipop'])) ? $_POST['tipop'] : '';
 $responsable = (isset($_POST['responsable'])) ? $_POST['responsable'] : '';
+$duracion = (isset($_POST['duracion'])) ? $_POST['duracion'] : '';
 
 $concepto = ucfirst(strtolower($concepto));
 $obs = ucfirst(strtolower($obs));
@@ -26,11 +27,11 @@ switch ($opcion) {
                 $resultado->execute();
                 if ($resultado->rowCount()==0){
                         if ($tipop==0){
-                                $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha')";
+                                $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 if ($resultado->rowCount()==0){
-                                        $consulta = "INSERT INTO citap (id_pros,id_px,fecha,concepto,obs,tipo_p,id_per) VALUES('$id_pros','0', '$fecha', '$concepto','$obs','$tipop','$responsable') ";
+                                        $consulta = "INSERT INTO citap (id_pros,id_px,fecha,concepto,obs,tipo_p,id_per,duracion) VALUES('$id_pros','0', '$fecha', '$concepto','$obs','$tipop','$responsable','$duracion') ";
                                 }else{
                                         $data=0;
                                         break;
@@ -40,7 +41,7 @@ switch ($opcion) {
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 if ($resultado->rowCount()==0){
-                                        $consulta = "INSERT INTO citap (id_pros,id_px,fecha,concepto,obs,tipo_p,id_per) VALUES('0','$id_pros', '$fecha', '$concepto','$obs','$tipop','$responsable') ";
+                                        $consulta = "INSERT INTO citap (id_pros,id_px,fecha,concepto,obs,tipo_p,id_per,duracion) VALUES('0','$id_pros', '$fecha', '$concepto','$obs','$tipop','$responsable','$duracion') ";
                                 }else{
                                         $data=0;
                                         break;

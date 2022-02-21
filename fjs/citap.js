@@ -106,6 +106,7 @@ $(document).ready(function () {
                             $("#responsable").val(data[0].id_per);
                             $("#fecha").val(data[0].start);
                             $("#obs").val(data[0].obs);
+                            $("#duracion").val(data[0].duracion);
                             $('#btnCancelarcta').show();
                             $('#btnGuardar').hide();
 
@@ -120,6 +121,7 @@ $(document).ready(function () {
                             $("#responsablex").val(data[0].id_per);
                             $("#fechax").val(data[0].start);
                             $("#obsx").val(data[0].obs);
+                            $("#duracionx").val(data[0].duracion);
                             $('#btnCancelarctax').show();
                             $('#btnGuardarx').hide();
                             
@@ -280,15 +282,15 @@ $(document).ready(function () {
         var id = $.trim($("#folio").val());
         var tipop = $.trim($("#tipop").val());
         var responsable = $.trim($("#responsable").val());
-        console.log(responsable);
-
+        var duracion = $.trim($("#duracion").val());
+     
 
         $.ajax({
             url: "bd/citasp.php",
             type: "POST",
             dataType: "json",
             async: "false",
-            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable },
+            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable, duracion: duracion },
             success: function (data) {
                 if (data == 1) {
                     console.log(data);
@@ -325,6 +327,7 @@ $(document).ready(function () {
         var id = $.trim($("#foliox").val());
         var tipop = $.trim($("#tipopx").val());
         var responsable = $.trim($("#responsablex").val());
+        var duracion = $.trim($("#duracionx").val());
 
         console.log(responsable);
 
@@ -332,7 +335,7 @@ $(document).ready(function () {
             url: "bd/citasp.php",
             type: "POST",
             dataType: "json",
-            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable },
+            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable,duracion: duracion },
             success: function (data) {
                 if (data == 1) {
                     console.log(data);

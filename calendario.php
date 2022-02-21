@@ -10,7 +10,7 @@ include_once "templates/navegacion.php";
 include_once 'bd/conexion.php';
 $objeto = new conn();
 $conexion = $objeto->connect();
-$fecha=date('Y-m-d');
+$fecha = date('Y-m-d');
 
 $consulta = "SELECT * FROM vcitap2 where estado<>3 and estado<>4 order by folio_citap";
 $resultado = $conexion->prepare($consulta);
@@ -123,7 +123,7 @@ $message = "";
       <div class="row">
         <div class="col-lg-12">
 
-          <button id="btnNuevo" type="button"  class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Prospecto</span></button>
+          <button id="btnNuevo" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Prospecto</span></button>
           <button id="btnNuevox" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Cliente</span></button>
         </div>
       </div>
@@ -172,7 +172,7 @@ $message = "";
 
 
               <div class="col-sm-12">
-                <div class="form-group">
+                <div class="form-group input-group-sm">
                   <input type="hidden" class="form-control" name="tipop" id="tipop" value="0">
                   <input type="hidden" class="form-control" name="folio" id="folio">
                   <input type="hidden" class="form-control" name="id_pros" id="id_pros">
@@ -180,7 +180,7 @@ $message = "";
 
                   <div class="input-group ">
 
-                    <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto">
+                    <input type="text" class="form-control" name="nom_pros" id="nom_pros" autocomplete="off" placeholder="Prospecto" readonly>
                     <span class="input-group-append">
                       <button id="bcliente" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
                     </span>
@@ -189,7 +189,7 @@ $message = "";
               </div>
 
               <div class="col-sm-12">
-                <div class="form-group auto">
+                <div class="form-group input-group-sm">
                   <label for="responsable" class="col-form-label">Responsable:</label>
                   <select class="form-control" name="responsable" id="responsable">
                     <?php
@@ -205,20 +205,30 @@ $message = "";
               </div>
 
 
-              <div class="col-sm-8">
-                <div class="form-group">
+              <div class="col-sm-6">
+                <div class="form-group input-group-sm">
                   <label for="concepto" class="col-form-label">Concepto Cita</label>
                   <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto de Cita">
                 </div>
               </div>
 
+              <div class="col-sm-2">
+                <div class="form-group input-group-sm auto">
+                  <label for="duracion" class="col-form-label">Duración(min.):</label>
+                  <select class="form-control" name="duracion" id="duracion">
+                    <option id="t30" value="30"> 30</option>
+                    <option id="t60" value="60"> 60</option>
+                  </select>
+                </div>
+              </div>
+
               <div class="col-sm-4">
-                <div class="form-group">
+                <div class="form-group input-group-sm">
                   <label for="fecha" class="col-form-label">Fecha Y Hora:</label>
 
-                  <div class="input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fecha" name="fecha" class="form-control datetimepicker-input " data-target="#datetimepicker1" autocomplete="off" placeholder="Fecha y Hora">
-                    <div class="input-group-append " data-target="#datetimepicker1" data-toggle="datetimepicker">
+                  <div class="form-group input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
+                    <input type="text" id="fecha" name="fecha" class="form-control datetimepicker-input " style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1" autocomplete="off" placeholder="Fecha y Hora">
+                    <div class="form-group input-group-append " data-target="#datetimepicker1" data-toggle="datetimepicker">
                       <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
@@ -348,7 +358,7 @@ $message = "";
 
 
               <div class="col-sm-12">
-                <div class="form-group">
+                <div class="form-group input-group-sm">
                   <input type="hidden" class="form-control" name="tipopx" id="tipopx" value="1">
                   <input type="hidden" class="form-control" name="foliox" id="foliox">
                   <input type="hidden" class="form-control" name="id_prosx" id="id_prosx">
@@ -356,7 +366,7 @@ $message = "";
 
                   <div class="input-group">
 
-                    <input type="text" class="form-control" name="nom_prosx" id="nom_prosx" autocomplete="off" placeholder="Cliente">
+                    <input type="text" class="form-control" name="nom_prosx" id="nom_prosx" autocomplete="off" placeholder="Cliente" readonly>
                     <span class="input-group-append">
                       <button id="bclientex" type="button" class="btn btn-primary "><i class="fas fa-search"></i></button>
                     </span>
@@ -365,7 +375,7 @@ $message = "";
               </div>
 
               <div class="col-sm-12">
-                <div class="form-group  auto">
+                <div class="form-group  input-group-sm">
                   <label for="responsablex" class="col-form-label">Responsable:</label>
                   <select class="form-control" name="responsablex" id="responsablex">
                     <?php
@@ -381,20 +391,31 @@ $message = "";
               </div>
 
 
-              <div class="col-sm-8">
-                <div class="form-group">
+              <div class="col-sm-6">
+                <div class="form-group input-group-sm">
                   <label for="conceptox" class="col-form-label">Concepto Cita</label>
                   <input type="text" class="form-control" name="conceptox" id="conceptox" autocomplete="off" placeholder="Concepto de Cita">
                 </div>
               </div>
 
+              <div class="col-sm-2">
+                <div class="form-group input-group-sm auto">
+                  <label for="duracionx" class="col-form-label">Duración(min.):</label>
+                  <select class="form-control" name="duracion" id="duracionx">
+                    <option id="t30x" value="30"> 30</option>
+                    <option id="t60x" value="60"> 60</option>
+                  </select>
+                </div>
+              </div>
+
+
               <div class="col-sm-4">
-                <div class="form-group">
+                <div class="form-group input-group-sm">
                   <label for="fechax" class="col-form-label">Fecha Y Hora:</label>
 
-                  <div class="input-group date" id="datetimepicker1x" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fechax" name="fechax" class="form-control datetimepicker-input " data-target="#datetimepicker1x" autocomplete="off" placeholder="Fecha y Hora">
-                    <div class="input-group-append " data-target="#datetimepicker1x" data-toggle="datetimepicker">
+                  <div class="form-group input-group date" id="datetimepicker1x" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
+                    <input type="text" id="fechax" name="fechax" class="form-control datetimepicker-input "   style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1x" autocomplete="off" placeholder="Fecha y Hora">
+                    <div class="form-group input-group-append " data-target="#datetimepicker1x" data-toggle="datetimepicker">
                       <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
                     </div>
                   </div>
@@ -408,6 +429,8 @@ $message = "";
                     -->
                 </div>
               </div>
+
+
 
               <div class="col-sm-12">
                 <div class="form-group">

@@ -18,6 +18,9 @@ $estudios = (isset($_POST['estudios'])) ? $_POST['estudios'] : '';
 $edocivil = (isset($_POST['edocivil'])) ? $_POST['edocivil'] : '';
 $medio = (isset($_POST['medio'])) ? $_POST['medio'] : '';
 
+$referenciaid = (isset($_POST['referenciaid'])) ? $_POST['referenciaid'] : '';
+$referencia = (isset($_POST['referencia'])) ? $_POST['referencia'] : '';
+
 $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
@@ -28,8 +31,8 @@ $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 switch ($opcion) {
     case 1: //alta
-        $consulta = "INSERT INTO wcliente (nom_clie,gen_clie,nac_clie,curp_clie,rfc_clie,dir_clie,tel_clie,correo_clie,ws_clie,ocupacion_clie,niv_clie,ecivil_clie,medio_clie) 
-        VALUES('$nom','$genero','$fecha_nac','$curp','$rfc','$direccion','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil','$medio') ";
+        $consulta = "INSERT INTO wcliente (nom_clie,gen_clie,nac_clie,curp_clie,rfc_clie,dir_clie,tel_clie,correo_clie,ws_clie,ocupacion_clie,niv_clie,ecivil_clie,medio_clie,referenciaid,referencia) 
+        VALUES('$nom','$genero','$fecha_nac','$curp','$rfc','$direccion','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil','$medio','$referenciaid','$referencia') ";
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
 
@@ -51,7 +54,7 @@ switch ($opcion) {
     case 2: //modificación
         $consulta = "UPDATE wcliente SET nom_clie='$nom',gen_clie='$genero',nac_clie='$fecha_nac',curp_clie='$curp',rfc_clie='$rfc',
         dir_clie='$direccion',tel_clie='$telefono',correo_clie='$correo',ws_clie='$whatsapp',ocupacion_clie='$ocupacion',niv_clie='$estudios',
-        ecivil_clie='$edocivil', medio_clie='$medio' WHERE id_clie='$id' ";
+        ecivil_clie='$edocivil', medio_clie='$medio',referenciaid='$referenciaid',referencia='$referencia' WHERE id_clie='$id' ";
         $resultado = $conexion->prepare($consulta);
 
 

@@ -19,6 +19,7 @@ $(document).ready(function () {
       { className: 'hide_column', targets: [10] },
       { className: 'hide_column', targets: [11] },
       { className: 'hide_column', targets: [12] },
+     
     ],
     //Para cambiar el lenguaje a español
     language: {
@@ -68,6 +69,8 @@ $(document).ready(function () {
     estudios = fila.find('td:eq(11)').text()
     edocivil = fila.find('td:eq(12)').text()
     medio = fila.find('td:eq(13)').text()
+    referenciaid = fila.find('td:eq(14)').text()
+    referencia = fila.find('td:eq(15)').text()
 
     $('#nombre').val(nombre)
     $('#genero').val(genero)
@@ -82,6 +85,8 @@ $(document).ready(function () {
     $('#nivelestudios').val(estudios)
     $('#edocivil').val(edocivil)
     $('#medio').val(medio)
+    $('#id_prosx').val(referenciaid)
+    $('#nom_prosx').val(referencia)
     opcion = 2 //editar
 
     $('.modal-title').text('EDITAR CLIENTE')
@@ -128,7 +133,16 @@ $(document).ready(function () {
     estudios = $('#nivelestudios').val()
     edocivil = $('#edocivil').val()
     medio = $('#medio').val()
+    referenciaid = $.trim($("#id_prosx").val());
+    referencia = $.trim($("#nom_prosx").val());
+   if( referencia.length == 0){
+    referencia="ND"
 
+   }
+   if(referenciaid.length==0){
+    referenciaid=0
+   }
+   
 
     if (nombre.length == 0 || whatsapp.length == 0 || fechanac.length == 0) {
       Swal.fire({
@@ -156,6 +170,8 @@ $(document).ready(function () {
           estudios: estudios,
           edocivil: edocivil,
           id: id,
+          referenciaid: referenciaid,
+          referencia: referencia,
           medio: medio,
           opcion: opcion,
         },
@@ -176,6 +192,9 @@ $(document).ready(function () {
             estudios = data[0].niv_clie
             edocivil = data[0].ecivil_clie
             medio = data[0].medio_clie
+            referenciaid=data[0].referenciaid
+            referencia=data[0].referencia
+/*
             if (opcion == 1) {
               tablaVis.row
                 .add([
@@ -193,6 +212,8 @@ $(document).ready(function () {
                   estudios,
                   edocivil,
                   medio,
+                  referenciaid,
+                  referencia,
                 ])
                 .draw()
             } else {
@@ -213,9 +234,12 @@ $(document).ready(function () {
                   estudios,
                   edocivil,
                   medio,
+                  referenciaid,
+                  referencia,
                 ])
                 .draw()
-            }
+            }*/
+            window.location.reload()
             Swal.fire({
               title: 'Registro Guardado',
               text: '',
@@ -241,4 +265,58 @@ $(document).ready(function () {
       $('#modalCRUD').modal('hide')
     }
   })
+
+  tablaC = $("#tablaCx").DataTable({
+
+
+
+    "columnDefs": [{
+        "targets": -1,
+        "data": null,
+        "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelClientex'><i class='fas fa-hand-pointer'></i></button></div></div>"
+    }],
+
+    //Para cambiar el lenguaje a español
+    "language": {
+        "lengthMenu": "Mostrar _MENU_ registros",
+        "zeroRecords": "No se encontraron resultados",
+        "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sSearch": "Buscar:",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "sProcessing": "Procesando...",
+    }
+});
+
+
+  $(document).on("click", "#bclientex", function () {
+
+    $(".modal-header").css("background-color", "#007bff");
+    $(".modal-header").css("color", "white");
+
+    $("#modalProspectox").modal("show");
+    $('#btnCancelarctax').hide();
+
+});
+
+
+$(document).on("click", ".btnSelClientex", function () {
+  fila = $(this).closest("tr");
+
+  IdClientex = fila.find('td:eq(0)').text();
+  NomClientex = fila.find('td:eq(1)').text();
+
+
+  $("#id_prosx").val(IdClientex);
+  $("#nom_prosx").val(NomClientex);
+  $("#modalProspectox").modal("hide");
+
+});
+
 })

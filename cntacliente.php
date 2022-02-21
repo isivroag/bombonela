@@ -24,11 +24,22 @@ $res = $conexion->prepare($cntam);
 $res->execute();
 $datamedio = $res->fetchAll(PDO::FETCH_ASSOC);
 
+$cntae = "SELECT * FROM wnivele WHERE estado_nivele=1 ORDER BY id_nivele";
+$rese = $conexion->prepare($cntae);
+$rese->execute();
+$dataestudios = $rese->fetchAll(PDO::FETCH_ASSOC);
 
+$cntaestado = "SELECT * FROM westadoc WHERE estado_estadoc=1 ORDER BY id_estadoc";
+$resestado = $conexion->prepare($cntaestado);
+$resestado->execute();
+$dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
 
 $message = "";
 
-
+$consultacx = "SELECT * FROM wcliente where estado_clie='1' order by id_clie";
+$resultadocx = $conexion->prepare($consultacx);
+$resultadocx->execute();
+$datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -79,6 +90,8 @@ $message = "";
                                             <th>NIVEL</th>
                                             <th>ESTADO CIVIL</th>
                                             <th>MEDIO</th>
+                                            <th>REFERENCIAID</th>
+                                            <th>REFERENCIA</th>
                                             <th>ACCIONES</th>
                                         </tr>
                                     </thead>
@@ -101,6 +114,8 @@ $message = "";
                                                 <td><?php echo $dat['niv_clie'] ?></td>
                                                 <td><?php echo $dat['ecivil_clie'] ?></td>
                                                 <td><?php echo $dat['medio_clie'] ?></td>
+                                                <td><?php echo $dat['referenciaid'] ?></td>
+                                                <td><?php echo $dat['referencia'] ?></td>
 
                                                 <td></td>
                                             </tr>
@@ -145,9 +160,17 @@ $message = "";
                                 </div>
 
                                 <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
+                                    <!--  <div class="form-group input-group-sm">
                                         <label for="genero" class="col-form-label">Genero:</label>
                                         <input type="text" class="form-control" name="genero" id="genero" autocomplete="off" placeholder="Genero">
+                                    </div>
+                                    -->
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="genero" class="col-form-label">Genero:</label>
+                                        <select class="form-control" name="genero" id="genero">
+                                            <option id="FEMENINO" value="FEMENINO"> FEMENINO</option>
+                                            <option id="MASCULINO" value="MASCULINO"> MASCULINO</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -208,20 +231,49 @@ $message = "";
 
 
                                 <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
+                                    <!-- <div class="form-group input-group-sm">
                                         <label for="nivelestudios" class="col-form-label">Nivel de Estudios:</label>
                                         <input type="text" class="form-control" name="nivelestudios" id="nivelestudios" autocomplete="off" placeholder="Nivel de Estudios">
+                                    </div>-->
+
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="nivelestudios" class="col-form-label">Nivel de Estudios::</label>
+                                        <select class="form-control" name="nivelestudios" id="nivelestudios">
+                                            <?php
+                                            foreach ($dataestudios as $dte) {
+                                            ?>
+                                                <option id="<?php echo $dte['id_nivele'] ?>" value="<?php echo $dte['nom_nivele'] ?>"> <?php echo $dte['nom_nivele'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
-                                    <div class="form-group input-group-sm">
+                                    <!-- <div class="form-group input-group-sm">
                                         <label for="edocivil" class="col-form-label">Estado Civil:</label>
                                         <input type="text" class="form-control" name="edocivil" id="edocivil" autocomplete="off" placeholder="Estado Civil">
                                     </div>
+-->
+
+                                    <div class="form-group input-group-sm auto">
+                                        <label for="edocivil" class="col-form-label">Estado Civil:</label>
+                                        <select class="form-control" name="edocivil" id="edocivil">
+                                            <?php
+                                            foreach ($dataestado as $dtedo) {
+                                            ?>
+                                                <option id="<?php echo $dtedo['id_estadoc'] ?>" value="<?php echo $dtedo['nom_estadoc'] ?>"> <?php echo $dtedo['nom_estadoc'] ?></option>
+
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group input-group-sm auto">
                                         <label for="medio" class="col-form-label">Medio por el que nos conocio:</label>
                                         <select class="form-control" name="medio" id="medio">
@@ -236,6 +288,21 @@ $message = "";
                                         </select>
                                     </div>
                                 </div>
+
+                                 <div class="col-sm-8">
+                                        <div class="input-group input-group-sm">
+                                            <label for="nom_prox" class="col-form-label">Recomendado Por:</label>
+                                            <div class="input-group input-group-sm">
+                                                <input type="hidden" class="form-control" name="id_prox" id="id_prosx">
+                                                <input type="text" class="form-control" name="nom_prosx" id="nom_prosx" disabled placeholder="Seleccionar al Cliente que Recomienda">
+                                                <span class="input-group-append">
+                                                    <button id="bclientex" type="button" class="btn btn-sm btn-primary"><i class="fas fa-search"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                               
                             </div>
                     </div>
 
@@ -263,6 +330,62 @@ $message = "";
         </div>
     </section>
     <!-- /.content -->
+
+
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalProspectox" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl " role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-green">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaCx" id="tablaCx" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-green">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Telefono</th>
+                                        <th>Celular</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datacx as $datcx) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $datcx['id_clie'] ?></td>
+                                            <td><?php echo $datcx['nom_clie'] ?></td>
+                                            <td><?php echo $datcx['tel_clie'] ?></td>
+                                            <td><?php echo $datcx['ws_clie'] ?></td>
+
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </div>
+    </section>
 </div>
 
 
