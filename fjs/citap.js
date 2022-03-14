@@ -63,7 +63,12 @@ $(document).ready(function () {
             lazyFetching: true,
             //Random default events
 
-            events: JSON.parse(obj),
+            events:{url: 'bd/dbeventosp.php',
+            method: 'POST',
+            extraParams: {
+              custom_param1: 'something',
+              custom_param2: 'somethingelse'
+            }, },
             /*events: function(start, end, timezone, callback) {
                 jQuery.ajax({
                     url: 'bd/dbeventosv.php',
@@ -106,6 +111,8 @@ $(document).ready(function () {
                             $("#responsable").val(data[0].id_per);
                             $("#fecha").val(data[0].start);
                             $("#obs").val(data[0].obs);
+                            $("#cabina").val(data[0].id_cabina);
+                          
                             $("#duracion").val(data[0].duracion);
                             $('#btnCancelarcta').show();
                             $('#btnGuardar').hide();
@@ -122,6 +129,7 @@ $(document).ready(function () {
                             $("#fechax").val(data[0].start);
                             $("#obsx").val(data[0].obs);
                             $("#duracionx").val(data[0].duracion);
+                            $("#cabinax").val(data[0].id_cabina);
                             $('#btnCancelarctax').show();
                             $('#btnGuardarx').hide();
                             
@@ -283,6 +291,7 @@ $(document).ready(function () {
         var tipop = $.trim($("#tipop").val());
         var responsable = $.trim($("#responsable").val());
         var duracion = $.trim($("#duracion").val());
+        var cabina = $.trim($("#cabina").val());
      
 
         $.ajax({
@@ -290,7 +299,7 @@ $(document).ready(function () {
             type: "POST",
             dataType: "json",
             async: "false",
-            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable, duracion: duracion },
+            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable, duracion: duracion,cabina:cabina },
             success: function (data) {
                 if (data == 1) {
                     console.log(data);
@@ -314,7 +323,7 @@ $(document).ready(function () {
 
             }
         });
-        $("#modalCRUD").modal("hide");
+        //$("#modalCRUD").modal("hide");
     });
 
     $(document).on("click", "#btnGuardarx", function () {
@@ -328,14 +337,14 @@ $(document).ready(function () {
         var tipop = $.trim($("#tipopx").val());
         var responsable = $.trim($("#responsablex").val());
         var duracion = $.trim($("#duracionx").val());
-
-        console.log(responsable);
+        var cabina = $.trim($("#cabinax").val());
+        
 
         $.ajax({
             url: "bd/citasp.php",
             type: "POST",
             dataType: "json",
-            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable,duracion: duracion },
+            data: { nombre: nombre, id_pros: id_pros, fecha: fecha, obs: obs, tipop: tipop, concepto: concepto, id: id, opcion: opcion, responsable: responsable,duracion: duracion,cabina: cabina },
             success: function (data) {
                 if (data == 1) {
                     console.log(data);
@@ -357,7 +366,7 @@ $(document).ready(function () {
                 }
             }
         });
-        $("#modalCRUD").modal("hide");
+        //$("#modalCRUD").modal("hide");
     });
 
 

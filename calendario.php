@@ -34,6 +34,11 @@ $resultadoi = $conexion->prepare($consultai);
 $resultadoi->execute();
 $datai = $resultadoi->fetchAll(PDO::FETCH_ASSOC);
 
+$consultacab = "SELECT * FROM cabina WHERE estado_cabina ='1' ORDER BY id_cabina";
+$resultadocab = $conexion->prepare($consultacab);
+$resultadocab->execute();
+$datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
+
 $message = "";
 
 
@@ -216,7 +221,7 @@ $message = "";
                     <?php
                     foreach ($datai as $dti) {
                     ?>
-                      <option id="<?php echo $dti['id_col'] ?>" value="<?php echo $dti['id_col'] ?>"> <?php echo $dti['nom_col'] ?></option>
+                      <option id="col<?php echo $dti['id_col'] ?>" value="<?php echo $dti['id_col'] ?>"> <?php echo $dti['nom_col'] ?></option>
 
                     <?php
                     }
@@ -226,12 +231,29 @@ $message = "";
               </div>
 
 
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <div class="form-group input-group-sm">
                   <label for="concepto" class="col-form-label">Concepto Cita</label>
                   <input type="text" class="form-control" name="concepto" id="concepto" autocomplete="off" placeholder="Concepto de Cita">
                 </div>
               </div>
+
+              <div class="col-sm-6">
+                <div class="form-group input-group-sm auto">
+                  <label for="cabina" class="col-form-label">Cabina:</label>
+                  <select class="form-control" name="cabina" id="cabina">
+                  <?php 
+                   foreach ($datacab as $dtcab) {
+
+                  ?>  
+                   <option id="cab<?php echo $dtcab['id_cabina'] ?>" value="<?php echo $dtcab['id_cabina'] ?>"> <?php echo $dtcab['nom_cabina'] ?></option>
+                  <?php 
+                  }
+                  ?>
+                  </select>
+                </div>
+              </div>
+
 
               <div class="col-sm-2">
                 <div class="form-group input-group-sm auto">
@@ -412,10 +434,26 @@ $message = "";
               </div>
 
 
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <div class="form-group input-group-sm">
                   <label for="conceptox" class="col-form-label">Concepto Cita</label>
                   <input type="text" class="form-control" name="conceptox" id="conceptox" autocomplete="off" placeholder="Concepto de Cita">
+                </div>
+              </div>
+
+              <div class="col-sm-6">
+                <div class="form-group input-group-sm auto">
+                  <label for="cabinax" class="col-form-label">Cabina:</label>
+                  <select class="form-control" name="cabinax" id="cabinax">
+                  <?php 
+                   foreach ($datacab as $dtcab) {
+
+                  ?>  
+                   <option id="cab<?php echo $dtcab['id_cabina'] ?>" value="<?php echo $dtcab['id_cabina'] ?>"> <?php echo $dtcab['nom_cabina'] ?></option>
+                  <?php 
+                  }
+                  ?>
+                  </select>
                 </div>
               </div>
 

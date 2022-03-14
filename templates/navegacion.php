@@ -86,10 +86,8 @@
           <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class="fas fa-file-invoice-dollar nav-icon"></i>
-
             </span>
-            <p>
-              Operaciones
+            <p>Operaciones
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
