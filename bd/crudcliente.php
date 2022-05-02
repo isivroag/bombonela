@@ -25,8 +25,8 @@ $id = (isset($_POST['id'])) ? $_POST['id'] : '';
 $opcion = (isset($_POST['opcion'])) ? $_POST['opcion'] : '';
 
 
-//$id_pros = (isset($_POST['id_pros'])) ? $_POST['id_pros'] : '';
-//$id_cita = (isset($_POST['id_cita'])) ? $_POST['id_cita'] : '';
+$id_pros = (isset($_POST['id_pros'])) ? $_POST['id_pros'] : '';
+$id_cita = (isset($_POST['id_cita'])) ? $_POST['id_cita'] : '';
 
 
 switch ($opcion) {
@@ -88,6 +88,35 @@ switch ($opcion) {
         $conexion = NULL;
         break;
     case 4:
+        $consulta = "INSERT INTO wcliente (nom_clie,gen_clie,nac_clie,curp_clie,rfc_clie,dir_clie,tel_clie,correo_clie,ws_clie,ocupacion_clie,niv_clie,ecivil_clie,medio_clie,referenciaid,referencia) 
+        VALUES('$nom','$genero','$fecha_nac','$curp','$rfc','$direccion','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil','$medio','$referenciaid','$referencia') ";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
 
+
+        $consulta = "INSERT INTO cliente (nom_clie,gen_clie,nac_clie,rfc_clie,tel_clie,correo_clie,cel_clie,ocupacion_clie,niv_clie,ecivil_clie) 
+        VALUES('$nom','$genero','$fecha_nac','$rfc','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil') ";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+
+        $consulta = "SELECT * FROM wcliente ORDER BY id_clie DESC LIMIT 1";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+        $idpx=0;
+        foreach($data as $row){
+            $idpx= $row['id_clie'];
+
+        }
+        $consulta = "UPDATE citap SET id_px='$idpx',tipo_p='1' WHERE folio_citap='$id_cita'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+
+        $consulta = "UPDATE prospecto SET id_clie='$idpx' WHERE id_pros='$id_pros'";
+        $resultado = $conexion->prepare($consulta);
+        $resultado->execute();
+        $data=1;
         break;
 }

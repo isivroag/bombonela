@@ -80,10 +80,10 @@
 
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario' || $pagina == 'confirmacion' || $pagina == 'vcalendario' || $pagina == 'recepcion') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario' || $pagina == 'confirmacion' || $pagina == 'vcalendario' || $pagina == 'recepcion') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class="fas fa-file-invoice-dollar nav-icon"></i>
             </span>
@@ -95,8 +95,29 @@
 
           <li class="nav-item">
               <a href="calendario.php" class="nav-link <?php echo ($pagina == 'calendario') ? "active seleccionado" : ""; ?>  ">
-                <i class="fas fa-calendar-alt nav-icon"></i>
+                <i class="fa-solid fa-calendar nav-icon"></i>
                 <p>Agenda</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="vcalendario.php" class="nav-link <?php echo ($pagina == 'vcalendario') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-calendar-days  nav-icon"></i>
+                <p>Calendario Diario</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="confirmacion.php" class="nav-link <?php echo ($pagina == 'confirmacion') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-calendar-check nav-icon"></i>
+                <p>Confirmaciones</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="recepcion.php" class="nav-link <?php echo ($pagina == 'recepcion') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-calendar-day nav-icon"></i>
+                <p>Recepecion</p>
               </a>
             </li>
 

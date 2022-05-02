@@ -70,7 +70,7 @@ $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
 
-                $consulta = "SELECT id,id_pros,tipo_p,title,descripcion,date(start) as fecha,time(start) as hora,nombre,color,estado,confirmar FROM vcitap2 WHERE id='$id' ORDER BY start";
+                $consulta = "SELECT * FROM vcitap2 WHERE id='$id' ORDER BY start";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -87,7 +87,7 @@ $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
 
-                $consulta = "SELECT id,id_pros,tipo_p,title,descripcion,date(start) as fecha,time(start) as hora,nombre,color,estado,confirmar FROM vcitap2 WHERE id='$id' ORDER BY start";
+                $consulta = "SELECT * FROM vcitap2 WHERE id='$id' ORDER BY start";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
@@ -104,7 +104,7 @@ $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
 
-                $consulta = "SELECT id,id_pros,tipo_p,title,descripcion,date(start) as fecha,time(start) as hora,nombre,color,estado,confirmar FROM vcitap2 WHERE id='$id' ORDER BY start";
+                $consulta = "SELECT * FROM vcitap2 WHERE id='$id' ORDER BY start";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

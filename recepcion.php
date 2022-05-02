@@ -1,5 +1,5 @@
 <?php
-$pagina = "cliente";
+$pagina = "confirmacion";
 
 include_once "templates/header.php";
 include_once "templates/barra.php";
@@ -10,12 +10,42 @@ include_once "templates/navegacion.php";
 
 include_once 'bd/conexion.php';
 $objeto = new conn();
+$message = "";
 $conexion = $objeto->connect();
+if (isset($_GET['fecha'])) {
+    $fecha = $_GET['fecha'];
+} else {
+    $fecha = date('Y-m-d');
+}
 
-$consulta = "SELECT * FROM wcliente WHERE estado_clie=1 ORDER BY id_clie";
+
+$consulta = "SELECT * FROM vcitap2 where  estado<>4 and date(start)='$fecha' order by start,id_cabina";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+
+$consultac = "SELECT * FROM prospecto where id_clie=0 and estado_pros =1 order by id_pros";
+$resultadoc = $conexion->prepare($consultac);
+$resultadoc->execute();
+$datac = $resultadoc->fetchAll(PDO::FETCH_ASSOC);
+
+
+$consultacx = "SELECT * FROM wcliente where estado_clie='1' order by id_clie";
+$resultadocx = $conexion->prepare($consultacx);
+$resultadocx->execute();
+$datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
+
+
+$consultai = "SELECT * FROM colaborador WHERE estado_col ='1' ORDER BY id_col";
+$resultadoi = $conexion->prepare($consultai);
+$resultadoi->execute();
+$datai = $resultadoi->fetchAll(PDO::FETCH_ASSOC);
+
+$consultacab = "SELECT * FROM cabina WHERE estado_cabina ='1' ORDER BY id_cabina";
+$resultadocab = $conexion->prepare($consultacab);
+$resultadocab->execute();
+$datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 
@@ -34,12 +64,6 @@ $resestado = $conexion->prepare($cntaestado);
 $resestado->execute();
 $dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
 
-$message = "";
-
-$consultacx = "SELECT * FROM wcliente where estado_clie='1' order by id_clie";
-$resultadocx = $conexion->prepare($consultacx);
-$resultadocx->execute();
-$datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -57,67 +81,85 @@ $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
         <!-- Default box -->
         <div class="card">
             <div class="card-header bg-gradient-green text-light">
-                <h1 class="card-title mx-auto">CLIENTES</h1>
+                <h1 class="card-title mx-auto">Vista de Calendario</h1>
             </div>
 
             <div class="card-body">
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <button id="btnNuevo" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Nuevo</span></button>
+                        <!--
+                        <button id="btnNuevo" type="button" class="btn bg-gradient-info btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Prospecto</span></button>
+                        <button id="btnNuevox" type="button" class="btn bg-gradient-green btn-ms" data-toggle="modal"><i class="fas fa-plus-square text-light"></i><span class="text-light"> Cita Cliente</span></button>
+-->
                     </div>
                 </div>
                 <br>
                 <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-2">
+                            <div class="form-group input-group-sm">
+                                <label for="fecha" class="col-form-label">Fecha:</label>
+                                <input type="date" id="fecha" name="fecha" class="form-control" autocomplete="off" placeholder="Fecha" value=<?php echo $fecha ?>>
 
-                    <div class="row">
-                        <div class="col-lg-12">
+                                <!--
+                                <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii:00" data-link-field="dtp_input1">
+                                        <input class="form-control" type="text" value="" readonly>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                    <input type="hidden" id="dtp_input1" value="" /><br/>
+                                    -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-12">
                             <div class="table-responsive">
-                                <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+                                <table name="tablacal" id="tablacal" class="table table-sm  table-bordered  table-hover table-condensed text-nowrap w-auto mx-auto " style="font-size:12px;vertical-align: center!important;">
                                     <thead class="text-center bg-gradient-green">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>NOMBRE</th>
-                                            <th>GENERO</th>
-                                            <th>FECHA NAC</th>
-                                            <th>CURP</th>
-                                            <th>RFC</th>
-                                            <th>DIR</th>
-                                            <th>TEL</th>
-                                            <th>CORREO</th>
-                                            <th>WHATSAPP</th>
-                                            <th>OCUPACION</th>
-                                            <th>NIVEL</th>
-                                            <th>ESTADO CIVIL</th>
-                                            <th>MEDIO</th>
-                                            <th>REFERENCIAID</th>
-                                            <th>REFERENCIA</th>
-                                            <th>ACCIONES</th>
+                                            <th>Folio Cita</th>
+                                            <th>Fecha y Hora</th>
+                                            <th>Fin</th>
+                                            <th>Hora</th>
+                                            <th>Id Cabina</th>
+                                            <th>Cabina</th>
+                                            <th>Tipo</th>
+                                            <th>Cliente/Prospecto</th>
+                                            <th>Motivo de Cita</th>
+
+                                            <th>Id Resp</th>
+                                            <th>Responsable</th>
+                                            <th>Color</th>
+                                            <th>Duracion</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        foreach ($data as $dat) {
+                                        foreach ($data as $row) {
+                                            $separar = (explode(" ", $row['start']));
                                         ?>
                                             <tr>
-                                                <td><?php echo $dat['id_clie'] ?></td>
-                                                <td><?php echo $dat['nom_clie'] ?></td>
-                                                <td><?php echo $dat['gen_clie'] ?></td>
-                                                <td><?php echo $dat['nac_clie'] ?></td>
-                                                <td><?php echo $dat['curp_clie'] ?></td>
-                                                <td><?php echo $dat['rfc_clie'] ?></td>
-                                                <td><?php echo $dat['dir_clie'] ?></td>
-                                                <td><?php echo $dat['tel_clie'] ?></td>
-                                                <td><?php echo $dat['correo_clie'] ?></td>
-                                                <td><?php echo $dat['ws_clie'] ?></td>
-                                                <td><?php echo $dat['ocupacion_clie'] ?></td>
-                                                <td><?php echo $dat['niv_clie'] ?></td>
-                                                <td><?php echo $dat['ecivil_clie'] ?></td>
-                                                <td><?php echo $dat['medio_clie'] ?></td>
-                                                <td><?php echo $dat['referenciaid'] ?></td>
-                                                <td><?php echo $dat['referencia'] ?></td>
-
-                                                <td></td>
+                                                <td><?php echo $row['id'] ?></td>
+                                                <td><?php echo $row['start'] ?></td>
+                                                <td><?php echo $row['end'] ?></td>
+                                                <td><?php echo $separar[1] ?></td>
+                                                <td><?php echo $row['id_cabina'] ?></td>
+                                                <td><?php echo $row['nom_cabina'] ?></td>
+                                                <td class="text-center"><?php echo $row['tipo_p'] ?></td>
+                                                <td><?php echo $row['title'] ?></td>
+                                                <td><?php echo $row['descripcion'] ?></td>
+                                                <td><?php echo $row['id_per'] ?></td>
+                                                <td><?php echo $row['nombre'] ?></td>
+                                                <td><?php echo $row['color'] ?></td>
+                                                <td class="text-center"><?php echo $row['duracion'] ?></td>
+                                                <td class="text-center"><?php echo $row['confirmar'] ?></td>
+                                                <td class="text-center"></td>
                                             </tr>
                                         <?php
                                         }
@@ -137,8 +179,46 @@ $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
         <!-- /.card -->
 
     </section>
-
-
+    <section>
+        <div class="modal fade" id="modalcan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gradient-danger">
+                        <h5 class="modal-title" id="exampleModalLabel">CANCELAR REGISTRO</h5>
+                    </div>
+                    <div class="card card-widget" style="margin: 10px;">
+                        <form id="formcan" action="" method="POST">
+                            <div class="modal-body row">
+                                <div class="col-sm-12">
+                                    <div class="form-group input-group-sm">
+                                        <label for="motivo" class="col-form-label">Motivo de Cancelación:</label>
+                                        <textarea rows="3" class="form-control" name="motivo" id="motivo" placeholder="Motivo de Cancelación"></textarea>
+                                        <input type="hidden" id="fechac" name="fechac" value="<?php echo $fecha ?>">
+                                        <input type="hidden" id="foliocan" name="foliocan" value="">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    <?php
+                    if ($message != "") {
+                    ?>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <span class="badge "><?php echo ($message); ?></span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                        </div>
+                    <?php
+                    }
+                    ?>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
+                        <button type="button" id="btnGuardarc" name="btnGuardarc" class="btn btn-success" value="btnGuardarc"><i class="far fa-save"></i> Guardar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
     <section>
         <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -151,6 +231,8 @@ $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
                         <form id="formDatos" action="" method="POST">
                             <div class="modal-body row">
 
+                            <input type="hidden" class="form-control" name="id_cita" id="id_cita" autocomplete="off" >
+                            <input type="hidden" class="form-control" name="id_pros" id="id_pros" autocomplete="off" >
 
                                 <div class="col-sm-12">
                                     <div class="form-group input-group-sm">
@@ -227,7 +309,7 @@ $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
 
 
                                 <div class="col-sm-3">
-                                   
+
 
                                     <div class="form-group input-group-sm auto">
                                         <label for="nivelestudios" class="col-form-label">Nivel de Estudios::</label>
@@ -245,7 +327,7 @@ $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
 
                                 <div class="col-sm-3">
-                 
+
 
                                     <div class="form-group input-group-sm auto">
                                         <label for="edocivil" class="col-form-label">Estado Civil:</label>
@@ -320,66 +402,11 @@ $datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
     </section>
 
 
-
-    <section>
-        <div class="container">
-
-            <!-- Default box -->
-            <div class="modal fade" id="modalProspectox" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl " role="document">
-                    <div class="modal-content w-auto">
-                        <div class="modal-header bg-gradient-green">
-                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
-
-                        </div>
-                        <br>
-                        <div class="table-hover table-responsive w-auto" style="padding:15px">
-                            <table name="tablaCx" id="tablaCx" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
-                                <thead class="text-center bg-gradient-green">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Nombre</th>
-                                        <th>Telefono</th>
-                                        <th>Celular</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    foreach ($datacx as $datcx) {
-                                    ?>
-                                        <tr>
-                                            <td><?php echo $datcx['id_clie'] ?></td>
-                                            <td><?php echo $datcx['nom_clie'] ?></td>
-                                            <td><?php echo $datcx['tel_clie'] ?></td>
-                                            <td><?php echo $datcx['ws_clie'] ?></td>
-
-                                            <td></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-
-
-                    </div>
-
-                </div>
-                <!-- /.card-body -->
-
-                <!-- /.card-footer-->
-            </div>
-            <!-- /.card -->
-
-        </div>
-    </section>
 </div>
 
 
 <?php include_once 'templates/footer.php'; ?>
-<script src="fjs/cntacliente.js?v=<?php echo (rand()); ?>"></script>
+<script src="fjs/recepcion.js?v=<?php echo (rand()); ?>"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
