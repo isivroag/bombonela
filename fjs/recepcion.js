@@ -55,55 +55,29 @@ $(document).ready(function () {
 
       rowCallback: function (row, data) {
 
-           
-/*
-        //estado de la cita
-        if (data[8] == 1) {
-            icono = '<i class="fas fa-hospital-user text-info fa-2x text-center"></i>';
-            $($(row).find('td')[8]).html(icono)
-            //$($(row).find('td')[3]).css('background-color', '#77BCF5');
-        }
-        else if (data[8] == 2){
-            icono = '<i class="fas fa-user-check text-success fa-2x text-center"></i>';
-            $($(row).find('td')[8]).html(icono)
-            //$($(row).find('td')[3]).css('background-color', '#A6EBC5');
-        }else if (data[8] == 3){
-            icono = '<i class="fas fa-user-slash text-danger fa-2x text-center"></i>';
-            $($(row).find('td')[8]).html(icono)
-            //$($(row).find('td')[3]).css('background-color', '#A6EBC5');
-        }else if (data[8]==4){
-            icono = '<i class="fas fa-ban text-danger fa-2x text-center"></i>';
-            $($(row).find('td')[8]).html(icono)
-        }else{
-            icono = '<i class="fas fa-user-clock text-warning fa-2x text-center"></i>';
-            $($(row).find('td')[8]).html(icono)
-        }
-*/
         $($(row).find('td')[10]).css('background-color', data[11]);
         $($(row).find('td')[10]).css('color',"white");
         $($(row).find('td')[10]).css('font-weight:',"bold");
 
         if (data[6] == 1) {
             icono = '<i class="fas fa-user text-success fa-2x text-center"></i>';
-            //$($(row).find("td")[6]).css("background-color", "warning");
-            //$($(row).find('td')[2]).addClass('bg-gradient-secondary')
+     
             $($(row).find('td')['6']).html(icono)
         } else if (data[6] == 0) {
             icono = '<i class="fas fa-user text-primary fa-2x text-center"></i>';
-            //$($(row).find("td")[2]).css("background-color", "blue");
-            //$($(row).find('td')[2]).addClass('bg-gradient-green')
+         
             $($(row).find('td')['6']).html(icono)
         }
 
         if (data[13] == 1) {
             icono = '<i class="fas fa-phone text-success fa-2x text-center"></i>';
             $($(row).find('td')[13]).html(icono)
-            //$($(row).find('td')[3]).css('background-color', '#77BCF5');
+        
         }
         else if (data[13]==2){
             icono = '<i class="fas fa-phone-slash text-danger fa-2x text-center"></i>';
             $($(row).find('td')[13]).html(icono)
-            //$($(row).find('td')[3]).css('background-color', '#A6EBC5');
+        
         } else if (data[13]==3) {
             icono = '<i class="fas fa-ban text-danger fa-2x text-center"></i>';
             $($(row).find('td')[13]).html(icono)
@@ -173,23 +147,17 @@ $(document).ready(function () {
                                         })
                                     }
                                     else {
-                                        nom_prospecto = prospecto[0].nom_pros;
-                                        tel_prospecto = prospecto[0].tel_pros;
-                                        cel_prospecto = prospecto[0].cel_pros;
+                                        nom_prospecto = prospecto.nom_pros;
+                                        tel_prospecto = prospecto.tel_pros;
+                                        cel_prospecto = prospecto.cel_pros;
                                         
-
-
                                         $("#formDatos").trigger("reset");
-
+                                        
                                         $("#nombre").val(nom_prospecto);
-
                                         $("#id_cita").val(id);
                                         $("#id_pros").val(id_pros);
                                         $("#tel").val(tel_prospecto);
                                         $("#cel").val(cel_prospecto);
-                                        
-
-
 
                                         $(".modal-title").text("Nuevo Paciente");
                                         $("#modalCRUD").modal("show");
@@ -369,7 +337,6 @@ $(document).ready(function () {
         opcion=4;
         id = parseInt($(this).closest("tr").find('td:eq(0)').text());
         $("#formcan").trigger("reset");
-        /*$(".modal-header").css("background-color", "#28a745");*/
         $(".modal-header").css("color", "white");
         $("#modalcan").modal("show");
         $("#foliocan").val(id);
