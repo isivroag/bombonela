@@ -65,6 +65,11 @@ $resestado->execute();
 $dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
 
 
+$consultacx = "SELECT * FROM wcliente where estado_clie='1' order by id_clie";
+$resultadocx = $conexion->prepare($consultacx);
+$resultadocx->execute();
+$datacx = $resultadocx->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -133,8 +138,9 @@ $dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
                                             <th>Id Resp</th>
                                             <th>Responsable</th>
                                             <th>Color</th>
-                                            <th>Duracion</th>
+                                            <th>Duración</th>
                                             <th>Estado</th>
+                                            <th>Confirmación</th>
                                             <th>Acciones</th>
 
                                         </tr>
@@ -158,6 +164,7 @@ $dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $row['nombre'] ?></td>
                                                 <td><?php echo $row['color'] ?></td>
                                                 <td class="text-center"><?php echo $row['duracion'] ?></td>
+                                                <td class="text-center"><?php echo $row['estado'] ?></td>
                                                 <td class="text-center"><?php echo $row['confirmar'] ?></td>
                                                 <td class="text-center"></td>
                                             </tr>
@@ -219,6 +226,7 @@ $dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </section>
+
     <section>
         <div class="modal fade" id="modalCRUD" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -401,6 +409,60 @@ $dataestado = $resestado->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </section>
 
+    <section>
+        <div class="container">
+
+            <!-- Default box -->
+            <div class="modal fade" id="modalProspectox" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl " role="document">
+                    <div class="modal-content w-auto">
+                        <div class="modal-header bg-gradient-green">
+                            <h5 class="modal-title" id="exampleModalLabel">BUSCAR CLIENTE</h5>
+
+                        </div>
+                        <br>
+                        <div class="table-hover table-responsive w-auto" style="padding:15px">
+                            <table name="tablaCx" id="tablaCx" class="table  table-sm table-striped table-bordered table-condensed" style="width:100%">
+                                <thead class="text-center bg-gradient-green">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Telefono</th>
+                                        <th>Celular</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    foreach ($datacx as $datcx) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $datcx['id_clie'] ?></td>
+                                            <td><?php echo $datcx['nom_clie'] ?></td>
+                                            <td><?php echo $datcx['tel_clie'] ?></td>
+                                            <td><?php echo $datcx['ws_clie'] ?></td>
+
+                                            <td></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+
+                <!-- /.card-footer-->
+            </div>
+            <!-- /.card -->
+
+        </div>
+    </section>
 
 </div>
 

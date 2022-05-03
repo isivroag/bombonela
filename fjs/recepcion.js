@@ -5,7 +5,7 @@ $(document).ready(function () {
     var date_input = document.getElementById('fecha')
   
     date_input.onchange = function () {
-      window.location.href="confirmacion.php?fecha="+this.value
+      window.location.href="recepcion.php?fecha="+this.value
     }
   
     tablacal = $('#tablacal').DataTable({
@@ -20,10 +20,10 @@ $(document).ready(function () {
       columnDefs: [{
         targets: -1,
         data: null,
-        defaultContent:  "<div class='text-center'><button class='btn btn-sm btn-success  btnAceptar'><i class='fas fa-check-circle'></i></button>\
-        <button class='btn btn-sm bg-info  btnSalir'><i class='fas fa-sign-out-alt'></i></button>\
-        <button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'></i></button>\
-        <button class='btn btn-sm bg-danger  btnNollego'><i class='fas fa-user-slash '></i></button></div>"
+        defaultContent:  "<div class='text-center'><button class='btn btn-sm btn-success  btnAceptar'  data-toggle='tooltip' data-placement='top' title='Comienzo de Cita'><i class='fas fa-check-circle'></i></button>\
+        <button class='btn btn-sm bg-info  btnSalir'><i class='fas fa-sign-out-alt'  data-toggle='tooltip' data-placement='top' title='Cita Terminada'></i></button>\
+        <button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'  data-toggle='tooltip' data-placement='top' title='Cancelar Cita'></i></button>\
+        <button class='btn btn-sm bg-danger  btnNollego'><i class='fas fa-user-slash '  data-toggle='tooltip' data-placement='top' title='No llego Cliente'></i></button></div>"
     }, { className: "hide_column", "targets": [1] },
     { className: "hide_column", "targets": [2] },
     { className: "hide_column", "targets": [4] },
@@ -59,6 +59,29 @@ $(document).ready(function () {
         $($(row).find('td')[10]).css('color',"white");
         $($(row).find('td')[10]).css('font-weight:',"bold");
 
+
+        if (data[13] == 1) {
+            icono = '<i class="fas fa-hospital-user text-info fa-2x text-center"></i>';
+            $($(row).find('td')[13]).html(icono)
+            //$($(row).find('td')[3]).css('background-color', '#77BCF5');
+        }
+        else if (data[13] == 2){
+            icono = '<i class="fas fa-user-check text-success fa-2x text-center"></i>';
+            $($(row).find('td')[13]).html(icono)
+            //$($(row).find('td')[3]).css('background-color', '#A6EBC5');
+        }else if (data[13] == 3){
+            icono = '<i class="fas fa-user-slash text-danger fa-2x text-center"></i>';
+            $($(row).find('td')[13]).html(icono)
+            //$($(row).find('td')[3]).css('background-color', '#A6EBC5');
+        }else if (data[13]==4){
+            icono = '<i class="fas fa-ban text-danger fa-2x text-center"></i>';
+            $($(row).find('td')[13]).html(icono)
+        }else{
+            icono = '<i class="fas fa-user-clock text-warning fa-2x text-center"></i>';
+            $($(row).find('td')[13]).html(icono)
+        }
+        
+
         if (data[6] == 1) {
             icono = '<i class="fas fa-user text-success fa-2x text-center"></i>';
      
@@ -69,22 +92,22 @@ $(document).ready(function () {
             $($(row).find('td')['6']).html(icono)
         }
 
-        if (data[13] == 1) {
+        if (data[14] == 1) {
             icono = '<i class="fas fa-phone text-success fa-2x text-center"></i>';
-            $($(row).find('td')[13]).html(icono)
+            $($(row).find('td')[14]).html(icono)
         
         }
-        else if (data[13]==2){
+        else if (data[14]==2){
             icono = '<i class="fas fa-phone-slash text-danger fa-2x text-center"></i>';
-            $($(row).find('td')[13]).html(icono)
+            $($(row).find('td')[14]).html(icono)
         
-        } else if (data[13]==3) {
+        } else if (data[14]==3) {
             icono = '<i class="fas fa-ban text-danger fa-2x text-center"></i>';
-            $($(row).find('td')[13]).html(icono)
+            $($(row).find('td')[14]).html(icono)
 
         }else{
             icono = '<i class="fas fa-phone-alt text-secondary fa-2x text-center"></i>';
-            $($(row).find('td')[13]).html(icono)
+            $($(row).find('td')[14]).html(icono)
         }
     },
 
@@ -108,7 +131,7 @@ $(document).ready(function () {
             data: { id: id, opcion: opcion },
 
             success: function (data) {
-                console.log(data);
+               
 
                 if (data == 0) {
                     Swal.fire({
@@ -147,9 +170,9 @@ $(document).ready(function () {
                                         })
                                     }
                                     else {
-                                        nom_prospecto = prospecto.nom_pros;
-                                        tel_prospecto = prospecto.tel_pros;
-                                        cel_prospecto = prospecto.cel_pros;
+                                        nom_prospecto = prospecto[0].nom_pros;
+                                        tel_prospecto = prospecto[0].tel_pros;
+                                        cel_prospecto = prospecto[0].cel_pros;
                                         
                                         $("#formDatos").trigger("reset");
                                         
@@ -179,13 +202,42 @@ $(document).ready(function () {
 
     });
 
-    $("#formDatos").submit(function (e) {
-        e.preventDefault();
+    $(document).on("click", ".btnSalir", function () {
+        fila = $(this);
+
+        id = parseInt($(this).closest("tr").find('td:eq(0)').text());
+        opcion = 2;
+
+
+
+        $.ajax({
+
+            url: "bd/buscarcita.php",
+            type: "POST",
+            dataType: "json",
+            async: "false",
+            data: { id: id, opcion: opcion },
+
+            success: function (data) {
+                Swal.fire({
+                    title: "Operación Exitosa",
+                    text: "Cliente Termino su Cita",
+                    icon: "success",
+                    timer:1000,
+                });
+                window.setTimeout(function() {
+                    window.location.href = "recepcion.php";
+                }, 1500);
+            }
+        });
+    });
+
+
+    $(document).on("click", "#btnGuardar", function () {
+       
         opcion=4;
-        id_pros =  $("#id_pros").val();;
-        id_cita =  $("#id_cita").val();;
-        
-        
+        id_pros =  $("#id_pros").val()
+        id_cita =  $("#id_cita").val()
         nombre = $('#nombre').val()
         genero = $('#genero').val()
         fechanac = $('#fechanac').val()
@@ -247,7 +299,7 @@ $(document).ready(function () {
                 success: function (data) {
                     Swal.fire({
                         title: "Operación Exitosa",
-                        text: "Paciente Registrado",
+                        text: "Cliente Registrado",
                         icon: "success",
                         timer:1000,
                     });
@@ -257,7 +309,16 @@ $(document).ready(function () {
                   
                   
                 }
-            });
+            ,
+            error : function(){
+                Swal.fire({
+                    title: "Error en Funcion",
+                    text: "Cliente no Registrado",
+                    icon: "error",
+                    timer:1000,
+                });
+            }
+        });
             $("#modalCRUD").modal("hide");
         }
     });
@@ -384,6 +445,59 @@ $(document).ready(function () {
                 },
             });
         }
+    });
+
+    tablaC = $("#tablaCx").DataTable({
+
+
+
+        "columnDefs": [{
+            "targets": -1,
+            "data": null,
+            "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-sm btn-success btnSelClientex'><i class='fas fa-hand-pointer'></i></button></div></div>"
+        }],
+    
+        //Para cambiar el lenguaje a español
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros",
+            "zeroRecords": "No se encontraron resultados",
+            "info": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "sProcessing": "Procesando...",
+        }
+    });
+    
+    
+      $(document).on("click", "#bclientex", function () {
+    
+        $(".modal-header").css("background-color", "#007bff");
+        $(".modal-header").css("color", "white");
+    
+        $("#modalProspectox").modal("show");
+        $('#btnCancelarctax').hide();
+    
+    });
+    
+    
+    $(document).on("click", ".btnSelClientex", function () {
+      fila = $(this).closest("tr");
+    
+      IdClientex = fila.find('td:eq(0)').text();
+      NomClientex = fila.find('td:eq(1)').text();
+    
+    
+      $("#id_prosx").val(IdClientex);
+      $("#nom_prosx").val(NomClientex);
+      $("#modalProspectox").modal("hide");
+    
     });
 
 

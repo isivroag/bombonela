@@ -64,14 +64,43 @@ switch ($opcion) {
                
                 break;
         case 2:
-                $consulta = "UPDATE citap SET id_pros='$id_pros',fecha='$fecha',concepto='$concepto',obs='$obs' WHERE folio_citap='$id' ";
+                $consulta = "SELECT * FROM citap where (id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) " ;
                 $resultado = $conexion->prepare($consulta);
-                if ($resultado->execute()){
-                        $data=1;
+                $resultado->execute();
+                if ($resultado->rowCount() == 0){
+                        if ($tipop==0){
+                                $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
+                                $resultado = $conexion->prepare($consulta);
+                                $resultado->execute();
+                                if ($resultado->rowCount()==0){
+                                        $consulta = "UPDATE citap SET fecha='$fecha',concepto='$concepto',obs='$obs',id_per='$responsable',duracion='$duracion',id_cabina='$cabina' WHERE folio_citap='$id' ";
+                                }else{
+                                        $data=0;
+                                        break;
+                                }
+                        }else{
+                                $consulta = "SELECT * FROM citap where (id_px='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
+                                $resultado = $conexion->prepare($consulta);
+                                $resultado->execute();
+                                if ($resultado->rowCount()==0){
+                                        $consulta = "UPDATE citap SET fecha='$fecha',concepto='$concepto',obs='$obs',id_per='$responsable',duracion='$duracion',id_cabina='$cabina' WHERE folio_citap='$id' ";
+                                }else{
+                                        $data=0;
+                                        break;
+                                }
+
+                                
+                        }
+                      
+                        $resultado = $conexion->prepare($consulta);
+                        if($resultado->execute() ){
+                                $data=1;
+                        }else{
+                                $data=0;
+                        }
                 }else{
                         $data=0;
                 }
-
                 break;
 
 
@@ -81,6 +110,8 @@ switch ($opcion) {
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 break;
+        
+        
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS

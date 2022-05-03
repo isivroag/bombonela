@@ -97,7 +97,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table name="tablacal" id="tablacal" class="table table-sm  table-bordered  table-hover table-condensed text-nowrap w-auto " style="font-size:12px;vertical-align: center!important;">
+                                <table name="tablacal" id="tablacal" class="table table-sm  table-bordered  table-hover table-condensed text-nowrap w-auto mx-auto " style="font-size:12px;vertical-align: center!important;">
                                     <thead class="text-center bg-gradient-green">
                                         <tr>
                                             <th>HR/CAB</th>

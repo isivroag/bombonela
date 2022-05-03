@@ -12,7 +12,7 @@
 
  
  
- $consulta = "SELECT * FROM vcitap2 WHERE date(start)='$fechad' ORDER BY start";
+ $consulta = "SELECT * FROM vcitap2 WHERE date(start)='$fechad' and  estado<>4 and estado<>3 ORDER BY start";
  $resultado = $conexion->prepare($consulta);
  $resultado->execute();
  $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

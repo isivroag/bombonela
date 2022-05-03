@@ -319,6 +319,9 @@ $message = "";
                 <button type="button" id="btnCancelarcta" class="btn btn-danger btn-block"><i class="fas fa-ban"></i> Cancelar Cita</button>
               </div>
               <div class="col-sm-3 d-flex">
+                <button type="button" id="btnreagendar" name="btnreagendar" class="btn btn-primary btn-block" value="btnreagendar"><i class="far fa-save"></i> Guardar Cita</button>
+              </div>
+              <div class="col-sm-3 d-flex">
                 <button type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success btn-block" value="btnGuardar"><i class="far fa-save"></i> Guardar Cita</button>
               </div>
 
@@ -521,6 +524,9 @@ $message = "";
 
               <div class="col-sm-3 d-flex">
                 <button type="button" id="btnCancelarctax" class="btn btn-danger btn-block"><i class="fas fa-ban"></i> Cancelar Cita</button>
+              </div>
+              <div class="col-sm-3 d-flex">
+                <button type="button" id="btnreagendarx" name="btnreagendarx" class="btn btn-primary btn-block" value="btnreagendar"><i class="far fa-save"></i> Guardar Cita</button>
               </div>
               <div class="col-sm-3 d-flex">
                 <button type="button" id="btnGuardarx" name="btnGuardarx" class="btn btn-success btn-block" value="btnGuardarx"><i class="far fa-save"></i> Guardar Cita</button>

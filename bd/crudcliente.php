@@ -87,7 +87,7 @@ switch ($opcion) {
         print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
         $conexion = NULL;
         break;
-    case 4:
+    case 4://alta por cambio de prospecto a cliente
         $consulta = "INSERT INTO wcliente (nom_clie,gen_clie,nac_clie,curp_clie,rfc_clie,dir_clie,tel_clie,correo_clie,ws_clie,ocupacion_clie,niv_clie,ecivil_clie,medio_clie,referenciaid,referencia) 
         VALUES('$nom','$genero','$fecha_nac','$curp','$rfc','$direccion','$telefono','$correo','$whatsapp','$ocupacion','$estudios','$edocivil','$medio','$referenciaid','$referencia') ";
         $resultado = $conexion->prepare($consulta);
@@ -118,5 +118,7 @@ switch ($opcion) {
         $resultado = $conexion->prepare($consulta);
         $resultado->execute();
         $data=1;
+        print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
+        $conexion = NULL;
         break;
 }
