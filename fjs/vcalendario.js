@@ -36,4 +36,11 @@ $(document).ready(function () {
   $('#btnNuevo').click(function () {
     window.location.href = 'tmpventa.php'
   })
+
+
+
+  $(document).on('click', '.tarjetacita', function () {
+   alert($(this).value())
+   console.log($(this).value())
+  })
 })

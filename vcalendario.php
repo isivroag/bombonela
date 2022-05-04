@@ -130,7 +130,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                                 echo    '<td>
                                                                 <div class="card m-0 p-0 text-center" style:"font-size:12px!important">
                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                        <span>' . $rowcita['title'] . '</span>
+                                                                    <button type="button" style="background-color: transparent; border-color: none;">' . $rowcita['title'] . '</button>
                                                                     </div>
                                                                     <div class="card-body p-1" style:"font-size:10px">
                                                                         <span>' . $rowcita['descripcion'] . '</span><br>
@@ -143,11 +143,13 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                             else{
                                                                 echo    '<td rowspan="2 " style="vertical-align: middle!important;" >
                                                                             <div class="container text-center  ">
-                                                                                <div class="card " style:"font-size:12px!important">
+                                                                                <div class="card tarjetacita" id='. $rowcita['id']. ' style:"font-size:12px!important">
                                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                                        <span>' . $rowcita['title'] . '</span>
+                                                                                        
+                                                                                        <button type="button">' . $rowcita['title'] . '</button>
                                                                                     </div>
                                                                                     <div class="card-body p-1" style:"font-size:10px">
+                                                                                    
                                                                                         <span>' . $rowcita['descripcion'] . '</span><br>
                                                                                         <span>' . $rowcita['nombre'] . ' </span>
                                                                                         
@@ -173,7 +175,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                             $segundos_horaInicial = strtotime($horaInicial);
                                             $segundos_minutoAnadir = $minutoAnadir * 60;
                                             $horaInicial = date("H:i", $segundos_horaInicial + $segundos_minutoAnadir);
-                                        } while ($horaInicial <= "21:00");
+                                        } while ($horaInicial <= "19:30");
 
 
                                         ?>
