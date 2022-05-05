@@ -40,7 +40,10 @@ $(document).ready(function () {
 
 
   $(document).on('click', '.tarjetacita', function () {
-   alert($(this).value())
-   console.log($(this).value())
+ 
+   console.log($(this).attr('value'))
   })
+
+
+
 })

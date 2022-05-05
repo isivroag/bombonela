@@ -128,10 +128,13 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach ($data as $rowcita) {
                                                             if ( $rowcita['duracion']==30){
                                                                 echo    '<td>
-                                                                <div class="card m-0 p-0 text-center" style:"font-size:12px!important">
+                                                                <div class="card tarjetacita" id='. $rowcita['id']. ' value='. $rowcita['id'].' style:"font-size:12px!important">
                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                    <button type="button" style="background-color: transparent; border-color: none;">' . $rowcita['title'] . '</button>
+                                                                        <span>' . $rowcita['title'] . '</span>
+                                                                      
                                                                     </div>
+
+                                                                    
                                                                     <div class="card-body p-1" style:"font-size:10px">
                                                                         <span>' . $rowcita['descripcion'] . '</span><br>
                                                                         <span>' . $rowcita['nombre'] . ' </span>
@@ -143,10 +146,10 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                             else{
                                                                 echo    '<td rowspan="2 " style="vertical-align: middle!important;" >
                                                                             <div class="container text-center  ">
-                                                                                <div class="card tarjetacita" id='. $rowcita['id']. ' style:"font-size:12px!important">
+                                                                                <div class="card tarjetacita" id='. $rowcita['id']. ' value='. $rowcita['id'].' style:"font-size:12px!important">
                                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
                                                                                         
-                                                                                        <button type="button">' . $rowcita['title'] . '</button>
+                                                                                    <span>' . $rowcita['title'] . '</span>
                                                                                     </div>
                                                                                     <div class="card-body p-1" style:"font-size:10px">
                                                                                     
