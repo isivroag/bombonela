@@ -80,10 +80,12 @@
 
 
 
-        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario' || $pagina == 'confirmacion' || $pagina == 'vcalendario' || $pagina == 'recepcion') ? "menu-open" : ""; ?>">
+        <li class="nav-item has-treeview <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'buscadoragenda'
+         || $pagina == 'calendario' || $pagina == 'confirmacion' || $pagina == 'vcalendario' || $pagina == 'recepcion') ? "menu-open" : ""; ?>">
 
 
-          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'calendario' || $pagina == 'confirmacion' || $pagina == 'vcalendario' || $pagina == 'recepcion') ? "active" : ""; ?>">
+          <a href="#" class="nav-link <?php echo ($pagina == 'tmpventa' || $pagina == 'venta' || $pagina == 'cntaventa' || $pagina == 'buscadoragenda'
+           || $pagina == 'calendario' || $pagina == 'confirmacion' || $pagina == 'vcalendario' || $pagina == 'recepcion') ? "active" : ""; ?>">
             <span class="fa-stack">
               <i class="fas fa-file-invoice-dollar nav-icon"></i>
             </span>
@@ -92,6 +94,12 @@
             </p>
           </a>
           <ul class="nav nav-treeview">
+          <li class="nav-item">
+              <a href="buscadoragenda.php" class="nav-link <?php echo ($pagina == 'buscadoragenda') ? "active seleccionado" : ""; ?>  ">
+                <i class="fa-solid fa-magnifying-glass nav-icon"></i>
+                <p>Buscador Agenda</p>
+              </a>
+            </li>
 
           <li class="nav-item">
               <a href="calendario.php" class="nav-link <?php echo ($pagina == 'calendario') ? "active seleccionado" : ""; ?>  ">
