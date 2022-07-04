@@ -8,13 +8,16 @@ $conexion = $objeto->connect();
 
 
 $data = 0;
+$fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
+$colaborador = (isset($_POST['colaborador'])) ? $_POST['colaborador'] : '';
+$cabina = (isset($_POST['cabina'])) ? $_POST['cabina'] : '';
 
 
 
 
 
-
-$consulta = "SELECT nhora FROM horas";
+//$consulta = "SELECT nhora FROM horas";
+$consulta="call spdisponibilidad('$fecha','$colaborador','$cabina')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);

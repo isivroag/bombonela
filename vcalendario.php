@@ -120,58 +120,86 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                         $horaInicial = "09:00";
 
 
-
+                                        $arreglo = array();
                                         do {
                                         ?>
                                             <tr>
                                                 <td><?php echo $horaInicial ?></td>
                                                 <?php
+
+
                                                 $horatope =  date("H:i", strtotime($horaInicial) + 1800);
+
+
                                                 foreach ($datacab as $rowcab) {
                                                     $cabina = $rowcab['id_cabina'];
-                                                    $consulta = "	SELECT * FROM vcitap2 where estado<>3 and estado<>4 and date(start)='$fecha' and time(start)>='$horaInicial' and time(start)<'$horatope' and id_cabina='$cabina'";
+                                                    $consulta = "SELECT * FROM vcitap2 where estado<>3 and estado<>4 and date(start)='$fecha' and time(start)='$horaInicial'  and id_cabina='$cabina'";
                                                     $resultado = $conexion->prepare($consulta);
                                                     $resultado->execute();
                                                     if ($resultado->rowCount() > 0) {
                                                         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach ($data as $rowcita) {
                                                             if ($rowcita['duracion'] == 30) {
-                                                                echo    '<td>
-                                                                <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
-                                                                    <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                        <span>' . $rowcita['title'] . '</span>
-                                                                      
+                                                                echo
+                                                                '<td>
+                                                                    <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
+                                                                        <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
+                                                                            <span>' . $rowcita['title'] . '</span>
+                                                                        </div>
+                                                                        <div class="card-body p-1" style:"font-size:10px">
+                                                                            <span>' . $rowcita['descripcion'] . '</span><br>
+                                                                            <span>' . $rowcita['nombre'] . ' </span>
+                                                                        </div>
                                                                     </div>
-
-                                                                    
-                                                                    <div class="card-body p-1" style:"font-size:10px">
-                                                                        <span>' . $rowcita['descripcion'] . '</span><br>
-                                                                        <span>' . $rowcita['nombre'] . ' </span>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                            </td>';
+                                                                </td>';
                                                             } else {
                                                                 echo    '<td rowspan="2 " style="vertical-align: middle!important;" >
                                                                             <div class="container text-center  ">
                                                                                 <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
                                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                                        
-                                                                                    <span>' . $rowcita['title'] . '</span>
+                                                                                        <span>' . $rowcita['title'] . '</span>
                                                                                     </div>
                                                                                     <div class="card-body p-1" style:"font-size:10px">
-                                                                                    
                                                                                         <span>' . $rowcita['descripcion'] . '</span><br>
                                                                                         <span>' . $rowcita['nombre'] . ' </span>
-                                                                                        
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </td>';
+
+                                                                $horaf = $horaInicial;
+                                                                $minutoAnadir = 30;
+                                                                $segundos_horaf = strtotime($horaf);
+                                                                $segundos_minutoAnadir = $minutoAnadir * 60;
+                                                                $horaf = date("H:i", $segundos_horaf + $segundos_minutoAnadir);
+
+
+                                                                $nuevoregistro = array("hora" =>  $horaf, "cabina" => $cabina);
+                                                                $registro = (object) $nuevoregistro;
+                                                                array_push($arreglo, $registro);
                                                             }
                                                         }
                                                     } else {
-                                                        echo '<td></td>';
+                                                        /*
+                                                        echo '<td>';
+                                                        foreach ($arreglo as $info=>$p)
+                                                        {
+                                                          
+                                                            echo $p->hora.'<br>' ;
+                                                         
+                                                            echo $p->cabina.'<br>';
+
+                                                            }
+                                                        echo '</td>';
+*/                                                         $encontrado=0;
+                                                        foreach($arreglo as $info => $p){
+                                                            if($p->hora == $horaInicial && $p->cabina == $cabina){
+                                                                $encontrado=1;
+                                                            }
+                                                        }
+                                                        if ($encontrado==0){
+                                                            echo '<td></td>';
+                                                        }
                                                     }
                                                 }
 
@@ -296,9 +324,9 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
 
                             <div class="col-sm-3">
                                 <div class="form-group input-group-sm">
-                                <label for="fecha" class="col-form-label">Fecha:</label>
+                                    <label for="fechap" class="col-form-label">Fecha:</label>
 
-                                    <input type="date" id="fecha" name="fecha" class="form-control" >
+                                    <input type="date" id="fechap" name="fechap" class="form-control">
 
 
                                 </div>
@@ -308,17 +336,17 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="form-group input-group-sm auto">
                                     <label for="hora" class="col-form-label">Hora:</label>
                                     <select class="form-control" name="hora" id="hora">
-                                <!--        <?php
-                                        $horaI = "09:00:00";
-                                        do {
-                                        ?>
+                                        <!--        <?php
+                                                    $horaI = "09:00:00";
+                                                    do {
+                                                    ?>
                                             <option value="<?php echo $horaI ?>"><?php echo $horaI ?></option>
                                         <?php
-                                            $minutoAnadir = 30;
-                                            $segundos_horaInicial = strtotime($horaI);
-                                            $segundos_minutoAnadir = $minutoAnadir * 60;
-                                            $horaI = date("H:i:s", $segundos_horaInicial + $segundos_minutoAnadir);
-                                        } while ($horaI <= "19:30:00");
+                                                        $minutoAnadir = 30;
+                                                        $segundos_horaInicial = strtotime($horaI);
+                                                        $segundos_minutoAnadir = $minutoAnadir * 60;
+                                                        $horaI = date("H:i:s", $segundos_horaInicial + $segundos_minutoAnadir);
+                                                    } while ($horaI <= "19:30:00");
                                         ?>-->
 
                                     </select>

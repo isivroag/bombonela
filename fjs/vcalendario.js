@@ -1,20 +1,20 @@
 $(document).ready(function () {
   var id_usuario, opcion
   opcion = 4
-  cargarhoras()
+  //cargarhoras()
 
   var date_input = document.getElementById('fecha')
 
   date_input.onchange = function () {
-    window.location.href="vcalendario.php?fecha="+this.value
+    window.location.href = 'vcalendario.php?fecha=' + this.value
   }
 
   tablacal = $('#tablacal').DataTable({
     stateSave: true,
     paging: false,
-    ordering:false,
-    info:false,
-    searching:false,
+    ordering: false,
+    info: false,
+    searching: false,
     //Para cambiar el lenguaje a español
     language: {
       lengthMenu: 'Mostrar _MENU_ registros',
@@ -34,15 +34,9 @@ $(document).ready(function () {
     },
   })
 
- 
-
-
-
   $(document).on('click', '.tarjetacita', function () {
- 
-   console.log($(this).attr('value'))
+    console.log($(this).attr('value'))
   })
-
 
   $('#datetimepicker1').datetimepicker({
     locale: 'es',
@@ -133,6 +127,8 @@ $(document).ready(function () {
     $('#btnCancelarcta').hide()
     $('#btnreagendar').hide()
     $('#btnGuardar').show()
+    $('#fechap').val($('#fecha').val())
+    cargarhoras()
     $('#modalCRUD').modal('show')
   })
 
@@ -176,13 +172,15 @@ $(document).ready(function () {
     var concepto = $.trim($('#concepto').val())
     var fecha = $.trim($('#fecha').val())
     var hora = $('#hora').val()
-    fecha= fecha +" "+ hora;
+    fecha = fecha + ' ' + hora
     var obs = $.trim($('#obs').val())
     var id = $.trim($('#folio').val())
     var tipop = $.trim($('#tipop').val())
     var responsable = $.trim($('#responsable').val())
     var duracion = $.trim($('#duracion').val())
     var cabina = $.trim($('#cabina').val())
+    colaborador = responsable
+    inicio=fecha
     if (
       id_pros.length == 0 ||
       fecha.length == 0 ||
@@ -197,39 +195,63 @@ $(document).ready(function () {
       return false
     } else {
       $.ajax({
-        url: 'bd/citasp.php',
         type: 'POST',
+        url: 'bd/validarcita.php',
+        async: false,
         dataType: 'json',
-        async: 'false',
         data: {
-          nombre: nombre,
-          id_pros: id_pros,
-          fecha: fecha,
-          obs: obs,
-          tipop: tipop,
-          concepto: concepto,
-          id: id,
-          opcion: opcion,
-          responsable: responsable,
+          inicio: inicio,
           duracion: duracion,
+          colaborador: colaborador,
           cabina: cabina,
         },
         success: function (data) {
-          if (data == 1) {
-            console.log(data)
-            Swal.fire({
-              title: 'Operación Exitosa',
-              text: 'Cita Guardada',
-              icon: 'success',
-              timer: 1000,
+          if (data == 0) {
+            $.ajax({
+              url: 'bd/citasp.php',
+              type: 'POST',
+              dataType: 'json',
+              async: 'false',
+              data: {
+                nombre: nombre,
+                id_pros: id_pros,
+                fecha: fecha,
+                obs: obs,
+                tipop: tipop,
+                concepto: concepto,
+                id: id,
+                opcion: opcion,
+                responsable: responsable,
+                duracion: duracion,
+                cabina: cabina,
+              },
+              success: function (data) {
+                if (data == 1) {
+                  console.log(data)
+                  Swal.fire({
+                    title: 'Operación Exitosa',
+                    text: 'Cita Guardada',
+                    icon: 'success',
+                    timer: 1000,
+                  })
+                  window.setTimeout(function () {
+                    location.reload()
+                  }, 1500)
+                } else {
+                  Swal.fire({
+                    title: 'No es posible Agendar la Cita',
+                    icon: 'warning',
+                  })
+                }
+              },
             })
-            window.setTimeout(function () {
-              location.reload()
-            }, 1500)
           } else {
-            Swal.fire({
-              title: 'No es posible Agendar la Cita',
-              icon: 'warning',
+            swal.fire({
+              title: 'No es posible Agendar Cita',
+              text: 'Verifique la fecha, la hora, la cabina y el responsable',
+              icon: 'error',
+              focusConfirm: true,
+              confirmButtonText: 'Aceptar',
             })
           }
         },
@@ -247,9 +269,10 @@ $(document).ready(function () {
     var id = $.trim($('#folio').val())
     var tipop = $.trim($('#tipop').val())
     var responsable = $.trim($('#responsable').val())
+    colaborador = responsable
     var duracion = $.trim($('#duracion').val())
     var cabina = $.trim($('#cabina').val())
-    opcion=2
+    opcion = 2
     if (
       id_pros.length == 0 ||
       fecha.length == 0 ||
@@ -264,39 +287,63 @@ $(document).ready(function () {
       return false
     } else {
       $.ajax({
-        url: 'bd/citasp.php',
         type: 'POST',
+        url: 'bd/validarcita.php',
+        async: false,
         dataType: 'json',
-        async: 'false',
         data: {
-          nombre: nombre,
-          id_pros: id_pros,
-          fecha: fecha,
-          obs: obs,
-          tipop: tipop,
-          concepto: concepto,
-          id: id,
-          opcion: opcion,
-          responsable: responsable,
+          inicio: inicio,
           duracion: duracion,
+          colaborador: colaborador,
           cabina: cabina,
         },
         success: function (data) {
-          if (data == 1) {
-            console.log(data)
-            Swal.fire({
-              title: 'Operación Exitosa',
-              text: 'Cita Guardada',
-              icon: 'success',
-              timer: 1000,
+          if (data == 0) {
+            $.ajax({
+              url: 'bd/citasp.php',
+              type: 'POST',
+              dataType: 'json',
+              async: 'false',
+              data: {
+                nombre: nombre,
+                id_pros: id_pros,
+                fecha: fecha,
+                obs: obs,
+                tipop: tipop,
+                concepto: concepto,
+                id: id,
+                opcion: opcion,
+                responsable: responsable,
+                duracion: duracion,
+                cabina: cabina,
+              },
+              success: function (data) {
+                if (data == 1) {
+                  console.log(data)
+                  Swal.fire({
+                    title: 'Operación Exitosa',
+                    text: 'Cita Guardada',
+                    icon: 'success',
+                    timer: 1000,
+                  })
+                  window.setTimeout(function () {
+                    location.reload()
+                  }, 1500)
+                } else {
+                  Swal.fire({
+                    title: 'No es posible Agendar la Cita',
+                    icon: 'warning',
+                  })
+                }
+              },
             })
-            window.setTimeout(function () {
-              location.reload()
-            }, 1500)
           } else {
-            Swal.fire({
-              title: 'No es posible Agendar la Cita',
-              icon: 'warning',
+            swal.fire({
+              title: 'No es posible Agendar Cita',
+              text: 'Verifique la fecha, la hora, la cabina y el responsable',
+              icon: 'error',
+              focusConfirm: true,
+              confirmButtonText: 'Aceptar',
             })
           }
         },
@@ -304,8 +351,6 @@ $(document).ready(function () {
     }
     //$("#modalCRUD").modal("hide");
   })
-
-
 
   $(document).on('click', '#btnGuardarx', function () {
     var id_pros = $.trim($('#id_prosx').val())
@@ -374,7 +419,6 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '#btnreagendarx', function () {
- 
     var id_pros = $.trim($('#id_prosx').val())
     var nombre = $.trim($('#nom_prosx').val())
     var concepto = $.trim($('#conceptox').val())
@@ -385,7 +429,7 @@ $(document).ready(function () {
     var responsable = $.trim($('#responsablex').val())
     var duracion = $.trim($('#duracionx').val())
     var cabina = $.trim($('#cabinax').val())
-    opcion=2
+    opcion = 2
     if (
       id_pros.length == 0 ||
       fecha.length == 0 ||
@@ -440,7 +484,6 @@ $(document).ready(function () {
     }
     //$("#modalCRUD").modal("hide");
   })
-
 
   $(document).on('click', '#btnCancelarcta', function () {
     folio = $('#folio').val()
@@ -558,25 +601,46 @@ $(document).ready(function () {
     },
   })
 
+  $('#fechap').on('change', function () {
+    cargarhoras()
+  })
 
-  function cargarhoras(){
+  $('#responsable').on('change', function () {
+    cargarhoras()
+  })
+
+  $('#cabina').on('change', function () {
+    cargarhoras()
+  })
+
+  function cargarhoras() {
+    fecha = $('#fechap').val()
+    colaborador = $('#responsable').val()
+    cabina = $('#cabina').val()
+
     $('#hora').empty()
     $.ajax({
       type: 'POST',
       url: 'bd/cargarhoras.php',
       dataType: 'json',
       async: false,
-      data: {},
+      data: { fecha: fecha, colaborador: colaborador, cabina: cabina },
       success: function (res) {
         for (var i = 0; i < res.length; i++) {
-          $('#hora').append($("<option>", {
-            value:res[i].nhora,
-            text:res[i].nhora
-          }));
+          $('#hora').append(
+            $('<option>', {
+              value: res[i].nhora,
+              text: res[i].nhora,
+            }),
+          )
         }
-       
+      },
+      error: function () {
+        Swal.fire({
+          title: 'Error al cargar horarios disponibles',
+          icon: 'error',
+        })
       },
     })
   }
-
 })
