@@ -47,7 +47,51 @@ $resultadocab->execute();
 $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+<style>
+    .punto {
+        height: 20px !important;
+        width: 20px !important;
 
+        border-radius: 50% !important;
+        display: inline-block !important;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    #div_carga {
+        position: absolute;
+        /*top: 50%;
+    left: 50%;
+    */
+
+        width: 100%;
+        height: 100%;
+        background-color: rgba(60, 60, 60, 0.5);
+        display: none;
+
+        justify-content: center;
+        align-items: center;
+        z-index: 3;
+    }
+
+    #cargador {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -25px;
+        margin-left: -25px;
+    }
+
+    #textoc {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: 120px;
+        margin-left: 20px;
+
+
+    }
+</style>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
@@ -61,6 +105,13 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- Default box -->
         <div class="card">
+
+            <div id="div_carga">
+
+                <img id="cargador" src="img/loader.gif" />
+                <span class=" " id="textoc"><strong>Cargando...</strong></span>
+
+            </div>
             <div class="card-header bg-gradient-green text-light">
                 <h1 class="card-title mx-auto">Vista de Calendario</h1>
             </div>
@@ -70,19 +121,26 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row justify-content-center">
                     <div class="col-sm-4">
                         <div class="form-group form-group-sm">
-                        <label for="txtbuscar" class="col-form-label">Introduzca el nombre del Prospecto o Cliente:</label>
-                        <div class="input-group input-group-sm">
-                            <input type="text" name="txtbuscar" id="txtbuscar" class="form-control">
-                            <span class="input-group-append">
-                                <button type="button" class="btn bg-gradient-green btn-flat">Buscar</button>
-                            </span>
-                        </div>
+                            <label for="txtbuscar" class="col-form-label">Introduzca el nombre del Prospecto o Cliente:</label>
+
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="txtbuscar" id="txtbuscar" class="form-control">
+                                <span class="input-group-append">
+                                    <button type="button" name="btnbuscar" id="btnbuscar" class="btn bg-gradient-green btn-flat">Buscar</button>
+                                </span>
+                            </div>
+                            <div class="form-check form-group-sm text-center">
+                                <input class="form-check-input" name="incluir" id="incluir" type="checkbox">
+                                <label class="form-check-label">Incluir Historial</label>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <br>
                 <div class="container-fluid">
-               
+
+
+
                     <div class="row justify-content-center">
                         <div class="col-sm-12">
                             <div class="table-responsive">
@@ -103,8 +161,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                             <th>Responsable</th>
                                             <th>Color</th>
                                             <th>Duracion</th>
-                                            <th>Estado</th>
-                                            <th>Acciones</th>
+                                           
 
                                         </tr>
                                     </thead>
@@ -127,8 +184,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                 <td><?php echo $row['nombre'] ?></td>
                                                 <td><?php echo $row['color'] ?></td>
                                                 <td class="text-center"><?php echo $row['duracion'] ?></td>
-                                                <td class="text-center"><?php echo $row['confirmar'] ?></td>
-                                                <td class="text-center"></td>
+                                              
                                             </tr>
                                         <?php
                                         }

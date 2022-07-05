@@ -103,10 +103,10 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
 
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-lg-12">
-                            <div class="table-responsive">
-                                <table name="tablacal" id="tablacal" class="table table-sm  table-bordered  table-hover table-condensed text-nowrap w-auto mx-auto " style="font-size:12px;vertical-align: center!important;">
+                            <div class="table-responsive w-100">
+                                <table name="tablacal" id="tablacal" class="table  table-sm  table-bordered  table-hover table-condensed text-nowrap w-100 mx-auto " style="font-size:12px;vertical-align: center!important;">
                                     <thead class="text-center bg-gradient-green">
                                         <tr>
                                             <th>HR/CAB</th>
@@ -180,24 +180,13 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                             }
                                                         }
                                                     } else {
-                                                        /*
-                                                        echo '<td>';
-                                                        foreach ($arreglo as $info=>$p)
-                                                        {
-                                                          
-                                                            echo $p->hora.'<br>' ;
-                                                         
-                                                            echo $p->cabina.'<br>';
-
-                                                            }
-                                                        echo '</td>';
-*/                                                         $encontrado=0;
-                                                        foreach($arreglo as $info => $p){
-                                                            if($p->hora == $horaInicial && $p->cabina == $cabina){
-                                                                $encontrado=1;
+                                                        $encontrado = 0;
+                                                        foreach ($arreglo as $info => $p) {
+                                                            if ($p->hora == $horaInicial && $p->cabina == $cabina) {
+                                                                $encontrado = 1;
                                                             }
                                                         }
-                                                        if ($encontrado==0){
+                                                        if ($encontrado == 0) {
                                                             echo '<td></td>';
                                                         }
                                                     }
@@ -502,7 +491,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <div class="form-group input-group-sm auto">
                                     <label for="cabinax" class="col-form-label">Cabina:</label>
                                     <select class="form-control" name="cabinax" id="cabinax">
@@ -529,24 +518,34 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                             </div>
 
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group input-group-sm">
-                                    <label for="fechax" class="col-form-label">Fecha Y Hora:</label>
+                                    <label for="fechax" class="col-form-label">Fecha:</label>
 
-                                    <div class="form-group input-group date" id="datetimepicker1x" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                                        <input type="text" id="fechax" name="fechax" class="form-control datetimepicker-input " style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1x" autocomplete="off" placeholder="Fecha y Hora">
-                                        <div class="form-group input-group-append " data-target="#datetimepicker1x" data-toggle="datetimepicker">
-                                            <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                    <!--
-                                        <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii:00" data-link-field="dtp_input1">
-                                                <input class="form-control" type="text" value="" readonly>
-                                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                                            </div>
-                                            <input type="hidden" id="dtp_input1" value="" /><br/>
-                                            -->
+                                    <input type="date" id="fechax" name="fechax" class="form-control">
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group input-group-sm auto">
+                                    <label for="horax" class="col-form-label">Hora:</label>
+                                    <select class="form-control" name="horax" id="horax">
+                                        <!--        <?php
+                                                    $horaI = "09:00:00";
+                                                    do {
+                                                    ?>
+                                            <option value="<?php echo $horaI ?>"><?php echo $horaI ?></option>
+                                        <?php
+                                                        $minutoAnadir = 30;
+                                                        $segundos_horaInicial = strtotime($horaI);
+                                                        $segundos_minutoAnadir = $minutoAnadir * 60;
+                                                        $horaI = date("H:i:s", $segundos_horaInicial + $segundos_minutoAnadir);
+                                                    } while ($horaI <= "19:30:00");
+                                        ?>-->
+
+                                    </select>
                                 </div>
                             </div>
 
