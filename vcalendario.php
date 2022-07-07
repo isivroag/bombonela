@@ -139,12 +139,16 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                     if ($resultado->rowCount() > 0) {
                                                         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach ($data as $rowcita) {
+                                                            $icono="";
+                                                            if($rowcita['tipo_p'] == 1){
+                                                                $icono='<i class="fa-solid fa-star text-warning  text-center"></i>';
+                                                            }
                                                             if ($rowcita['duracion'] == 30) {
                                                                 echo
                                                                 '<td>
                                                                     <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
                                                                         <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                            <span>' . $rowcita['title'] . '</span>
+                                                                            <span>' . $rowcita['title'] . '</span>'.$icono.'
                                                                         </div>
                                                                         <div class="card-body p-1" style:"font-size:10px">
                                                                             <span>' . $rowcita['descripcion'] . '</span><br>
@@ -157,7 +161,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                                             <div class="container text-center  ">
                                                                                 <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
                                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                                        <span>' . $rowcita['title'] . '</span>
+                                                                                        <span>' . $rowcita['title'] . '</span>'.$icono.'
                                                                                     </div>
                                                                                     <div class="card-body p-1" style:"font-size:10px">
                                                                                         <span>' . $rowcita['descripcion'] . '</span><br>
@@ -564,19 +568,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
 
-                        <?php
-                        if ($message != "") {
-                        ?>
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                <span class="badge "><?php echo ($message); ?></span>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-
-                            </div>
-
-                        <?php
-                        }
-                        ?>
+                       
                         <div class="modal-footer row d-flex justify-content-between">
 
                             <div class="col-sm-3 d-flex">

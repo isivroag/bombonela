@@ -23,83 +23,79 @@ $obs = ucfirst(strtolower($obs));
 
 switch ($opcion) {
         case 1: //alta
-                $consulta = "SELECT * FROM citap where (id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) " ;
+                $consulta = "SELECT * FROM citap where (id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
-                if ($resultado->rowCount()==0){
-                        if ($tipop==0){
+                if ($resultado->rowCount() == 0) {
+                        if ($tipop == 0) {
                                 $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
-                                if ($resultado->rowCount()==0){
+                                if ($resultado->rowCount() == 0) {
                                         $consulta = "INSERT INTO citap (id_pros,id_px,fecha,concepto,obs,tipo_p,id_per,duracion,id_cabina) VALUES('$id_pros','0', '$fecha', '$concepto','$obs','$tipop','$responsable','$duracion','$cabina') ";
-                                }else{
-                                        $data=0;
+                                } else {
+                                        $data = 0;
                                         break;
                                 }
-                        }else{
+                        } else {
                                 $consulta = "SELECT * FROM citap where (id_px='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
-                                if ($resultado->rowCount()==0){
+                                if ($resultado->rowCount() == 0) {
                                         $consulta = "INSERT INTO citap (id_pros,id_px,fecha,concepto,obs,tipo_p,id_per,duracion,id_cabina) VALUES('0','$id_pros', '$fecha', '$concepto','$obs','$tipop','$responsable','$duracion','$cabina') ";
-                                }else{
-                                        $data=0;
+                                } else {
+                                        $data = 0;
                                         break;
                                 }
+                        }
 
-                                
-                        }
-                      
                         $resultado = $conexion->prepare($consulta);
-                        if($resultado->execute() ){
-                                $data=1;
-                        }else{
-                                $data=0;
+                        if ($resultado->execute()) {
+                                $data = 1;
+                        } else {
+                                $data = 0;
                         }
-                }else{
-                        $data=0;
+                } else {
+                        $data = 0;
                 }
 
-               
+
                 break;
         case 2:
-                $consulta = "SELECT * FROM citap where (id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) " ;
+                $consulta = "SELECT * FROM citap where (id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) ";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
-                if ($resultado->rowCount() == 0){
-                        if ($tipop==0){
+                if ($resultado->rowCount() == 0) {
+                        if ($tipop == 0) {
                                 $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
-                                if ($resultado->rowCount()==0){
+                                if ($resultado->rowCount() == 0) {
                                         $consulta = "UPDATE citap SET fecha='$fecha',concepto='$concepto',obs='$obs',id_per='$responsable',duracion='$duracion',id_cabina='$cabina' WHERE folio_citap='$id' ";
-                                }else{
-                                        $data=0;
+                                } else {
+                                        $data = 0;
                                         break;
                                 }
-                        }else{
+                        } else {
                                 $consulta = "SELECT * FROM citap where (id_px='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
-                                if ($resultado->rowCount()==0){
+                                if ($resultado->rowCount() == 0) {
                                         $consulta = "UPDATE citap SET fecha='$fecha',concepto='$concepto',obs='$obs',id_per='$responsable',duracion='$duracion',id_cabina='$cabina' WHERE folio_citap='$id' ";
-                                }else{
-                                        $data=0;
+                                } else {
+                                        $data = 0;
                                         break;
                                 }
+                        }
 
-                                
-                        }
-                      
                         $resultado = $conexion->prepare($consulta);
-                        if($resultado->execute() ){
-                                $data=1;
-                        }else{
-                                $data=0;
+                        if ($resultado->execute()) {
+                                $data = 1;
+                        } else {
+                                $data = 0;
                         }
-                }else{
-                        $data=0;
+                } else {
+                        $data = 0;
                 }
                 break;
 
@@ -110,8 +106,14 @@ switch ($opcion) {
                 $resultado->execute();
                 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                 break;
-        
-        
+        case 4:
+                $consulta = "SELECT id,id_pros,id_per,title,descripcion,tipo_p,
+                date(start) as fecha,time(start) as hora,obs,id_cabina,duracion
+                FROM vcitap2 WHERE id='$id'";
+                $resultado = $conexion->prepare($consulta);
+                $resultado->execute();
+                $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+                break;
 }
 
 print json_encode($data, JSON_UNESCAPED_UNICODE); //enviar el array final en formato json a JS
