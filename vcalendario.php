@@ -661,17 +661,8 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                     </div>
-                    <?php
-                    if ($message != "") {
-                    ?>
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <span class="badge "><?php echo ($message); ?></span>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                        </div>
-                    <?php
-                    }
-                    ?>
+                  
+                 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
                         <button type="button" id="btnGuardarc" name="btnGuardarc" class="btn btn-success" value="btnGuardarc"><i class="far fa-save"></i> Guardar</button>
