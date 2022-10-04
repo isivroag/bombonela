@@ -62,12 +62,12 @@ switch ($opcion) {
 
                 break;
         case 2:
-                $consulta = "SELECT * FROM citap where (id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) ";
+                $consulta = "SELECT * FROM citap where folio_citap <> '$id' and ((id_per='$responsable' and fecha='$fecha' and estado<> 3 and estado <> 4 ) or (id_cabina='$cabina' and fecha='$fecha' and estado<> 3 and estado <> 4 ) )";
                 $resultado = $conexion->prepare($consulta);
                 $resultado->execute();
                 if ($resultado->rowCount() == 0) {
                         if ($tipop == 0) {
-                                $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
+                                $consulta = "SELECT * FROM citap where (id_pros='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4 and folio_citap<>'$id'";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 if ($resultado->rowCount() == 0) {
@@ -77,7 +77,7 @@ switch ($opcion) {
                                         break;
                                 }
                         } else {
-                                $consulta = "SELECT * FROM citap where (id_px='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4";
+                                $consulta = "SELECT * FROM citap where (id_px='$id_pros' and fecha='$fecha') and estado<> 3 and estado <> 4 and folio_citap<>'$id'";
                                 $resultado = $conexion->prepare($consulta);
                                 $resultado->execute();
                                 if ($resultado->rowCount() == 0) {

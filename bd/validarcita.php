@@ -11,9 +11,10 @@ $inicio = (isset($_POST['inicio'])) ? $_POST['inicio'] : '';
 $duracion = (isset($_POST['duracion'])) ? $_POST['duracion'] : '';
 $cabina = (isset($_POST['cabina'])) ? $_POST['cabina'] : '';
 $colaborador = (isset($_POST['colaborador'])) ? $_POST['colaborador'] : '';
+$cita = (isset($_POST['cita'])) ? $_POST['cita'] : '';
 
 $data=0;
-$consulta = " call spvalidardisp('$inicio','$duracion','$colaborador','$cabina')";
+$consulta = " call spvalidardisp2('$inicio','$duracion','$colaborador','$cabina','$cita')";
 
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();

@@ -249,7 +249,8 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-sm-12">
                                 <div class="form-group input-group-sm">
                                     <input type="hidden" class="form-control" name="tipop" id="tipop" value="0">
-                                    <input type="hidden" class="form-control" name="folio" id="folio">
+                                    <input type="input" class="form-control" name="folio" id="folio">
+                                    <input type="input" class="form-control" name="opcion" id="opcion">
                                     <input type="hidden" class="form-control" name="id_pros" id="id_pros">
                                     <label for="nombre" class="col-form-label">Prospecto:</label>
 
@@ -457,7 +458,8 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-sm-12">
                                 <div class="form-group input-group-sm">
                                     <input type="hidden" class="form-control" name="tipopx" id="tipopx" value="1">
-                                    <input type="hidden" class="form-control" name="foliox" id="foliox">
+                                    <input type="input" class="form-control" name="foliox" id="foliox">
+                                    <input type="input" class="form-control" name="opcionx" id="opcionx">
                                     <input type="hidden" class="form-control" name="id_prosx" id="id_prosx">
                                     <label for="nombrex" class="col-form-label">Cliente:</label>
 

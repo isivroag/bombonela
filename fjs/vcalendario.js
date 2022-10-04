@@ -55,7 +55,7 @@ $(document).ready(function () {
 
           $('#obs').val(data[0].obs)
           $('#cabina').val(data[0].id_cabina)
-
+          $('#opcion').val('1')
           $('#duracion').val(data[0].duracion)
           $('#btnCancelarcta').show()
           $('#btnGuardar').hide()
@@ -63,13 +63,13 @@ $(document).ready(function () {
           $('#btnreagendar').prop('disabled', false)
           $('#btnCancelarcta').prop('disabled', false)
           cargarhoras()
-          $('#hora').append(
+       /*   $('#hora').append(
             $('<option>', {
               value: data[0].hora,
               text: data[0].hora,
               disabled: true,
             }),
-          )
+          )*/
           $('#hora').val(data[0].hora)
          // $('#hora option[tmt').attr('disabled', true);
 
@@ -82,7 +82,7 @@ $(document).ready(function () {
           $('#conceptox').val(data[0].descripcion)
           $('#responsablex').val(data[0].id_per)
           $('#fechax').val(data[0].fecha)
-
+          $('#opcionx').val('1')
           $('#obsx').val(data[0].obs)
           $('#duracionx').val(data[0].duracion)
           $('#cabinax').val(data[0].id_cabina)
@@ -94,13 +94,13 @@ $(document).ready(function () {
           $('#btnCancelarctax').prop('disabled', false)
 
           cargarhorasx()
-          $('#horax').append(
+         /* $('#horax').append(
             $('<option>', {
               value: data[0].hora,
               text: data[0].hora,
               disabled: true,
             }),
-          )
+          )*/
           $('#horax').val(data[0].hora)
           
           $('#modalpx').modal('show')
@@ -198,6 +198,7 @@ $(document).ready(function () {
     $('#btnCancelarcta').hide()
     $('#btnreagendar').hide()
     $('#btnGuardar').show()
+    $('#opcion').val(0)
     $('#fechap').val($('#fecha').val())
     cargarhoras()
     $('#modalCRUD').modal('show')
@@ -212,6 +213,7 @@ $(document).ready(function () {
     $('#btnCancelarctax').hide()
     $('#btnreagendarx').hide()
     $('#btnGuardarx').show()
+    $('#opcionx').val(0)
     $('#fechax').val($('#fecha').val())
     cargarhorasx()
     $('#modalpx').modal('show')
@@ -254,6 +256,13 @@ $(document).ready(function () {
     var cabina = $.trim($('#cabina').val())
     colaborador = responsable
     inicio = fecha
+    opchr= $('#opcion').val()
+    if (opchr == '1') {
+      cita=$('#folio').val()
+    }else{
+      cita=0
+    }
+    console.log(inicio+'/ '+duracion+'/ '+ colaborador+'/ '+ cabina+'/ '+cita)
     if (
       id_pros.length == 0 ||
       fecha.length == 0 ||
@@ -278,6 +287,7 @@ $(document).ready(function () {
           duracion: duracion,
           colaborador: colaborador,
           cabina: cabina,
+          cita: cita
         },
         success: function (data) {
           if (data == 0) {
@@ -335,20 +345,28 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '#btnreagendar', function () {
-    var id_pros = $.trim($('#id_pros').val())
-    var nombre = $.trim($('#nom_pros').val())
-    var concepto = $.trim($('#concepto').val())
-    var fecha = $.trim($('#fecha').val())
+    var id_pros = $('#id_pros').val()
+    var nombre = $('#nom_pros').val()
+    var concepto = $('#concepto').val()
+    var fecha = $('#fecha').val()
     var hora = $('#hora').val()
     fecha = fecha + ' ' + hora
-    var obs = $.trim($('#obs').val())
-    var id = $.trim($('#folio').val())
-    var tipop = $.trim($('#tipop').val())
-    var responsable = $.trim($('#responsable').val())
-    var duracion = $.trim($('#duracion').val())
-    var cabina = $.trim($('#cabina').val())
+    var obs = $('#obs').val()
+    var id = $('#folio').val()
+    var tipop = $('#tipop').val()
+    var responsable = $('#responsable').val()
+    var duracion = $('#duracion').val()
+    var cabina = $('#cabina').val()
     colaborador = responsable
     inicio = fecha
+
+    opchr= $('#opcion').val()
+    if (opchr == '1') {
+      cita=$('#folio').val()
+    }else{
+      cita=0
+    }
+    console.log(inicio+'/ '+duracion+'/ '+ colaborador+'/ '+ cabina+'/ '+cita)
     opcion = 2
     if (
       id_pros.length == 0 ||
@@ -373,6 +391,7 @@ $(document).ready(function () {
           duracion: duracion,
           colaborador: colaborador,
           cabina: cabina,
+          cita: cita
         },
         success: function (data) {
           if (data == 0) {
@@ -444,7 +463,13 @@ $(document).ready(function () {
     var cabina = $.trim($('#cabinax').val())
     colaborador = responsable
     inicio = fecha
-
+    opchr= $('#opcionx').val()
+    if (opchr == '1') {
+      cita=$('#foliox').val()
+    }else{
+      cita=0
+    }
+    console.log(inicio+'/ '+duracion+'/ '+ colaborador+'/ '+ cabina+'/ '+cita)
     if (
       id_pros.length == 0 ||
       fecha.length == 0 ||
@@ -469,6 +494,7 @@ $(document).ready(function () {
           duracion: duracion,
           colaborador: colaborador,
           cabina: cabina,
+          cita: cita
         },
         success: function (data) {
           if (data == 0) {
@@ -525,21 +551,31 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '#btnreagendarx', function () {
-    var id_pros = $.trim($('#id_prosx').val())
-    var nombre = $.trim($('#nom_prosx').val())
-    var concepto = $.trim($('#conceptox').val())
-    var fecha = $.trim($('#fechax').val())
+    var id_pros =$('#id_prosx').val()
+    var nombre =$('#nom_prosx').val()
+    var concepto =$('#conceptox').val()
+    var fecha =$('#fechax').val()
     var hora = $('#horax').val()
     fecha = fecha + ' ' + hora
-    var obs = $.trim($('#obsx').val())
-    var id = $.trim($('#foliox').val())
-    var tipop = $.trim($('#tipopx').val())
-    var responsable = $.trim($('#responsablex').val())
-    var duracion = $.trim($('#duracionx').val())
-    var cabina = $.trim($('#cabinax').val())
+    var obs =$('#obsx').val()
+    var id =$('#foliox').val()
+    var tipop =$('#tipopx').val()
+    var responsable =$('#responsablex').val()
+    var duracion =$('#duracionx').val()
+    var cabina =$('#cabinax').val()
     colaborador = responsable
     inicio = fecha
     opcion = 2
+
+    opchr= $('#opcionx').val()
+    if (opchr == '1') {
+      cita=$('#foliox').val()
+    }else{
+      cita=0
+    }
+
+    console.log(inicio+'/ '+duracion+'/ '+ colaborador+'/ '+ cabina+'/ '+cita+'/ '+ id + '/ '+ id_pros)
+
     if (
       id_pros.length == 0 ||
       fecha.length == 0 ||
@@ -563,6 +599,7 @@ $(document).ready(function () {
           duracion: duracion,
           colaborador: colaborador,
           cabina: cabina,
+          cita: cita
         },
         success: function (data) {
           if (data == 0) {
@@ -646,10 +683,7 @@ $(document).ready(function () {
     usuario = $('#nameuser').val()
     $('#modalcan').modal('hide')
     opcion = 4
-    console.log(id)
-    console.log(motivo)
-    console.log(fecha)
-    console.log(usuario)
+   
 
     if (motivo === '') {
       swal.fire({
@@ -751,14 +785,21 @@ $(document).ready(function () {
     fecha = $('#fechap').val()
     colaborador = $('#responsable').val()
     cabina = $('#cabina').val()
+    opchr= $('#opcion').val()
+    if (opchr == '1') {
+      cita=$('#folio').val()
+    }else{
+      cita=0
+    }
 
+   
     $('#hora').empty()
     $.ajax({
       type: 'POST',
       url: 'bd/cargarhoras.php',
       dataType: 'json',
       async: false,
-      data: { fecha: fecha, colaborador: colaborador, cabina: cabina },
+      data: { fecha: fecha, colaborador: colaborador, cabina: cabina ,cita: cita},
       success: function (res) {
         for (var i = 0; i < res.length; i++) {
           $('#hora').append(
@@ -793,14 +834,20 @@ $(document).ready(function () {
     fecha = $('#fechax').val()
     colaborador = $('#responsablex').val()
     cabina = $('#cabinax').val()
-
+    opchr= $('#opcionx').val()
+    if (opchr == '1') {
+      cita=$('#foliox').val()
+    }else{
+      cita=0
+    }
+   
     $('#horax').empty()
     $.ajax({
       type: 'POST',
       url: 'bd/cargarhoras.php',
       dataType: 'json',
       async: false,
-      data: { fecha: fecha, colaborador: colaborador, cabina: cabina },
+      data: { fecha: fecha, colaborador: colaborador, cabina: cabina, cita: cita },
       success: function (res) {
         for (var i = 0; i < res.length; i++) {
           $('#horax').append(

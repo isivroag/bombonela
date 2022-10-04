@@ -11,13 +11,13 @@ $data = 0;
 $fecha = (isset($_POST['fecha'])) ? $_POST['fecha'] : '';
 $colaborador = (isset($_POST['colaborador'])) ? $_POST['colaborador'] : '';
 $cabina = (isset($_POST['cabina'])) ? $_POST['cabina'] : '';
-
+$cita = (isset($_POST['cita'])) ? $_POST['cita'] : '';
 
 
 
 
 //$consulta = "SELECT nhora FROM horas";
-$consulta="call spdisponibilidad('$fecha','$colaborador','$cabina')";
+$consulta="call spdisponibilidad2('$fecha','$colaborador','$cabina','$cita')";
 $resultado = $conexion->prepare($consulta);
 $resultado->execute();
 $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
