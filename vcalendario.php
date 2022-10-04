@@ -139,31 +139,33 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                     if ($resultado->rowCount() > 0) {
                                                         $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
                                                         foreach ($data as $rowcita) {
-                                                            $icono="";
-                                                            if($rowcita['tipo_p'] == 1){
-                                                                $icono='<i class="fa-solid fa-star text-warning  text-center"></i>';
+                                                            $icono = "";
+                                                            if ($rowcita['tipo_p'] == 1) {
+                                                                $icono = '<i class="fa-solid fa-star text-warning  text-center"></i>';
                                                             }
                                                             if ($rowcita['duracion'] == 30) {
                                                                 echo
                                                                 '<td>
-                                                                    <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
-                                                                        <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                            <span>' . $rowcita['title'] . '</span>'.$icono.'
-                                                                        </div>
-                                                                        <div class="card-body p-1" style:"font-size:10px">
-                                                                            <span>' . $rowcita['descripcion'] . '</span><br>
-                                                                            <span>' . $rowcita['nombre'] . ' </span>
+                                                                    <div class="container text-center d-block">
+                                                                        <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
+                                                                            <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
+                                                                                <span>' . $rowcita['title'] . '</span>' . $icono . '
+                                                                            </div>
+                                                                            <div class="card-body p-1" style:"font-size:10px">
+                                                                                <span>' . $rowcita['descripcion'] . '</span><br>
+                                                                                <span>' . $rowcita['nombre'] . ' </span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </td>';
                                                             } else {
-                                                                $duracion= $rowcita['duracion'];
-                                                                $duracion= intval($duracion)/30;
-                                                                echo    '<td rowspan="'. $duracion .'" style="vertical-align: middle!important;" >
+                                                                $duracion = $rowcita['duracion'];
+                                                                $duracion = intval($duracion) / 30;
+                                                                echo    '<td rowspan="' . $duracion . '" style="vertical-align: middle!important;" >
                                                                             <div class="container text-center d-block">
                                                                                 <div class="card tarjetacita d-block " id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
                                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
-                                                                                        <span>' . $rowcita['title'] . '</span>'.$icono.'
+                                                                                        <span>' . $rowcita['title'] . '</span>' . $icono . '
                                                                                     </div>
                                                                                     <div class="card-body p-1" style:"font-size:10px">
                                                                                         <span>' . $rowcita['descripcion'] . '</span><br>
@@ -174,15 +176,19 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                                         </td>';
 
                                                                 $horaf = $horaInicial;
-                                                                $minutoAnadir = 30;
-                                                                $segundos_horaf = strtotime($horaf);
-                                                                $segundos_minutoAnadir = $minutoAnadir * 60;
-                                                                $horaf = date("H:i", $segundos_horaf + $segundos_minutoAnadir);
+
+                                                                for ($i = 1; $i < intval($duracion); $i++) {
+
+                                                                    $minutoAnadir = 30;
+                                                                    $segundos_horaf = strtotime($horaf);
+                                                                    $segundos_minutoAnadir = $minutoAnadir * 60;
+                                                                    $horaf = date("H:i", $segundos_horaf + $segundos_minutoAnadir);
 
 
-                                                                $nuevoregistro = array("hora" =>  $horaf, "cabina" => $cabina);
-                                                                $registro = (object) $nuevoregistro;
-                                                                array_push($arreglo, $registro);
+                                                                    $nuevoregistro = array("hora" =>  $horaf, "cabina" => $cabina);
+                                                                    $registro = (object) $nuevoregistro;
+                                                                    array_push($arreglo, $registro);
+                                                                }
                                                             }
                                                         }
                                                     } else {
@@ -584,7 +590,7 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                         </div>
 
 
-                       
+
                         <div class="modal-footer row d-flex justify-content-between">
 
                             <div class="col-sm-3 d-flex">
@@ -677,8 +683,8 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
                     </div>
-                  
-                 
+
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fas fa-ban"></i> Cancelar</button>
                         <button type="button" id="btnGuardarc" name="btnGuardarc" class="btn btn-success" value="btnGuardarc"><i class="far fa-save"></i> Guardar</button>
