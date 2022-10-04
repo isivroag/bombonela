@@ -157,9 +157,11 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                                                     </div>
                                                                 </td>';
                                                             } else {
-                                                                echo    '<td rowspan="2 " style="vertical-align: middle!important;" >
-                                                                            <div class="container text-center  ">
-                                                                                <div class="card tarjetacita" id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
+                                                                $duracion= $rowcita['duracion'];
+                                                                $duracion= intval($duracion)/30;
+                                                                echo    '<td rowspan="'. $duracion .'" style="vertical-align: middle!important;" >
+                                                                            <div class="container text-center d-block">
+                                                                                <div class="card tarjetacita d-block " id=' . $rowcita['id'] . ' value=' . $rowcita['id'] . ' style:"font-size:12px!important">
                                                                                     <div class="card-header m-0 p-1 text-light" style="background-color:' . $rowcita['color'] . '">
                                                                                         <span>' . $rowcita['title'] . '</span>'.$icono.'
                                                                                     </div>
@@ -311,6 +313,12 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                                     <select class="form-control" name="duracion" id="duracion">
                                         <option id="t30" value="30"> 30</option>
                                         <option id="t60" value="60"> 60</option>
+                                        <option id="t60" value="90"> 90</option>
+                                        <option id="t60" value="120"> 120</option>
+                                        <option id="t60" value="150"> 150</option>
+                                        <option id="t60" value="180"> 180</option>
+                                        <option id="t60" value="210"> 210</option>
+                                        <option id="t60" value="240"> 240</option>
                                     </select>
                                 </div>
                             </div>
@@ -516,9 +524,15 @@ $datacab = $resultadocab->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-sm-2">
                                 <div class="form-group input-group-sm auto">
                                     <label for="duracionx" class="col-form-label">Duración(min.):</label>
-                                    <select class="form-control" name="duracion" id="duracionx">
+                                    <select class="form-control" name="duracionx" id="duracionx">
                                         <option id="t30x" value="30"> 30</option>
                                         <option id="t60x" value="60"> 60</option>
+                                        <option id="t90x" value="90"> 90</option>
+                                        <option id="t120x" value="120"> 120</option>
+                                        <option id="t150x" value="150"> 150</option>
+                                        <option id="t180x" value="180"> 180</option>
+                                        <option id="t210x" value="210"> 210</option>
+                                        <option id="t240x" value="240"> 240</option>
                                     </select>
                                 </div>
                             </div>
