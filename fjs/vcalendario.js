@@ -71,6 +71,7 @@ $(document).ready(function () {
             $('#btnreagendar').show()
             $('#btnreagendar').prop('disabled', false)
             $('#btnCancelarcta').prop('disabled', false)
+            $('.form-control').attr('disabled', false);
           }
 
           cargarhoras()
@@ -110,6 +111,7 @@ $(document).ready(function () {
             $('#btnreagendarx').show()
             $('#btnreagendarx').prop('disabled', false)
             $('#btnCancelarctax').prop('disabled', false)
+            $('.form-control').attr('disabled', false);
           }
 
           cargarhorasx()
@@ -221,6 +223,7 @@ $(document).ready(function () {
     $('#fechap').val($('#fecha').val())
     cargarhoras()
     $('#modalCRUD').modal('show')
+    $('.form-control').attr('disabled', false);
   })
 
   $(document).on('click', '#btnNuevox', function () {
@@ -236,6 +239,7 @@ $(document).ready(function () {
     $('#fechax').val($('#fecha').val())
     cargarhorasx()
     $('#modalpx').modal('show')
+    $('.form-control').attr('disabled', false);
   })
 
   $(document).on('click', '.btnSelCliente', function () {

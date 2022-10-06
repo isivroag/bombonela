@@ -282,6 +282,7 @@ $(document).ready(function () {
     $('#btnGuardar').show()
     cargarhoras()
     $('#modalCRUD').modal('show')
+    $('.form-control').attr('disabled', false);
   })
 
   $(document).on('click', '#btnNuevox', function () {
@@ -295,6 +296,7 @@ $(document).ready(function () {
     $('#btnGuardarx').show()
     cargarhorasx()
     $('#modalpx').modal('show')
+    $('.form-control').attr('disabled', false);
   })
 
   $(document).on('click', '.btnSelCliente', function () {
