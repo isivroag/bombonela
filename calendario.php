@@ -139,7 +139,7 @@ $message = "";
             <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-condensed text-nowrap w-auto mx-auto" style="width:100%; font-size:10px">
               <thead class="text-center bg-gradient-green">
                 <tr>
-               
+
                   <th>Colaborador</th>
                   <th>Color</th>
                 </tr>
@@ -201,6 +201,7 @@ $message = "";
                 <div class="form-group input-group-sm">
                   <input type="hidden" class="form-control" name="tipop" id="tipop" value="0">
                   <input type="hidden" class="form-control" name="folio" id="folio">
+                  <input type="hidden" class="form-control" name="opcion" id="opcion">
                   <input type="hidden" class="form-control" name="id_pros" id="id_pros">
                   <label for="nombre" class="col-form-label">Prospecto:</label>
 
@@ -238,18 +239,18 @@ $message = "";
                 </div>
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group input-group-sm auto">
                   <label for="cabina" class="col-form-label">Cabina:</label>
                   <select class="form-control" name="cabina" id="cabina">
-                  <?php 
-                   foreach ($datacab as $dtcab) {
+                    <?php
+                    foreach ($datacab as $dtcab) {
 
-                  ?>  
-                   <option id="cab<?php echo $dtcab['id_cabina'] ?>" value="<?php echo $dtcab['id_cabina'] ?>"> <?php echo $dtcab['nom_cabina'] ?></option>
-                  <?php 
-                  }
-                  ?>
+                    ?>
+                      <option id="cab<?php echo $dtcab['id_cabina'] ?>" value="<?php echo $dtcab['id_cabina'] ?>"> <?php echo $dtcab['nom_cabina'] ?></option>
+                    <?php
+                    }
+                    ?>
                   </select>
                 </div>
               </div>
@@ -261,28 +262,44 @@ $message = "";
                   <select class="form-control" name="duracion" id="duracion">
                     <option id="t30" value="30"> 30</option>
                     <option id="t60" value="60"> 60</option>
+                    <option id="t60" value="90"> 90</option>
+                    <option id="t60" value="120"> 120</option>
+                    <option id="t60" value="150"> 150</option>
+                    <option id="t60" value="180"> 180</option>
+                    <option id="t60" value="210"> 210</option>
+                    <option id="t60" value="240"> 240</option>
                   </select>
                 </div>
               </div>
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group input-group-sm">
-                  <label for="fecha" class="col-form-label">Fecha Y Hora:</label>
+                  <label for="fechap" class="col-form-label">Fecha:</label>
 
-                  <div class="form-group input-group date" id="datetimepicker1" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fecha" name="fecha" class="form-control datetimepicker-input " style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1" autocomplete="off" placeholder="Fecha y Hora">
-                    <div class="form-group input-group-append " data-target="#datetimepicker1" data-toggle="datetimepicker">
-                      <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
-                    </div>
-                  </div>
-                  <!--
-                  <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii:00" data-link-field="dtp_input1">
-                        <input class="form-control" type="text" value="" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                    </div>
-                    <input type="hidden" id="dtp_input1" value="" /><br/>
-                    -->
+                  <input type="date" id="fechap" name="fechap" class="form-control">
+
+
+                </div>
+
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group input-group-sm auto">
+                  <label for="hora" class="col-form-label">Hora:</label>
+                  <select class="form-control" name="hora" id="hora">
+                    <!--        <?php
+                                $horaI = "09:00:00";
+                                do {
+                                ?>
+                                            <option value="<?php echo $horaI ?>"><?php echo $horaI ?></option>
+                                        <?php
+                                        $minutoAnadir = 30;
+                                        $segundos_horaInicial = strtotime($horaI);
+                                        $segundos_minutoAnadir = $minutoAnadir * 60;
+                                        $horaI = date("H:i:s", $segundos_horaInicial + $segundos_minutoAnadir);
+                                      } while ($horaI <= "19:30:00");
+                                        ?>-->
+
+                  </select>
                 </div>
               </div>
 
@@ -407,6 +424,7 @@ $message = "";
                 <div class="form-group input-group-sm">
                   <input type="hidden" class="form-control" name="tipopx" id="tipopx" value="1">
                   <input type="hidden" class="form-control" name="foliox" id="foliox">
+                  <input type="hidden" class="form-control" name="opcionx" id="opcionx">
                   <input type="hidden" class="form-control" name="id_prosx" id="id_prosx">
                   <label for="nombrex" class="col-form-label">Cliente:</label>
 
@@ -444,18 +462,18 @@ $message = "";
                 </div>
               </div>
 
-              <div class="col-sm-6">
+              <div class="col-sm-5">
                 <div class="form-group input-group-sm auto">
                   <label for="cabinax" class="col-form-label">Cabina:</label>
                   <select class="form-control" name="cabinax" id="cabinax">
-                  <?php 
-                   foreach ($datacab as $dtcab) {
+                    <?php
+                    foreach ($datacab as $dtcab) {
 
-                  ?>  
-                   <option id="cab<?php echo $dtcab['id_cabina'] ?>" value="<?php echo $dtcab['id_cabina'] ?>"> <?php echo $dtcab['nom_cabina'] ?></option>
-                  <?php 
-                  }
-                  ?>
+                    ?>
+                      <option id="cab<?php echo $dtcab['id_cabina'] ?>" value="<?php echo $dtcab['id_cabina'] ?>"> <?php echo $dtcab['nom_cabina'] ?></option>
+                    <?php
+                    }
+                    ?>
                   </select>
                 </div>
               </div>
@@ -463,32 +481,48 @@ $message = "";
               <div class="col-sm-2">
                 <div class="form-group input-group-sm auto">
                   <label for="duracionx" class="col-form-label">Duración(min.):</label>
-                  <select class="form-control" name="duracion" id="duracionx">
+                  <select class="form-control" name="duracionx" id="duracionx">
                     <option id="t30x" value="30"> 30</option>
                     <option id="t60x" value="60"> 60</option>
+                    <option id="t90x" value="90"> 90</option>
+                    <option id="t120x" value="120"> 120</option>
+                    <option id="t150x" value="150"> 150</option>
+                    <option id="t180x" value="180"> 180</option>
+                    <option id="t210x" value="210"> 210</option>
+                    <option id="t240x" value="240"> 240</option>
                   </select>
                 </div>
               </div>
 
 
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group input-group-sm">
-                  <label for="fechax" class="col-form-label">Fecha Y Hora:</label>
+                  <label for="fechax" class="col-form-label">Fecha:</label>
 
-                  <div class="form-group input-group date" id="datetimepicker1x" data-date-format="YYYY-MM-DD HH:mm:00" data-target-input="nearest">
-                    <input type="text" id="fechax" name="fechax" class="form-control datetimepicker-input " style="height:calc(1.8125rem + 2px);" data-target="#datetimepicker1x" autocomplete="off" placeholder="Fecha y Hora">
-                    <div class="form-group input-group-append " data-target="#datetimepicker1x" data-toggle="datetimepicker">
-                      <div class="input-group-text btn-primary"><i class="fa fa-calendar"></i></div>
-                    </div>
-                  </div>
-                  <!--
-                  <div class="input-group date form_datetime" data-date="" data-date-format="yyyy-mm-dd HH:ii:00" data-link-field="dtp_input1">
-                        <input class="form-control" type="text" value="" readonly>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                    </div>
-                    <input type="hidden" id="dtp_input1" value="" /><br/>
-                    -->
+                  <input type="date" id="fechax" name="fechax" class="form-control">
+
+
+                </div>
+
+              </div>
+              <div class="col-sm-2">
+                <div class="form-group input-group-sm auto">
+                  <label for="horax" class="col-form-label">Hora:</label>
+                  <select class="form-control" name="horax" id="horax">
+                    <!--        <?php
+                                $horaI = "09:00:00";
+                                do {
+                                ?>
+                                            <option value="<?php echo $horaI ?>"><?php echo $horaI ?></option>
+                                        <?php
+                                        $minutoAnadir = 30;
+                                        $segundos_horaInicial = strtotime($horaI);
+                                        $segundos_minutoAnadir = $minutoAnadir * 60;
+                                        $horaI = date("H:i:s", $segundos_horaInicial + $segundos_minutoAnadir);
+                                      } while ($horaI <= "19:30:00");
+                                        ?>-->
+
+                  </select>
                 </div>
               </div>
 
@@ -635,7 +669,7 @@ $message = "";
     </div>
   </section>
 
-  
+
 </div>
 
 

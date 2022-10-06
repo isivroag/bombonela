@@ -100,7 +100,7 @@ $(document).ready(function () {
           url: 'bd/citasp.php',
           type: 'POST',
           dataType: 'json',
-          data: { id: id, opcion: 3 },
+          data: { id: id, opcion: 4 },
           success: function (data) {
             if (data[0].tipo_p == 0) {
               $('#formDatos :input').prop('disabled', false)
@@ -109,17 +109,41 @@ $(document).ready(function () {
               $('#nom_pros').val(data[0].title)
               $('#concepto').val(data[0].descripcion)
               $('#responsable').val(data[0].id_per)
-              $('#fecha').val(data[0].start)
+              $('#fechap').val(data[0].fecha)
+    
               $('#obs').val(data[0].obs)
               $('#cabina').val(data[0].id_cabina)
-
+              $('#opcion').val('1')
               $('#duracion').val(data[0].duracion)
               $('#btnCancelarcta').show()
               $('#btnGuardar').hide()
-              $('#btnreagendar').show()
-              $('#btnreagendar').prop('disabled', false)
-              $('#btnCancelarcta').prop('disabled', false)
+    
+              rol = $('#tipousuario').val()
+              if (rol == 1) {
+                $('#btnGuardar').hide()
+                $('#btnreagendar').hide()
+                $('#btnCancelarcta').hide()
+                $('.form-control').attr('disabled', true);
+              } else {
+                $('#btnGuardar').hide()
+                $('#btnreagendar').show()
+                $('#btnreagendar').prop('disabled', false)
+                $('#btnCancelarcta').prop('disabled', false)
+              }
+    
+              cargarhoras()
+              /*   $('#hora').append(
+                $('<option>', {
+                  value: data[0].hora,
+                  text: data[0].hora,
+                  disabled: true,
+                }),
+              )*/
+              $('#hora').val(data[0].hora)
+              // $('#hora option[tmt').attr('disabled', true);
+    
               $('#modalCRUD').modal('show')
+             
             } else {
               $('#formDatospx :input').prop('disabled', false)
               $('#foliox').val(data[0].id)
@@ -127,16 +151,37 @@ $(document).ready(function () {
               $('#nom_prosx').val(data[0].title)
               $('#conceptox').val(data[0].descripcion)
               $('#responsablex').val(data[0].id_per)
-              $('#fechax').val(data[0].start)
+              $('#fechax').val(data[0].fecha)
+              $('#opcionx').val('1')
               $('#obsx').val(data[0].obs)
               $('#duracionx').val(data[0].duracion)
               $('#cabinax').val(data[0].id_cabina)
               $('#btnCancelarctax').show()
-              $('#btnGuardarx').hide()
-              $('#btnreagendarx').show()
-
-              $('#btnreagendarx').prop('disabled', false)
-              $('#btnCancelarctax').prop('disabled', false)
+    
+              rol = $('#tipousuario').val()
+              if (rol == 1) {
+                $('#btnGuardarx').hide()
+                $('#btnreagendarx').hide()
+                $('#btnCancelarctax').hide()
+                $('.form-control').attr('disabled', true);
+              } else {
+                $('#btnGuardarx').hide()
+                $('#btnreagendarx').show()
+                $('#btnreagendarx').prop('disabled', false)
+                $('#btnCancelarctax').prop('disabled', false)
+              }
+    
+              cargarhorasx()
+              /* $('#horax').append(
+                $('<option>', {
+                  value: data[0].hora,
+                  text: data[0].hora,
+                  disabled: true,
+                }),
+              )*/
+              $('#horax').val(data[0].hora)
+            
+    
               $('#modalpx').modal('show')
             }
           },
@@ -235,6 +280,7 @@ $(document).ready(function () {
     $('#btnCancelarcta').hide()
     $('#btnreagendar').hide()
     $('#btnGuardar').show()
+    cargarhoras()
     $('#modalCRUD').modal('show')
   })
 
@@ -247,6 +293,7 @@ $(document).ready(function () {
     $('#btnCancelarctax').hide()
     $('#btnreagendarx').hide()
     $('#btnGuardarx').show()
+    cargarhorasx()
     $('#modalpx').modal('show')
   })
 
@@ -276,7 +323,11 @@ $(document).ready(function () {
     var id_pros = $.trim($('#id_pros').val())
     var nombre = $.trim($('#nom_pros').val())
     var concepto = $.trim($('#concepto').val())
-    var fecha = $.trim($('#fecha').val())
+
+    var fecha = $.trim($('#fechap').val())
+    var hora = $('#hora').val()
+    fecha = fecha + ' ' + hora
+
     var obs = $.trim($('#obs').val())
     var id = $.trim($('#folio').val())
     var tipop = $.trim($('#tipop').val())
@@ -287,6 +338,7 @@ $(document).ready(function () {
     inicio = fecha
     if (
       id_pros.length == 0 ||
+      $.trim($('#fechap').val()).length == 0 ||
       fecha.length == 0 ||
       responsable.length == 0 ||
       cabina.length == 0
@@ -365,21 +417,42 @@ $(document).ready(function () {
   })
 
   $(document).on('click', '#btnreagendar', function () {
-    var id_pros = $.trim($('#id_pros').val())
-    var nombre = $.trim($('#nom_pros').val())
-    var concepto = $.trim($('#concepto').val())
-    var fecha = $.trim($('#fecha').val())
-    var obs = $.trim($('#obs').val())
-    var id = $.trim($('#folio').val())
-    var tipop = $.trim($('#tipop').val())
-    var responsable = $.trim($('#responsable').val())
-    var duracion = $.trim($('#duracion').val())
-    var cabina = $.trim($('#cabina').val())
+    var id_pros = $('#id_pros').val()
+    var nombre = $('#nom_pros').val()
+    var concepto = $('#concepto').val()
+    var fecha = $('#fechap').val()
+    var hora = $('#hora').val()
+    fecha = fecha + ' ' + hora
+    var obs = $('#obs').val()
+    var id = $('#folio').val()
+    var tipop = $('#tipop').val()
+    var responsable = $('#responsable').val()
+    var duracion = $('#duracion').val()
+    var cabina = $('#cabina').val()
     colaborador = responsable
     inicio = fecha
+
+    opchr = $('#opcion').val()
+    if (opchr == '1') {
+      cita = $('#folio').val()
+    } else {
+      cita = 0
+    }
+    console.log(
+      inicio +
+        '/ ' +
+        duracion +
+        '/ ' +
+        colaborador +
+        '/ ' +
+        cabina +
+        '/ ' +
+        cita,
+    )
     opcion = 2
     if (
       id_pros.length == 0 ||
+      $.trim($('#fechap').val()).length == 0 ||
       fecha.length == 0 ||
       responsable.length == 0 ||
       cabina.length == 0
@@ -401,6 +474,7 @@ $(document).ready(function () {
           duracion: duracion,
           colaborador: colaborador,
           cabina: cabina,
+          cita: cita,
         },
         success: function (data) {
           if (data == 0) {
@@ -461,7 +535,11 @@ $(document).ready(function () {
     var id_pros = $.trim($('#id_prosx').val())
     var nombre = $.trim($('#nom_prosx').val())
     var concepto = $.trim($('#conceptox').val())
+
     var fecha = $.trim($('#fechax').val())
+    var hora = $('#horax').val()
+    fecha = fecha + ' ' + hora
+
     var obs = $.trim($('#obsx').val())
     var id = $.trim($('#foliox').val())
     var tipop = $.trim($('#tipopx').val())
@@ -473,6 +551,7 @@ $(document).ready(function () {
 
     if (
       id_pros.length == 0 ||
+      $.trim($('#fechax').val()).length == 0 ||
       fecha.length == 0 ||
       responsable.length == 0 ||
       cabina.length == 0
@@ -553,7 +632,11 @@ $(document).ready(function () {
     var id_pros = $.trim($('#id_prosx').val())
     var nombre = $.trim($('#nom_prosx').val())
     var concepto = $.trim($('#conceptox').val())
-    var fecha = $.trim($('#fechax').val())
+
+    var fecha = $('#fechax').val()
+    var hora = $('#horax').val()
+    fecha = fecha + ' ' + hora
+
     var obs = $.trim($('#obsx').val())
     var id = $.trim($('#foliox').val())
     var tipop = $.trim($('#tipopx').val())
@@ -565,6 +648,7 @@ $(document).ready(function () {
     opcion = 2
     if (
       id_pros.length == 0 ||
+      $.trim($('#fechax').val()).length == 0 ||
       fecha.length == 0 ||
       responsable.length == 0 ||
       cabina.length == 0
@@ -669,10 +753,7 @@ $(document).ready(function () {
     usuario = $('#nameuser').val()
     $('#modalcan').modal('hide')
     opcion = 4
-    console.log(id)
-    console.log(motivo)
-    console.log(fecha)
-    console.log(usuario)
+  
 
     if (motivo === '') {
       swal.fire({
@@ -757,4 +838,112 @@ $(document).ready(function () {
       //$($(row).find('td')[2]).addClass('bg-gradient-green')
     },
   })
+
+  $('#fechap').on('change', function () {
+    cargarhoras()
+  })
+
+  $('#responsable').on('change', function () {
+    cargarhoras()
+  })
+
+  $('#cabina').on('change', function () {
+    cargarhoras()
+  })
+
+  function cargarhoras() {
+    fecha = $('#fechap').val()
+    colaborador = $('#responsable').val()
+    cabina = $('#cabina').val()
+    opchr = $('#opcion').val()
+    if (opchr == '1') {
+      cita = $('#folio').val()
+    } else {
+      cita = 0
+    }
+
+    $('#hora').empty()
+    $.ajax({
+      type: 'POST',
+      url: 'bd/cargarhoras.php',
+      dataType: 'json',
+      async: false,
+      data: {
+        fecha: fecha,
+        colaborador: colaborador,
+        cabina: cabina,
+        cita: cita,
+      },
+      success: function (res) {
+        for (var i = 0; i < res.length; i++) {
+          $('#hora').append(
+            $('<option>', {
+              value: res[i].nhora,
+              text: res[i].nhora,
+            }),
+          )
+        }
+      },
+      error: function () {
+        Swal.fire({
+          title: 'Error al cargar horarios disponibles',
+          icon: 'error',
+        })
+      },
+    })
+  }
+  $('#fechax').on('change', function () {
+    cargarhorasx()
+  })
+
+  $('#responsablex').on('change', function () {
+    cargarhorasx()
+  })
+
+  $('#cabinax').on('change', function () {
+    cargarhorasx()
+  })
+
+  function cargarhorasx() {
+    fecha = $('#fechax').val()
+    colaborador = $('#responsablex').val()
+    cabina = $('#cabinax').val()
+    opchr = $('#opcionx').val()
+    if (opchr == '1') {
+      cita = $('#foliox').val()
+    } else {
+      cita = 0
+    }
+
+    $('#horax').empty()
+    $.ajax({
+      type: 'POST',
+      url: 'bd/cargarhoras.php',
+      dataType: 'json',
+      async: false,
+      data: {
+        fecha: fecha,
+        colaborador: colaborador,
+        cabina: cabina,
+        cita: cita,
+      },
+      success: function (res) {
+        for (var i = 0; i < res.length; i++) {
+          $('#horax').append(
+            $('<option>', {
+              value: res[i].nhora,
+              text: res[i].nhora,
+            }),
+          )
+        }
+      },
+      error: function () {
+        Swal.fire({
+          title: 'Error al cargar horarios disponibles',
+          icon: 'error',
+        })
+      },
+    })
+  }
+  
 })
