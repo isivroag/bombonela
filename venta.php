@@ -14,7 +14,7 @@ $conexion = $objeto->connect();
 $tokenid = md5($_SESSION['s_usuario']);
 $usuario = $_SESSION['s_nombre'];
 $idusuario = $_SESSION['s_usuario'];
-
+$fechahoy=date('Y-m-d');
 $enpesos = new CifrasEnLetras();
 
 if (isset($_GET['folio'])) {
@@ -446,7 +446,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                                         <label for="fechapago" class="col-form-label">Fecha*:</label>
                                         <div class="input-group input-group-sm">
-                                            <input type="date" class="form-control" name="fechapago" id="fechapago" value="<?php echo $fecha; ?>">
+                                            <input type="date" class="form-control" name="fechapago" id="fechapago" value="<?php echo $fechahoy; ?>">
                                         </div>
                                     </div>
                                     <div class="col-sm-6"></div>

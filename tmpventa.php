@@ -99,7 +99,7 @@ $resultadomet->execute();
 $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
 
-
+$fechahoy=date('Y-m-d');
 
 ?>
 
@@ -202,7 +202,7 @@ $datamet = $resultadomet->fetchAll(PDO::FETCH_ASSOC);
 
                                         <label for="fecha" class="col-form-label">Fecha*:</label>
                                         <div class="input-group input-group-sm">
-                                            <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fecha; ?>">
+                                            <input type="date" class="form-control" name="fecha" id="fecha" value="<?php echo $fechahoy; ?>">
                                         </div>
                                     </div>
 
