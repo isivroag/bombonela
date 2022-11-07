@@ -268,7 +268,7 @@ $(document).ready(function () {
     var id_pros = $.trim($('#id_pros').val())
     var nombre = $.trim($('#nom_pros').val())
     var concepto = $.trim($('#concepto').val())
-    var fecha = $.trim($('#fecha').val())
+    var fecha = $.trim($('#fechap').val())
     var hora = $('#hora').val()
     fecha = fecha + ' ' + hora
     var obs = $.trim($('#obs').val())
@@ -381,7 +381,7 @@ $(document).ready(function () {
     var id_pros = $('#id_pros').val()
     var nombre = $('#nom_pros').val()
     var concepto = $('#concepto').val()
-    var fecha = $('#fecha').val()
+    var fecha = $('#fechap').val()
     var hora = $('#hora').val()
     fecha = fecha + ' ' + hora
     var obs = $('#obs').val()
@@ -465,7 +465,7 @@ $(document).ready(function () {
                     icon: 'success',
                     timer: 1000,
                   })
-                  window.setTimeout(function () {
+                window.setTimeout(function () {
                     location.reload()
                   }, 1500)
                 } else {
