@@ -1,9 +1,31 @@
 $(document).ready(function () {
-    var id_usuario, opcion
+    var id_usuario, opcion, rol
     opcion = 4
+    var textcolumnas = permisos()
+
   
     var date_input = document.getElementById('fecha')
+    
   
+
+    function permisos() {
+        var tipousuario = $('#tipousuario').val()
+        var columnas = ''
+    
+        if (tipousuario != 1) {
+          columnas =
+          "<div class='text-center'><button class='btn btn-sm btn-success  btnAceptar data-toggle='tooltip' data-placement='top' title='Confirmar Cita''><i class='fas fa-phone'></i></button>\
+          <button class='btn btn-sm btn-warning text-light btnNoConfirmar' data-toggle='tooltip' data-placement='top' title='No se localizo'><i class='fas fa-phone-slash'></i></button>\
+          <button class='btn btn-sm btn-danger btnCancelar' data-toggle='tooltip' data-placement='top' title='Cancelar Cita'><i class='fas fa-ban'></i></button></div>"
+        } else {
+          columnas =
+          "<div class='text-center'><button class='btn btn-sm btn-success  btnAceptar data-toggle='tooltip' data-placement='top' title='Confirmar Cita''><i class='fas fa-phone'></i></button>\
+        <button class='btn btn-sm btn-warning text-light btnNoConfirmar' data-toggle='tooltip' data-placement='top' title='No se localizo'><i class='fas fa-phone-slash'></i></button>\
+        </div>"
+        }
+        return columnas
+      }
+    
     date_input.onchange = function () {
       window.location.href="confirmacion.php?fecha="+this.value
     }
@@ -20,9 +42,7 @@ $(document).ready(function () {
       columnDefs: [{
         targets: -1,
         data: null,
-        defaultContent: "<div class='text-center'><button class='btn btn-sm btn-success  btnAceptar data-toggle='tooltip' data-placement='top' title='Confirmar Cita''><i class='fas fa-phone'></i></button>\
-        <button class='btn btn-sm btn-warning text-light btnNoConfirmar' data-toggle='tooltip' data-placement='top' title='No se localizo'><i class='fas fa-phone-slash'></i></button>\
-        <button class='btn btn-sm btn-danger btnCancelar' data-toggle='tooltip' data-placement='top' title='Cancelar Cita'><i class='fas fa-ban'></i></button>"
+        defaultContent: textcolumnas,
     }, { className: "hide_column", "targets": [1] },
     { className: "hide_column", "targets": [2] },
     { className: "hide_column", "targets": [4] },

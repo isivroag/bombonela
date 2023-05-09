@@ -3,6 +3,26 @@ $(document).ready(function () {
     opcion = 4
   
     var date_input = document.getElementById('fecha')
+    var textcolumnas = permisos()
+    
+    function permisos() {
+        var tipousuario = $('#tipousuario').val()
+        var columnas = ''
+    
+        if (tipousuario != 1) {
+          columnas =
+          "<div class='text-center'><button class='btn btn-sm btn-success  btnconfirmar'  data-toggle='tooltip' data-placement='top' title='Comienzo de Cita'><i class='fas fa-check-circle'></i></button>\
+          <button class='btn btn-sm bg-info  btnSalir'><i class='fas fa-sign-out-alt'  data-toggle='tooltip' data-placement='top' title='Cita Terminada'></i></button>\
+          <button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'  data-toggle='tooltip' data-placement='top' title='Cancelar Cita'></i></button>\
+          <button class='btn btn-sm bg-danger  btnNollego'><i class='fas fa-user-slash '  data-toggle='tooltip' data-placement='top' title='No llego Cliente'></i></button></div>"
+        } else {
+          columnas =
+          "<div class='text-center'><button class='btn btn-sm btn-success  btnconfirmar'  data-toggle='tooltip' data-placement='top' title='Comienzo de Cita'><i class='fas fa-check-circle'></i></button>\
+          <button class='btn btn-sm bg-info  btnSalir'><i class='fas fa-sign-out-alt'  data-toggle='tooltip' data-placement='top' title='Cita Terminada'></i></button>\
+          <button class='btn btn-sm bg-danger  btnNollego'><i class='fas fa-user-slash '  data-toggle='tooltip' data-placement='top' title='No llego Cliente'></i></button></div>"
+        }
+        return columnas
+      }
   
     date_input.onchange = function () {
       window.location.href="recepcion.php?fecha="+this.value
@@ -20,10 +40,7 @@ $(document).ready(function () {
       columnDefs: [{
         targets: -1,
         data: null,
-        defaultContent:  "<div class='text-center'><button class='btn btn-sm btn-success  btnconfirmar'  data-toggle='tooltip' data-placement='top' title='Comienzo de Cita'><i class='fas fa-check-circle'></i></button>\
-        <button class='btn btn-sm bg-info  btnSalir'><i class='fas fa-sign-out-alt'  data-toggle='tooltip' data-placement='top' title='Cita Terminada'></i></button>\
-        <button class='btn btn-sm btn-danger btnCancelar'><i class='fas fa-ban'  data-toggle='tooltip' data-placement='top' title='Cancelar Cita'></i></button>\
-        <button class='btn btn-sm bg-danger  btnNollego'><i class='fas fa-user-slash '  data-toggle='tooltip' data-placement='top' title='No llego Cliente'></i></button></div>"
+        defaultContent: textcolumnas
     }, { className: "hide_column", "targets": [1] },
     { className: "hide_column", "targets": [2] },
     { className: "hide_column", "targets": [4] },
