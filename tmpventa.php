@@ -82,7 +82,9 @@ $resultadodet = $conexion->prepare($consultadet);
 $resultadodet->execute();
 $datacol = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
 
-$consultadet = "SELECT * FROM producto where estado_prod='1' and vendible_prod='1' ORDER BY id_prod";
+//CAMBIAR LA CONSULTA POR VINVENTARIO PERO ANTES CONFIGURAR LA VARIABLE DEL ALMACEN POR DEFAULT
+//$consultadet = "SELECT * FROM producto where estado_prod='1' and vendible_prod='1' ORDER BY id_prod";
+$consultadet = "SELECT * FROM vinventario where estado_prod='1' and vendible_prod='1' and id_almacen='1' and cant_prod>0 ORDER BY id_prod";
 $resultadodet = $conexion->prepare($consultadet);
 $resultadodet->execute();
 $dataprod = $resultadodet->fetchAll(PDO::FETCH_ASSOC);
